@@ -1,32 +1,30 @@
-import { ViewContainer } from "@/shared/components";
-import { ArticleCard } from "@/shared/components/ArticleCard";
+"use client";
 
-export const HomeScreen = () => {
+import { ViewContainer } from "@/shared/components";
+import { Box } from "@mui/material";
+import Image from "next/image";
+import tempLogo from "@/assets/logo/temp-logo.png";
+
+export const HomeScreen: React.FC = () => {
   return (
-    <>
-      <ViewContainer>
-        <ArticleCard
-          article={{
-            id: "1",
-            imgSrc: "https://picsum.photos/200/280",
-            slug: "Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua Ut Enim Ad Minim Veniam",
-            title: "The Future of Technology: Innovation and Trends",
-            date: new Date(),
-            url: "/article-1",
-            author: {
-              id: "1",
-              name: "Author 1",
-              imgSrc: "https://picsum.photos/200/280",
-            },
-            tags: [],
-          }}
+    <ViewContainer>
+      <Box
+        sx={{
+          position: "relative",
+          width: "60%",
+          aspectRatio: "1 / 1",
+          mx: "auto",
+        }}
+      >
+        <Image
+          src={tempLogo}
+          alt="Logo"
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="(max-width: 600px) 80vw, (max-width: 1200px) 50vw, 400px"
+          priority
         />
-      </ViewContainer>
-      <ViewContainer />
-      <ViewContainer />
-      <ViewContainer />
-      <ViewContainer />
-      <ViewContainer />
-    </>
+      </Box>
+    </ViewContainer>
   );
 };
