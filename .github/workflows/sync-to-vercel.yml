@@ -1,4 +1,3 @@
-# .github/workflows/sync-to-personal.yml
 name: Sync to personal
 
 on:
