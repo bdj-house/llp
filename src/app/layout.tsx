@@ -23,7 +23,7 @@ export default function RootLayout({
           id="gtm-head"
           strategy="afterInteractive"
           // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
-          dangerouslySetInnerHTML={{
+          dangerouslySetInnerHTML={       {
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
