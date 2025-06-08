@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
+import { BabelFileMetadata } from "@babel/core";
+import Script from "next/script";
 import { ThemeRegistry } from "@/config/theme";
 import { champagneFont, mangolaineFont } from "@/config/theme/fonts";
-import type { Metadata } from "next";
 import "./globals.css";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Idalgo Cortijo Advocacia",
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Script
           id="gtm-head"
           strategy="afterInteractive"
+          // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -39,6 +41,7 @@ export default function RootLayout({
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
+            sandbox=""
           />
         </noscript>
         <ThemeRegistry>{children}</ThemeRegistry>

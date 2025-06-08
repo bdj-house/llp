@@ -1,16 +1,41 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import antfu from "@antfu/eslint-config";
+import nextPlugin from "@next/eslint-plugin-next";
+import prettierPlugin from "eslint-config-prettier";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
-
-export default eslintConfig;
+export default antfu(
+  {
+    react: true,
+    typescript: true,
+    lessOpinionated: true,
+    isInEditor: true,
+    stylistic: {
+      indent: 2,
+      semi: true,
+      quotes: "single",
+    },
+    formatters: {
+      css: true,
+    },
+    ignores: [
+      "migrations/**/*",
+      "next-env.d.ts",
+      "node_modules/**/*",
+      ".next/**/*",
+    ],
+  },
+  {
+    plugins: {
+      "@next/next": nextPlugin,
+      prettier: prettierPlugin,
+      unicorn: eslintPluginUnicorn,
+    },
+    rules: {
+      ...prettierPlugin.rules,
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "ts/consistent-type-imports": "off",
+      "react/no-missing-key": "off",
+    },
+  }
+);

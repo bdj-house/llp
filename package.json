@@ -26,13 +26,23 @@
     "styled-components": "^6.1.17"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.14.1",
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^9.28.0",
     "eslint-config-next": "15.3.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^2.8.8",
     "sanity-codegen": "^0.9.8",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --max-warnings 0 ."
+    ]
   }
 }
