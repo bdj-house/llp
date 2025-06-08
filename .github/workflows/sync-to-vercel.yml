@@ -25,4 +25,4 @@ jobs:
           git config user.name "lucasbertolo"
           git config user.email "lucasbertolo2@gmail.com"
           git remote add personal git@github.com:lucasbertolo/idalgo-cortijo.git
-          git push personal main --force
+          git push --mirror personal
