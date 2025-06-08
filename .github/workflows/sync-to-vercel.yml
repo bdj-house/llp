@@ -1,4 +1,4 @@
-name: Sync to Vercel
+name: Sync to Personal Repo
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout org repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup SSH
@@ -25,4 +25,4 @@ jobs:
           git config user.name "lucasbertolo"
           git config user.email "lucasbertolo2@gmail.com"
           git remote add personal git@github.com:lucasbertolo/lawyer-firm.git
-          git push --mirror personal
+          git push personal main --force
