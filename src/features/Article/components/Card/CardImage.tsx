@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-type Props = {
+interface Props {
   src?: string;
   alt: string;
   height: number;
   width: number;
-};
+}
 
 export const CardImage: React.FC<Props> = ({ src, alt, height, width }) => {
   if (!src) return null;

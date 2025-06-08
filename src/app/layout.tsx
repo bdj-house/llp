@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BabelFileMetadata } from "@babel/core";
 import Script from "next/script";
 import { ThemeRegistry } from "@/config/theme";
 import { champagneFont, mangolaineFont } from "@/config/theme/fonts";

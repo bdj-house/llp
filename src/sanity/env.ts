@@ -1,13 +1,15 @@
+import processEnv from "node:process";
+
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-05-01";
+  processEnv.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-05-01";
 
 export const dataset = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_DATASET,
+  processEnv.env.NEXT_PUBLIC_SANITY_DATASET,
   "Missing environment variable: NEXT_PUBLIC_SANITY_DATASET"
 );
 
 export const projectId = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  processEnv.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID"
 );
 

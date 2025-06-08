@@ -1,10 +1,10 @@
-import { Article } from "@/sanity/types/schema";
 import { Box, Typography, useTheme } from "@mui/material";
+import { Article } from "@/sanity/types/schema";
 
-type Props = {
+interface Props {
   article: Article;
   isDark: boolean;
-};
+}
 
 export const CardContent: React.FC<Props> = ({ article, isDark }) => {
   const theme = useTheme();

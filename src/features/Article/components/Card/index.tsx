@@ -1,16 +1,16 @@
 "use client";
 
 import { Box, Card, useTheme } from "@mui/material";
+import { Article, SanityImageAsset } from "@/sanity/types/schema";
 import { CardContent } from "./CardContent";
 import { CardFooter } from "./CardFooter";
 import { CardImage } from "./CardImage";
-import { Article, SanityImageAsset } from "@/sanity/types/schema";
 
-type Props = {
+interface Props {
   article: Article;
   isVertical?: boolean;
   isDark?: boolean;
-};
+}
 
 const VERTICAL_CARD_WIDTH = 280;
 const VERTICAL_CARD_HEIGHT = 580;

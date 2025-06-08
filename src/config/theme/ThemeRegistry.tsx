@@ -1,11 +1,11 @@
 // ThemeRegistry.tsx
 "use client";
 
-import React from "react";
-import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useServerInsertedHTML } from "next/navigation";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import React from "react";
 import theme from "./theme";
 
 export default function ThemeRegistry({
@@ -23,6 +23,7 @@ export default function ThemeRegistry({
     return (
       <style
         data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(" ")}`}
+        // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
         dangerouslySetInnerHTML={{
           __html: Object.values(cache.inserted).join(" "),
         }}

@@ -1,13 +1,13 @@
-import { Avatar, Box, Typography, useTheme } from "@mui/material";
-import ShareIcon from "@mui/icons-material/Share";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ShareIcon from "@mui/icons-material/Share";
+import { Avatar, Box, Typography, useTheme } from "@mui/material";
 import { Article } from "@/sanity/types/schema";
 
-type Props = {
+interface Props {
   article: Article;
   isVertical: boolean;
   isDark: boolean;
-};
+}
 
 export const CardFooter: React.FC<Props> = ({
   article,
