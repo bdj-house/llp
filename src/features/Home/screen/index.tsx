@@ -1,9 +1,9 @@
 "use client";
 
-import { ViewContainer } from "@/shared/components";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import tempLogo from "@/assets/logo/temp-logo.png";
+import { ViewContainer } from "@/shared/components";
 
 export const HomeScreen: React.FC = () => {
   return (
