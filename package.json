@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky",
+    "prepare": "husky && husky install",
     "postinstall": "husky"
   },
   "dependencies": {
@@ -45,6 +45,8 @@
     "*.{ts,tsx}": [
       "prettier --write",
       "eslint --max-warnings 0 ."
-    ]
+    ],
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
