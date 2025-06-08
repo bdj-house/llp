@@ -1,15 +1,14 @@
-import processEnv from "node:process";
-
+/* eslint-disable node/prefer-global/process */
 export const apiVersion =
-  processEnv.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-05-01";
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-05-01";
 
 export const dataset = assertValue(
-  processEnv.env.NEXT_PUBLIC_SANITY_DATASET,
+  process.env.NEXT_PUBLIC_SANITY_DATASET,
   "Missing environment variable: NEXT_PUBLIC_SANITY_DATASET"
 );
 
 export const projectId = assertValue(
-  processEnv.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID"
 );
 
