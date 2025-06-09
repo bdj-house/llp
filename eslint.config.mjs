@@ -34,6 +34,7 @@ export default antfu(
       ...prettierPlugin.rules,
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,
+      "style/jsx-self-closing-comp": "error",
       "ts/consistent-type-imports": "off",
       "react/no-missing-key": "off",
     },

@@ -41,3 +41,9 @@ export const metadata = {
     site: "@idalgoadv",
   },
 };
+
+export const mainPageMetadata = {
+  title: "Idalgo Cortijo",
+  description:
+    "Página destinada à apresentação do Escritório de advocacia Idalgo Cortijo, localizada em Piracicaba, SP. Especializado em Direito Civil, Direito do Trabalho e Previdenciário. Consultas e suporte jurídico com excelência. ",
+};

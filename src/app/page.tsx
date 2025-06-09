@@ -1,23 +1,28 @@
 import { Container } from "@mui/material";
 import { Metadata } from "next";
+import { AboutScreen } from "@/features/About/screen";
+import { ArticleSummaryScreen } from "@/features/Article/screen";
+import { ContactScreen } from "@/features/Contact/screen";
 import { HomeScreen } from "@/features/Home/screen";
+import { OperationAreaScreen } from "@/features/OperationArea/screen";
+import { mainPageMetadata } from "@/shared/constants";
 
 export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Idalgo Cortijo",
-    description:
-      "Página destinada à apresentação do Escritório de advocacia Idalgo Cortijo, localizada em Piracicaba, SP. Especializado em Direito Civil, Direito do Trabalho e Previdenciário. Consultas e suporte jurídico com excelência. ",
-  };
+  return mainPageMetadata;
 }
 
-export default async function HomePage() {
+export default async function Page() {
   // const about = await sanityClient.fetch<AboutPage[]>(aboutQuery);
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <HomeScreen />
+      <OperationAreaScreen />
+      <AboutScreen />
+      <ArticleSummaryScreen />
+      <ContactScreen />
     </Container>
   );
 }
