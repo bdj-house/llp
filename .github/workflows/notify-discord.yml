@@ -19,7 +19,7 @@ jobs:
         id: vercel
         run: |
           DEPLOYMENT_URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
-            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/deployments?target=preview&limit=1&branch=dev" \
+            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/deployments?target=preview&limit=1" \
             | jq -r '.deployments[0].url')
           echo "deployment_url=https://$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
 
