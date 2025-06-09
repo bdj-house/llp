@@ -15,13 +15,13 @@ jobs:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     steps:
-      - name: Fetch latest dev deployment from Vercel API
+      - name: Fetch latest preview deployment from Vercel API
         id: vercel
         run: |
           DEPLOYMENT_URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
-            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/deployments?target=preview&limit=1" \
+            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/deployments?target=preview&limit=1&branch=dev" \
             | jq -r '.deployments[0].url')
-          echo "deployment_url=https://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          echo "deployment_url=https://$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
 
       - name: Send Discord notification
         run: |
@@ -30,13 +30,15 @@ jobs:
               "username": "Vercel Bot",
               "avatar_url": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
               "embeds": [{
-                "title": "🚀 New Dev Deployment",
-                "url": "${{ steps.vercel.outputs.preview }}",
-                "description": "Deployment is live: [${{ steps.vercel.outputs.preview_url }}](${{
-                  steps.vercel.outputs.preview_url
-                }})",
+                "title": "📦 New Preview Deployment",
+                "url": "${{ steps.vercel.outputs.deployment_url }}",
+                "description": "[View Deployment](${{ steps.vercel.outputs.deployment_url }})",
                 "color": 5814783,
                 "fields": [
+                  {
+                    "name": "Branch",
+                    "value": "dev"
+                  },
                   {
                     "name": "Repository",
                     "value": "${{ github.repository }}"
