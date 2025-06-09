@@ -7,13 +7,14 @@ on:
 
 jobs:
   sync:
+    if: github.repository == 'bdj-house/llp'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ensures full commit history for push
+          fetch-depth: 0 # ensures full commit history for push
 
       - name: Setup SSH
         run: |
