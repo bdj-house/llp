@@ -1,0 +1,42 @@
+name: Notify Discord on Vercel Deployment
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  notify:
+    if: github.repository == 'lucasbertolo/lawyer-firm'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait 30 seconds to allow Vercel to deploy
+        run: sleep 30
+
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "username": "Vercel Bot",
+              "avatar_url": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+              "embeds": [{
+                "title": "🚀 New Deployment",
+                "description": "A new deployment to **Dev** was triggered on push to `dev`.",
+                "color": 5814783,
+                "fields": [
+                  {
+                    "name": "Repository",
+                    "value": "${{ github.repository }}"
+                  },
+                  {
+                    "name": "Commit",
+                    "value": "[${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})"
+                  }
+                ],
+                "timestamp": "'$(date --iso-8601=seconds)'"
+              }]
+            }' \
+            $DISCORD_WEBHOOK_URL

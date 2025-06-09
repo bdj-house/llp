@@ -1,14 +1,16 @@
+/* eslint-disable react-dom/no-dangerously-set-innerhtml */
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeRegistry } from "@/config/theme";
 import { champagneFont, mangolaineFont } from "@/config/theme/fonts";
+import {
+  analyticsMeta,
+  schemaOrg,
+  metadata as seoMetadata,
+} from "@/shared/constants";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Idalgo Cortijo Advocacia",
-  description:
-    "Idalgo Cortijo escritório de advocacia em Piracicaba, São Paulo. Especializado em Direito Civil, Direito do Trabalho e Direito Previdenciário.",
-};
+export const metadata: Metadata = seoMetadata;
 
 export default function RootLayout({
   children,
@@ -21,17 +23,20 @@ export default function RootLayout({
         <Script
           id="gtm-head"
           strategy="afterInteractive"
-          // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
           dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-528JN7VG');
-            `,
+            __html: analyticsMeta,
           }}
         />
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+        />
+
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://www.idalgocortijo.com.br/" />
+        <meta name="robots" content="index, follow" />
       </head>
       <body className={`${champagneFont.variable} ${mangolaineFont.variable}`}>
         <noscript>
