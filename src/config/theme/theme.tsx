@@ -1,23 +1,23 @@
-import { createTheme } from "@mui/material/styles";
-import { champagneFont, mangolaineFont } from "./fonts";
+import { createTheme } from '@mui/material/styles';
+import { champagneFont, mangolaineFont } from './fonts';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#6B1A2B",
-      contrastText: "#F2DDD5",
+      main: '#6B1A2B',
+      contrastText: '#F2DDD5',
     },
     secondary: {
-      main: "#B85B3A",
-      contrastText: "#FFFFFF",
+      main: '#B85B3A',
+      contrastText: '#FFFFFF',
     },
     background: {
-      default: "#F2DDD5",
-      paper: "#FFFFFF",
+      default: '#F2DDD5',
+      paper: '#FFFFFF',
     },
     text: {
-      primary: "#38403B",
-      secondary: "#6B1A2B",
+      primary: '#38403B',
+      secondary: '#6B1A2B',
     },
   },
   typography: {
@@ -25,18 +25,18 @@ const theme = createTheme({
     h1: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
-      fontSize: "3rem",
+      fontSize: '3rem',
     },
     h2: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
-      fontSize: "2.5rem",
+      fontSize: '2.5rem',
     },
     h3: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
     },
     button: {
-      textTransform: "none",
+      textTransform: 'none',
       fontFamily: `${champagneFont.style.fontFamily}, sans-serif`,
     },
   },
@@ -44,8 +44,8 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: "8px",
-          textTransform: "none",
+          borderRadius: '8px',
+          textTransform: 'none',
         },
       },
     },

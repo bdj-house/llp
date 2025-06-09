@@ -1,2 +1,2 @@
-export * from "./getAbout";
-export * from "./getArticles";
+export * from './getAbout';
+export * from './getArticles';

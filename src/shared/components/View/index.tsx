@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Container, useTheme } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { Container, useTheme } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
 export const ViewContainer: React.FC<PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
@@ -10,7 +10,7 @@ export const ViewContainer: React.FC<PropsWithChildren> = ({ children }) => {
     <Container
       maxWidth={false}
       sx={{
-        height: "100vh",
+        height: '100vh',
         bgcolor: theme.palette.background.default,
       }}
     >

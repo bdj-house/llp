@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import Image from "next/image";
+import { Box } from '@mui/material';
+import Image from 'next/image';
 
 interface Props {
   src?: string;
@@ -9,16 +9,18 @@ interface Props {
 }
 
 export const CardImage: React.FC<Props> = ({ src, alt, height, width }) => {
-  if (!src) return null;
+  if (!src) {
+    return null;
+  }
 
   return (
     <Box
       sx={{
-        position: "relative",
+        position: 'relative',
         height,
         width,
         borderRadius: 3,
-        overflow: "hidden",
+        overflow: 'hidden',
       }}
     >
       <Image

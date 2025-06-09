@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Box, Card, useTheme } from "@mui/material";
-import { Article, SanityImageAsset } from "@/sanity/types/schema";
-import { CardContent } from "./CardContent";
-import { CardFooter } from "./CardFooter";
-import { CardImage } from "./CardImage";
+import { Box, Card, useTheme } from '@mui/material';
+import { Article, SanityImageAsset } from '@/sanity/types/schema';
+import { CardContent } from './CardContent';
+import { CardFooter } from './CardFooter';
+import { CardImage } from './CardImage';
 
 interface Props {
   article: Article;
@@ -47,21 +47,21 @@ export const ArticleCard: React.FC<Props> = ({
         height,
         width,
         borderRadius: 6,
-        display: "flex",
-        flexDirection: isVertical ? "column" : "row",
+        display: 'flex',
+        flexDirection: isVertical ? 'column' : 'row',
       }}
     >
       <CardImage
-        alt={article.slug?.current ?? ""}
-        src={(article.coverImage as unknown as SanityImageAsset).url ?? ""}
+        alt={article.slug?.current ?? ''}
+        src={(article.coverImage as unknown as SanityImageAsset).url ?? ''}
         height={imageHeight}
         width={imageWidth}
       />
 
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           px: 3,
           py: 1,
           flex: 1,

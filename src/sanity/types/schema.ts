@@ -15,7 +15,7 @@ import type {
   SanityKeyed,
   SanityKeyedReference,
   SanityReference,
-} from "sanity-codegen";
+} from 'sanity-codegen';
 
 export type {
   SanityAsset,
@@ -42,7 +42,7 @@ export type {
  *
  */
 export interface AboutPage extends SanityDocument {
-  _type: "aboutPage";
+  _type: 'aboutPage';
 
   /**
    * Título — `string`
@@ -64,7 +64,7 @@ export interface AboutPage extends SanityDocument {
    *
    */
   profileImage?: {
-    _type: "image";
+    _type: 'image';
     asset: SanityReference<SanityImageAsset>;
     crop?: SanityImageCrop;
     hotspot?: SanityImageHotspot;
@@ -84,7 +84,7 @@ export interface AboutPage extends SanityDocument {
  *
  */
 export interface Article extends SanityDocument {
-  _type: "article";
+  _type: 'article';
 
   /**
    * Título — `string`
@@ -98,7 +98,7 @@ export interface Article extends SanityDocument {
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string };
 
   /**
    * Data de Publicação — `datetime`
@@ -120,7 +120,7 @@ export interface Article extends SanityDocument {
    *
    */
   coverImage?: {
-    _type: "image";
+    _type: 'image';
     asset: SanityReference<SanityImageAsset>;
     crop?: SanityImageCrop;
     hotspot?: SanityImageHotspot;

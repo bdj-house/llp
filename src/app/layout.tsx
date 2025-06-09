@@ -1,14 +1,14 @@
 /* eslint-disable react-dom/no-dangerously-set-innerhtml */
-import type { Metadata } from "next";
-import Script from "next/script";
-import { ThemeRegistry } from "@/config/theme";
-import { champagneFont, mangolaineFont } from "@/config/theme/fonts";
+import type { Metadata } from 'next';
+import Script from 'next/script';
+import { ThemeRegistry } from '@/config/theme';
+import { champagneFont, mangolaineFont } from '@/config/theme/fonts';
 import {
   analyticsMeta,
   schemaOrg,
   metadata as seoMetadata,
-} from "@/shared/constants";
-import "./globals.css";
+} from '@/shared/constants';
+import './globals.css';
 
 export const metadata: Metadata = seoMetadata;
 
@@ -42,7 +42,7 @@ export default function RootLayout({
             src="https://www.googletagmanager.com/ns.html?id=GTM-528JN7VG"
             height="0"
             width="0"
-            style={{ display: "none", visibility: "hidden" }}
+            style={{ display: 'none', visibility: 'hidden' }}
             sandbox=""
           />
         </noscript>

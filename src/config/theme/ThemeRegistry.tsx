@@ -1,12 +1,13 @@
 // ThemeRegistry.tsx
-"use client";
+'use client';
 
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useServerInsertedHTML } from "next/navigation";
-import React from "react";
-import theme from "./theme";
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { useServerInsertedHTML } from 'next/navigation';
+import React from 'react';
+import Header from '@/shared/components/Header';
+import theme from './theme';
 
 export default function ThemeRegistry({
   children,
@@ -14,7 +15,7 @@ export default function ThemeRegistry({
   children: React.ReactNode;
 }) {
   const cache = React.useMemo(() => {
-    const cache = createCache({ key: "mui", prepend: true });
+    const cache = createCache({ key: 'mui', prepend: true });
     cache.compat = true;
     return cache;
   }, []);
@@ -22,10 +23,10 @@ export default function ThemeRegistry({
   useServerInsertedHTML(() => {
     return (
       <style
-        data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(" ")}`}
+        data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(' ')}`}
         // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
         dangerouslySetInnerHTML={{
-          __html: Object.values(cache.inserted).join(" "),
+          __html: Object.values(cache.inserted).join(' '),
         }}
       />
     );
@@ -35,6 +36,7 @@ export default function ThemeRegistry({
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Header />
         {children}
       </ThemeProvider>
     </CacheProvider>

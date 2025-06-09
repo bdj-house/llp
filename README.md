@@ -1,4 +1,3 @@
-
 ```
 idalgo_cortijo
 ├─ README.md
