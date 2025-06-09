@@ -9,22 +9,32 @@ jobs:
   notify:
     if: github.repository == 'lucasbertolo/lawyer-firm'
     runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     steps:
-      - name: Wait 30 seconds to allow Vercel to deploy
-        run: sleep 30
+      - name: Fetch latest dev deployment from Vercel API
+        id: vercel
+        run: |
+          DEPLOYMENT_URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/deployments?target=preview&limit=1" \
+            | jq -r '.deployments[0].url')
+          echo "deployment_url=https://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
-      - name: Notify Discord
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      - name: Send Discord notification
         run: |
           curl -H "Content-Type: application/json" \
             -d '{
               "username": "Vercel Bot",
               "avatar_url": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
               "embeds": [{
-                "title": "🚀 New Deployment",
-                "description": "A new deployment to **Dev** was triggered on push to `dev`.",
+                "title": "🚀 New Dev Deployment",
+                "url": "${{ steps.vercel.outputs.preview }}",
+                "description": "Deployment is live: [${{ steps.vercel.outputs.preview_url }}](${{
+                  steps.vercel.outputs.preview_url
+                }})",
                 "color": 5814783,
                 "fields": [
                   {
