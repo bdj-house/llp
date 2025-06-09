@@ -22,6 +22,10 @@ export default antfu(
       "next-env.d.ts",
       "node_modules/**/*",
       ".next/**/*",
+      "*.yml",
+      "*.yaml",
+      "**/*.yml",
+      "**/*.yaml",
     ],
   },
   {

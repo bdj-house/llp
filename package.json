@@ -49,6 +49,9 @@
       "eslint --max-warnings 0 ."
     ],
     "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,css,md}": "prettier --write",
+    "ignore": [
+      ".github"
+    ]
   }
 }
