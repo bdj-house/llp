@@ -23,9 +23,7 @@ export default function RootLayout({
         <Script
           id="gtm-head"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: analyticsMeta,
-          }}
+          dangerouslySetInnerHTML={{ __html: analyticsMeta }}
         />
         <Script
           id="schema-org"
