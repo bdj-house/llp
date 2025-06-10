@@ -19,8 +19,8 @@ export default async function Page() {
   return (
     <React.Fragment>
       <HomeScreen />
-      <OperationAreaScreen />
       <AboutScreen />
+      <OperationAreaScreen />
       <ArticleSummaryScreen />
       <ContactScreen />
     </React.Fragment>

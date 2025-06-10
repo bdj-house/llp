@@ -74,16 +74,12 @@ const Header: React.FC = () => {
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={3}>
-              <Typography variant="body2">Áreas de Atuação</Typography>
-              <Typography variant="body2">Nossa Equipe</Typography>
-              <Typography variant="body2">Publicações</Typography>
+              <Typography variant="body1">Áreas de Atuação</Typography>
+              <Typography variant="body1">Nossa Equipe</Typography>
+              <Typography variant="body1">Publicações</Typography>
               <Button
                 variant="contained"
-                sx={{
-                  borderRadius: 999,
-                  textTransform: 'none',
-                  fontWeight: 500,
-                }}
+                sx={{ borderRadius: 999, textTransform: 'none', fontWeight: 500 }}
               >
                 Contate-nos
               </Button>

@@ -3,15 +3,20 @@
 import { Container, useTheme } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
-export const ViewContainer: React.FC<PropsWithChildren> = ({ children }) => {
+interface Props {
+  bgcolor?: string;
+}
+
+export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({ children, bgcolor }) => {
   const theme = useTheme();
 
   return (
     <Container
       maxWidth={false}
+      disableGutters
       sx={{
         height: '100vh',
-        bgcolor: theme.palette.background.default,
+        bgcolor: bgcolor ?? theme.palette.background.paper,
       }}
     >
       {children}
