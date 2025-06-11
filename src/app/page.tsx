@@ -8,7 +8,6 @@ import { OperationAreaScreen } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import { allArticlesQuery } from '@/sanity/queries';
 import { Article } from '@/sanity/types/schema';
-import Header from '@/shared/components/Header';
 import { mainPageMetadata } from '@/shared/constants';
 
 export const dynamic = 'force-static';
@@ -22,7 +21,6 @@ export default async function Page() {
 
   return (
     <React.Fragment>
-      <Header />
       <HomeScreen />
       <AboutScreen />
       <OperationAreaScreen />

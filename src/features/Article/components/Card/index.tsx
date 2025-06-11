@@ -1,8 +1,8 @@
 'use client';
 
 import { Box, Card, useTheme } from '@mui/material';
-import tempLogo from '@/assets/logo/temp-logo.png';
-import { Article, SanityImageAsset } from '@/sanity/types/schema';
+import { Article } from '@/sanity/types/schema';
+import { getArticleCoverImg } from '../../utils';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
 import { CardImage } from './CardImage';
@@ -54,7 +54,7 @@ export const ArticleCard: React.FC<Props> = ({
     >
       <CardImage
         alt="Imagem de Capa do artigo"
-        src={(article.coverImage as unknown as SanityImageAsset)?.url ?? tempLogo}
+        src={getArticleCoverImg(article)}
         height={imageHeight}
         width={imageWidth}
       />

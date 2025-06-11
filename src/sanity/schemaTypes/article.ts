@@ -9,12 +9,13 @@ const articlePage = {
       name: 'title',
       title: 'Título',
       type: 'string',
-      validation: (Rule: Rule) => Rule.required().max(120),
+      validation: (Rule: Rule) => Rule.required().max(80),
     },
     {
       name: 'publishedAt',
       title: 'Data de Publicação',
       type: 'datetime',
+      validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'excerpt',
@@ -72,7 +73,7 @@ const articlePage = {
       name: 'author',
       title: 'Autor',
       type: 'string',
-      validation: (Rule: Rule) => Rule.required(),
+      validation: (Rule: Rule) => Rule.required().max(80),
     },
     {
       name: 'tags',
