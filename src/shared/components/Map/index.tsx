@@ -1,5 +1,3 @@
-'use client';
-
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
@@ -8,35 +6,25 @@ import {
   IconButton,
   Toolbar,
   Typography,
-  useTheme,
 } from '@mui/material';
-import { PropsWithChildren, useMemo, useState } from 'react';
-import { HashLoader } from 'react-spinners';
+import { useMemo, useState } from 'react';
 import { googleMapUrl } from '@/shared/constants';
-import If from '../If';
+import { CenterBox } from '../Center';
+import { If } from '../If';
+import { Spinner } from '../Spinner';
 
 interface Props {
   isOpen: boolean;
   close: () => void;
 }
 
-const CenterBox: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <Box sx={{ height: 400, flex: 1, alignContent: 'center', justifyItems: 'center' }}>
-      {children}
-    </Box>
-  );
-};
-
 export const Map: React.FC<Props> = ({ isOpen, close }) => {
-  const theme = useTheme();
-
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const Loading = useMemo(() => (
-    <CenterBox><HashLoader color={theme.palette.primary.dark} /></CenterBox>
-  ), [theme.palette.primary.dark]);
+    <CenterBox><Spinner /></CenterBox>
+  ), []);
 
   const Error = useMemo(() => (
     <CenterBox>
@@ -79,7 +67,7 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
             mb: 2,
           }}
         >
-          <If condition={isLoading && !hasError}>
+          <If condition={!isLoading && !hasError}>
             {Loading}
           </If>
 

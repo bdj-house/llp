@@ -2,6 +2,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ShareIcon from '@mui/icons-material/Share';
 import { Avatar, Box, Typography, useTheme } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
+import { If } from '@/shared/components';
+import { getInitials } from '../../utils';
 
 interface Props {
   article: Article;
@@ -18,11 +20,11 @@ export const CardFooter: React.FC<Props> = ({
 
   const secondaryTextColor = isDark
     ? 'rgba(255,255,255,0.7)'
-    : theme.palette.text.secondary;
+    : theme.palette.text.primary;
   const borderIconBgColor = isDark
     ? theme.palette.grey[800]
     : theme.palette.background.paper;
-  const iconColor = isDark ? 'white' : theme.palette.primary.main;
+  const iconColor = isDark ? 'white' : theme.palette.secondary.main;
 
   return (
     <Box
@@ -40,14 +42,18 @@ export const CardFooter: React.FC<Props> = ({
           gap: 1,
         }}
       >
-        <Avatar alt={article.author} />
+        <Avatar alt={article.author}>
+          {getInitials(article.author)}
+        </Avatar>
 
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="caption" fontWeight={700}>
-            por
-            {' '}
-            {article.author}
-          </Typography>
+          <If condition={!!article.author} elseRender={<Box sx={{ height: 10 }} />}>
+            <Typography variant="caption" fontWeight={700}>
+              por
+              {' '}
+              {article.author}
+            </Typography>
+          </If>
 
           {article.publishedAt && (
             <Typography variant="caption" sx={{ color: secondaryTextColor }}>

@@ -79,7 +79,7 @@ export interface AboutPage extends SanityDocument {
 }
 
 /**
- * Artigo
+ * Artigos
  *
  *
  */
@@ -92,13 +92,6 @@ export interface Article extends SanityDocument {
    *
    */
   title?: string;
-
-  /**
-   * Slug — `slug`
-   *
-   *
-   */
-  slug?: { _type: 'slug'; current: string };
 
   /**
    * Data de Publicação — `datetime`
@@ -132,6 +125,13 @@ export interface Article extends SanityDocument {
    *
    */
   content?: Array<SanityKeyed<SanityBlock>>;
+
+  /**
+   * Link do Artigo — `string`
+   *
+   *
+   */
+  sourceLink?: string;
 
   /**
    * Autor — `string`

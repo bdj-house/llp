@@ -1,8 +1,10 @@
 export const allArticlesQuery = `*[_type == "article"]{
   _id,
   title,
-  slug,
+  content,
+  excerpt,
   publishedAt,
+  author,
   coverImage {
     asset -> {
       _id,

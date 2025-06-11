@@ -40,7 +40,7 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {article.slug?.current}
+        {article.excerpt}
       </Typography>
     </Box>
   );

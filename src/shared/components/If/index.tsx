@@ -8,7 +8,7 @@ interface Props {
   sx?: React.CSSProperties;
 }
 
-const If: FC<Props> = function ({
+export const If: FC<Props> = function ({
   condition,
   elseRender = null,
   children,
@@ -16,5 +16,3 @@ const If: FC<Props> = function ({
 }) {
   return <Box sx={sx}>{condition ? children : elseRender}</Box>;
 };
-
-export default If;

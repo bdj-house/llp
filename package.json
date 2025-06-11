@@ -9,7 +9,8 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepare": "husky",
-    "postinstall": "husky"
+    "postinstall": "husky",
+    "types": "npx sanity-codegen"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

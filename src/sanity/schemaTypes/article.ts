@@ -1,4 +1,4 @@
-import type { Rule } from 'sanity';
+import type { Rule, ValidationContext } from 'sanity';
 
 const articlePage = {
   name: 'article',
@@ -9,17 +9,7 @@ const articlePage = {
       name: 'title',
       title: 'Título',
       type: 'string',
-      validation: (Rule: Rule) => Rule.required(),
-    },
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: (Rule: Rule) => Rule.required(),
+      validation: (Rule: Rule) => Rule.required().max(120),
     },
     {
       name: 'publishedAt',
@@ -31,6 +21,7 @@ const articlePage = {
       title: 'Resumo',
       type: 'text',
       rows: 3,
+      validation: (Rule: Rule) => Rule.max(480),
     },
     {
       name: 'coverImage',
@@ -43,11 +34,45 @@ const articlePage = {
       title: 'Conteúdo',
       type: 'array',
       of: [{ type: 'block' }],
+      validation: (Rule: Rule) =>
+        Rule.custom((content: unknown, context: ValidationContext) => {
+          const document = context.document as Record<string, unknown>;
+          const sourceLink = document?.sourceLink;
+
+          const hasContent = Array.isArray(content) && content.length > 0;
+          const hasLink = typeof sourceLink === 'string' && sourceLink.trim() !== '';
+
+          if (!hasContent && !hasLink) {
+            return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
+          }
+
+          return true;
+        }),
+    },
+    {
+      name: 'sourceLink',
+      title: 'Link do Artigo',
+      type: 'string',
+      validation: (Rule: Rule) =>
+        Rule.uri({ allowRelative: false }).custom((link: unknown, context: ValidationContext) => {
+          const document = context.document as Record<string, unknown>;
+          const content = document?.content;
+
+          const hasLink = typeof link === 'string' && link.trim() !== '';
+          const hasContent = Array.isArray(content) && content.length > 0;
+
+          if (!hasLink && !hasContent) {
+            return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
+          }
+
+          return true;
+        }),
     },
     {
       name: 'author',
       title: 'Autor',
       type: 'string',
+      validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'tags',

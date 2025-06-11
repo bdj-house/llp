@@ -1,6 +1,7 @@
 'use client';
 
 import { Box, Card, useTheme } from '@mui/material';
+import tempLogo from '@/assets/logo/temp-logo.png';
 import { Article, SanityImageAsset } from '@/sanity/types/schema';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
@@ -33,10 +34,10 @@ export const ArticleCard: React.FC<Props> = ({
 
   const bgColor = isDark
     ? theme.palette.common.black
-    : theme.palette.background.default;
+    : theme.palette.background.paper;
   const textColor = isDark
     ? theme.palette.common.white
-    : theme.palette.text.primary;
+    : theme.palette.text.secondary;
 
   return (
     <Card
@@ -52,8 +53,8 @@ export const ArticleCard: React.FC<Props> = ({
       }}
     >
       <CardImage
-        alt={article.slug?.current ?? ''}
-        src={(article.coverImage as unknown as SanityImageAsset).url ?? ''}
+        alt="Imagem de Capa do artigo"
+        src={(article.coverImage as unknown as SanityImageAsset)?.url ?? tempLogo}
         height={imageHeight}
         width={imageWidth}
       />

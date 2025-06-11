@@ -26,7 +26,6 @@ export const CardImage: React.FC<Props> = ({ src, alt, height, width }) => {
       <Image
         src={src}
         alt={alt}
-        objectFit="cover"
         width={width}
         height={height}
         style={{ borderRadius: 12 }}

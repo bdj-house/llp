@@ -5,6 +5,10 @@ import { ArticleSummaryScreen } from '@/features/Article/screen';
 import { ContactScreen } from '@/features/Contact/screen';
 import { HomeScreen } from '@/features/Home/screen';
 import { OperationAreaScreen } from '@/features/OperationArea/screen';
+import { sanityClient } from '@/sanity/lib/client';
+import { allArticlesQuery } from '@/sanity/queries';
+import { Article } from '@/sanity/types/schema';
+import Header from '@/shared/components/Header';
 import { mainPageMetadata } from '@/shared/constants';
 
 export const dynamic = 'force-static';
@@ -14,14 +18,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  // const about = await sanityClient.fetch<AboutPage[]>(aboutQuery);
+  const articles = await sanityClient.fetch<Article[]>(allArticlesQuery);
 
   return (
     <React.Fragment>
+      <Header />
       <HomeScreen />
       <AboutScreen />
       <OperationAreaScreen />
-      <ArticleSummaryScreen />
+      <ArticleSummaryScreen articles={articles ?? []} />
       <ContactScreen />
     </React.Fragment>
   );
