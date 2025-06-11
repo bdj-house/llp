@@ -1,7 +1,5 @@
-import antfu from "@antfu/eslint-config";
-import nextPlugin from "@next/eslint-plugin-next";
-import prettierPlugin from "eslint-config-prettier";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import antfu from '@antfu/eslint-config';
+import nextPlugin from '@next/eslint-plugin-next';
 
 export default antfu(
   {
@@ -12,35 +10,33 @@ export default antfu(
     stylistic: {
       indent: 2,
       semi: true,
-      quotes: "single",
+      quotes: 'single',
     },
     formatters: {
       css: true,
+      markdown: 'prettier',
     },
     ignores: [
-      "migrations/**/*",
-      "next-env.d.ts",
-      "node_modules/**/*",
-      ".next/**/*",
-      "*.yml",
-      "*.yaml",
-      "**/*.yml",
-      "**/*.yaml",
+      'migrations/**/*',
+      'next-env.d.ts',
+      'node_modules/**/*',
+      '.next/**/*',
+      '*.yml',
+      '*.yaml',
+      '**/*.yml',
+      '**/*.yaml',
     ],
   },
   {
     plugins: {
-      "@next/next": nextPlugin,
-      prettier: prettierPlugin,
-      unicorn: eslintPluginUnicorn,
+      '@next/next': nextPlugin,
     },
     rules: {
-      ...prettierPlugin.rules,
       ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
-      "style/jsx-self-closing-comp": "error",
-      "ts/consistent-type-imports": "off",
-      "react/no-missing-key": "off",
+      ...nextPlugin.configs['core-web-vitals'].rules,
+      'style/jsx-self-closing-comp': 'error',
+      'ts/consistent-type-imports': 'off',
+      'react/no-missing-key': 'off',
     },
-  }
+  },
 );

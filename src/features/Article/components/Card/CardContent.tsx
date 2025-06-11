@@ -1,5 +1,5 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { Article } from "@/sanity/types/schema";
+import { Box, Typography, useTheme } from '@mui/material';
+import { Article } from '@/sanity/types/schema';
 
 interface Props {
   article: Article;
@@ -10,18 +10,18 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
   const theme = useTheme();
 
   const secondaryTextColor = isDark
-    ? "rgba(255,255,255,0.7)"
+    ? 'rgba(255,255,255,0.7)'
     : theme.palette.text.secondary;
 
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         gap: 1,
-        alignItems: "flex-start",
+        alignItems: 'flex-start',
         mt: 1,
-        width: "100%",
+        width: '100%',
         flex: 1,
       }}
     >
@@ -33,14 +33,14 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
         variant="body2"
         sx={{
           color: secondaryTextColor,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          display: "-webkit-box",
-          WebkitLineClamp: "6",
-          WebkitBoxOrient: "vertical",
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          display: '-webkit-box',
+          WebkitLineClamp: '6',
+          WebkitBoxOrient: 'vertical',
         }}
       >
-        {article.slug?.current}
+        {article.excerpt}
       </Typography>
     </Box>
   );
