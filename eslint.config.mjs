@@ -37,6 +37,9 @@ export default antfu(
       'style/jsx-self-closing-comp': 'error',
       'ts/consistent-type-imports': 'off',
       'react/no-missing-key': 'off',
+      'style/max-statements-per-line': 'off',
+      'curly': 'off',
+      'react-hooks/exhaustive-deps': 'off',
     },
   },
 );

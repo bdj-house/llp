@@ -18,7 +18,11 @@ export const getInitials = (name?: string): string => {
   ).toUpperCase();
 };
 
-export const getAuthorDisplayName = (fullName: string) => {
+export const getAuthorDisplayName = (fullName?: string) => {
+  if (!fullName) {
+    return '';
+  }
+
   const words = fullName.trim().split(/\s+/);
 
   if (words.length === 0) {
@@ -32,7 +36,7 @@ export const getAuthorDisplayName = (fullName: string) => {
   return `${words[0]} ${words[words.length - 1]}`;
 };
 
-export const getSlug = (title?: string): string => {
+export const getSlugFromTitle = (title?: string): string => {
   if (!title) {
     return '';
   }

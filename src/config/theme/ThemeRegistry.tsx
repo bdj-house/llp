@@ -6,6 +6,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useServerInsertedHTML } from 'next/navigation';
 import React from 'react';
 import Header from '@/shared/components/Header';
+import { HeaderProvider } from '@/shared/providers';
 import theme from './theme';
 
 export default function ThemeRegistry({
@@ -35,8 +36,10 @@ export default function ThemeRegistry({
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header />
-        {children}
+        <HeaderProvider>
+          <Header />
+          {children}
+        </HeaderProvider>
       </ThemeProvider>
     </CacheProvider>
   );
