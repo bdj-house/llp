@@ -7,9 +7,9 @@ export const useScrollDirection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      if (Math.abs(currentY - lastY) < 10) {
+      if (Math.abs(currentY - lastY) < 100) {
         return;
-      };
+      }
 
       setDirection(currentY > lastY ? 'down' : 'up');
       setLastY(currentY);

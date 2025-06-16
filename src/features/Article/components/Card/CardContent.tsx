@@ -10,8 +10,8 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
   const theme = useTheme();
 
   const secondaryTextColor = isDark
-    ? 'rgba(255,255,255,0.7)'
-    : theme.palette.text.secondary;
+    ? theme.palette.background.paper
+    : theme.palette.secondary.dark;
 
   return (
     <Box
@@ -25,12 +25,12 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
         flex: 1,
       }}
     >
-      <Typography variant="body1" fontWeight={600}>
+      <Typography variant="body1" fontWeight={700}>
         {article.title}
       </Typography>
 
       <Typography
-        variant="body2"
+        variant="body1"
         sx={{
           color: secondaryTextColor,
           overflow: 'hidden',

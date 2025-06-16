@@ -1,4 +1,13 @@
-import { alpha, Box, Card, CardContent, Chip, Tooltip, Typography, useTheme } from '@mui/material';
+import {
+  alpha,
+  Box,
+  Card,
+  CardContent,
+  Chip,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { Article } from '@/sanity/types/schema';
@@ -14,7 +23,7 @@ interface Props {
 export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
   const theme = useTheme();
 
-  const height = useMemo(() => isHighlight ? 800 : 400, [isHighlight]);
+  const height = useMemo(() => (isHighlight ? 800 : 400), [isHighlight]);
 
   const imageSource = useMemo(() => {
     const imgHeight = (70 * height) / 100;
@@ -32,48 +41,71 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
   return (
     <Card
       sx={{
-        'height': height,
-        'width': '100%',
-        'display': 'flex',
-        'flexDirection': 'column',
-        'boxShadow': 0,
-        'borderTop': '0.3px solid black',
-        'borderRadius': 2,
-        'overflow': 'hidden',
-        'transition': 'transform 0.3s, box-shadow 0.3s',
+        height,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        boxShadow: 0,
+        borderTop: '0.3px solid black',
+        borderRadius: 2,
+        overflow: 'hidden',
+        transition: 'transform 0.3s, box-shadow 0.3s',
         '&:hover': {
           transform: 'scale(1.02)',
           boxShadow: 0.5,
         },
       }}
     >
-      <Box sx={{
-        position: 'relative',
-        display: 'flex',
-        height: '70%',
-        bgcolor: alpha(theme.palette.background.default, 0.2),
-      }}
+      <Box
+        sx={{
+          position: 'relative',
+          display: 'flex',
+          height: '70%',
+          bgcolor: alpha(theme.palette.background.default, 0.2),
+        }}
       >
         <Image
           alt={article.title ?? ''}
           src={imageSource}
           fill
+          sizes="(max-width: 600px) 100vw, 50vw"
           style={{ objectFit: 'cover' }}
+          priority
         />
 
-        <Box sx={{ position: 'absolute', bottom: 16, left: 8, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 16,
+            left: 8,
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 1,
+          }}
+        >
           {article.tags?.slice(0, 3).map(tag => (
             <Chip label={tag} key={tag} color="secondary" size="small" />
           ))}
 
           {(article.tags?.length ?? 0) > 3 && (
-            <Chip label={`+${(article.tags?.length ?? 0) - 3}`} color="secondary" size="small" />
+            <Chip
+              label={`+${(article.tags?.length ?? 0) - 3}`}
+              color="secondary"
+              size="small"
+            />
           )}
         </Box>
-
       </Box>
 
-      <CardContent sx={{ display: 'flex', flexDirection: 'column', maxWidth: 500, flex: 1, height: '30%' }}>
+      <CardContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: 500,
+          flex: 1,
+          height: '30%',
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="caption">{getArticleDate(article)}</Typography>
           <Typography variant="caption">{readTime}</Typography>

@@ -8,7 +8,7 @@ interface Props {
     label: string;
     route: string;
   };
-  title: string;
+  title?: string;
 }
 
 export const Breadcrumb: React.FC<Props> = ({ title, lastPage }) => {
@@ -31,6 +31,7 @@ export const Breadcrumb: React.FC<Props> = ({ title, lastPage }) => {
       <ButtonBase onClick={goToLastPage}>
         <Typography color="text.secondary">{lastPage.label}</Typography>
       </ButtonBase>
+
       <ChevronRight />
       <Typography color="text.primary">{title}</Typography>
     </Box>

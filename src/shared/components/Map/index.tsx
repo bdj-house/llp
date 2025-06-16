@@ -22,31 +22,44 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Loading = useMemo(() => (
-    <CenterBox><Spinner /></CenterBox>
-  ), []);
+  const Loading = useMemo(
+    () => (
+      <CenterBox>
+        <Spinner />
+      </CenterBox>
+    ),
+    [],
+  );
 
-  const Error = useMemo(() => (
-    <CenterBox>
-      <Typography variant="subtitle1" color="error">Ocorreu um erro ao carregar o mapa, tente novamente mais tarde.</Typography>
-    </CenterBox>
-  ), []);
+  const Error = useMemo(
+    () => (
+      <CenterBox>
+        <Typography variant="subtitle1" color="error">
+          Ocorreu um erro ao carregar o mapa, tente novamente mais tarde.
+        </Typography>
+      </CenterBox>
+    ),
+    [],
+  );
 
-  const GoogleMap = useMemo(() => (
-    <iframe
-      title="Google Map"
-      width="100%"
-      height="100%"
-      loading="lazy"
-      style={{ border: 0 }}
-      allowFullScreen
-      // eslint-disable-next-line react-dom/no-unsafe-iframe-sandbox
-      sandbox="allow-same-origin allow-popups allow-scripts"
-      src={googleMapUrl}
-      onLoad={() => setIsLoading(false)}
-      onError={() => setHasError(true)}
-    />
-  ), []);
+  const GoogleMap = useMemo(
+    () => (
+      <iframe
+        title="Google Map"
+        width="100%"
+        height="100%"
+        loading="lazy"
+        style={{ border: 0 }}
+        allowFullScreen
+        // eslint-disable-next-line react-dom/no-unsafe-iframe-sandbox
+        sandbox="allow-same-origin allow-popups allow-scripts"
+        src={googleMapUrl}
+        onLoad={() => setIsLoading(false)}
+        onError={() => setHasError(true)}
+      />
+    ),
+    [],
+  );
 
   return (
     <Dialog open={isOpen} onClose={close} maxWidth="md" fullWidth>
@@ -67,11 +80,13 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
             mb: 2,
           }}
         >
-          <If condition={!isLoading && !hasError}>
-            {Loading}
-          </If>
+          <If condition={!isLoading && !hasError}>{Loading}</If>
 
-          <If sx={{ height: '100%' }} condition={hasError} elseRender={GoogleMap}>
+          <If
+            sx={{ height: '100%' }}
+            condition={hasError}
+            elseRender={GoogleMap}
+          >
             {Error}
           </If>
         </Box>

@@ -6,7 +6,7 @@ import { ContactScreen } from '@/features/Contact/screen';
 import { HomeScreen } from '@/features/Home/screen';
 import { OperationAreaScreen } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
-import { allArticlesQuery } from '@/sanity/queries';
+import { lastArticlesQuery } from '@/sanity/queries';
 import { Article } from '@/sanity/types/schema';
 import { mainPageMetadata } from '@/shared/constants';
 
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const articles = await sanityClient.fetch<Article[]>(allArticlesQuery);
+  const articles = await sanityClient.fetch<Article[]>(lastArticlesQuery);
 
   return (
     <React.Fragment>

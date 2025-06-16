@@ -37,12 +37,12 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
     >
       <Box
         sx={{
-          'height': isMobile ? 300 : '100%',
-          'width': isMobile ? '100%' : '50%',
-          'position': 'relative',
-          'borderRadius': 4,
-          'overflow': 'hidden',
-          'boxShadow': 3,
+          height: isMobile ? 300 : '100%',
+          width: isMobile ? '100%' : '50%',
+          position: 'relative',
+          borderRadius: 4,
+          overflow: 'hidden',
+          boxShadow: 3,
           '&:hover': {
             transform: 'scale(1.02)',
             transition: 'all 0.3s ease-in-out',
@@ -59,7 +59,16 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
 
       <Box sx={{ width: isMobile ? '100%' : '50%', mt: isMobile ? 2 : '10%' }}>
         {article.tags?.map(tag => (
-          <Chip key={tag} label={tag} sx={{ mr: 1, mb: 1, bgcolor: 'primary.light', color: 'background.paper' }} />
+          <Chip
+            key={tag}
+            label={tag}
+            sx={{
+              mr: 1,
+              mb: 1,
+              bgcolor: 'primary.light',
+              color: 'background.paper',
+            }}
+          />
         ))}
         <Typography variant="h2" color="textSecondary" mt={2} mb={4}>
           {article.title}

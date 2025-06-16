@@ -15,7 +15,15 @@ const articlePage = {
       name: 'publishedAt',
       title: 'Data de Publicação',
       type: 'datetime',
-      validation: (Rule: Rule) => Rule.required(),
+      validation: (Rule: Rule) => {
+        const date = new Date();
+
+        date.setDate(date.getDate() + 1);
+
+        return Rule.required()
+          .max(date.toISOString())
+          .error('A data não pode estar no futuro.');
+      },
     },
     {
       name: 'excerpt',
@@ -41,7 +49,8 @@ const articlePage = {
           const sourceLink = document?.sourceLink;
 
           const hasContent = Array.isArray(content) && content.length > 0;
-          const hasLink = typeof sourceLink === 'string' && sourceLink.trim() !== '';
+          const hasLink =
+            typeof sourceLink === 'string' && sourceLink.trim() !== '';
 
           if (!hasContent && !hasLink) {
             return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
@@ -55,19 +64,21 @@ const articlePage = {
       title: 'Link do Artigo',
       type: 'string',
       validation: (Rule: Rule) =>
-        Rule.uri({ allowRelative: false }).custom((link: unknown, context: ValidationContext) => {
-          const document = context.document as Record<string, unknown>;
-          const content = document?.content;
+        Rule.uri({ allowRelative: false }).custom(
+          (link: unknown, context: ValidationContext) => {
+            const document = context.document as Record<string, unknown>;
+            const content = document?.content;
 
-          const hasLink = typeof link === 'string' && link.trim() !== '';
-          const hasContent = Array.isArray(content) && content.length > 0;
+            const hasLink = typeof link === 'string' && link.trim() !== '';
+            const hasContent = Array.isArray(content) && content.length > 0;
 
-          if (!hasLink && !hasContent) {
-            return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
-          }
+            if (!hasLink && !hasContent) {
+              return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
+            }
 
-          return true;
-        }),
+            return true;
+          },
+        ),
     },
     {
       name: 'author',
@@ -79,7 +90,13 @@ const articlePage = {
       name: 'tags',
       title: 'Tags',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [
+        {
+          type: 'string',
+          validation: (Rule: Rule) =>
+            Rule.max(20).error('Cada tag deve ter no máximo 20 caracteres.'),
+        },
+      ],
     },
   ],
 };
