@@ -5,6 +5,7 @@ import { CacheProvider } from '@emotion/react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useServerInsertedHTML } from 'next/navigation';
 import React from 'react';
+import { Footer } from '@/shared/components';
 import Header from '@/shared/components/Header';
 import { HeaderProvider } from '@/shared/providers';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
@@ -41,6 +42,7 @@ export default function ThemeRegistry({
           <HeaderProvider>
             <Header />
             {children}
+            <Footer />
           </HeaderProvider>
         </ReactQueryProvider>
       </ThemeProvider>

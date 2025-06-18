@@ -48,9 +48,14 @@ const articlePage = {
           const document = context.document as Record<string, unknown>;
           const sourceLink = document?.sourceLink;
 
-          const hasContent = Array.isArray(content) && content.length > 0;
           const hasLink =
             typeof sourceLink === 'string' && sourceLink.trim() !== '';
+
+          if (hasLink) {
+            return 'Você não pode preencher o conteúdo e fornecer o link do artigo ao mesmo tempo.';
+          }
+
+          const hasContent = Array.isArray(content) && content.length > 0;
 
           if (!hasContent && !hasLink) {
             return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';
@@ -69,8 +74,14 @@ const articlePage = {
             const document = context.document as Record<string, unknown>;
             const content = document?.content;
 
-            const hasLink = typeof link === 'string' && link.trim() !== '';
             const hasContent = Array.isArray(content) && content.length > 0;
+
+            if (hasContent) {
+              return `Você não pode preencher o conteúdo e fornecer 
+              o link do artigo ao mesmo tempo.`;
+            }
+
+            const hasLink = typeof link === 'string' && link.trim() !== '';
 
             if (!hasLink && !hasContent) {
               return 'Você deve preencher o conteúdo ou fornecer o link do artigo.';

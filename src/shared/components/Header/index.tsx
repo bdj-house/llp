@@ -3,6 +3,7 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import {
+  alpha,
   AppBar,
   Box,
   Button,
@@ -103,10 +104,14 @@ const Header: React.FC = () => {
                   }}
                 >
                   <Image src={logo} alt="Logo" width={36} height={36} />
+
                   <Typography
                     variant="body1"
                     fontWeight={700}
                     color={theme.palette.background.paper}
+                    sx={{
+                      '&:hover': { color: theme.palette.background.default },
+                    }}
                   >
                     / Idalgo & Cortijo
                   </Typography>
@@ -122,6 +127,10 @@ const Header: React.FC = () => {
                   borderColor: theme.palette.background.paper,
                   px: 2,
                   py: 0.5,
+                  '&:hover': {
+                    borderColor: theme.palette.background.default,
+                    bgcolor: alpha(theme.palette.background.default, 0.2),
+                  },
                 }}
                 onClick={openMap}
               >
@@ -136,7 +145,7 @@ const Header: React.FC = () => {
                   sx={{ mx: 1 }}
                   color={theme.palette.background.paper}
                 >
-                  Dr Otavio Teixera Mendes, 1947 - Sala 3 - Piracicaba
+                  Dr Otavio Teixeira Mendes, 1947 - Sala 3 - Piracicaba
                 </Typography>
                 <KeyboardArrowDownIcon
                   fontSize="small"
@@ -157,6 +166,9 @@ const Header: React.FC = () => {
                     variant="body1"
                     color={theme.palette.background.paper}
                     fontWeight={item.route === pathname ? 600 : 400}
+                    sx={{
+                      '&:hover': { color: theme.palette.background.default },
+                    }}
                   >
                     {item.label}
                   </Typography>

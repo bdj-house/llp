@@ -1,8 +1,8 @@
 'use client';
 
 import { alpha, Box, Card, useTheme } from '@mui/material';
-import { motion } from 'framer-motion';
 import { Article } from '@/sanity/types/schema';
+import { OpacityCard } from '@/shared/components';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
 import { CardImage } from './CardImage';
@@ -42,13 +42,7 @@ export const ArticleCard: React.FC<Props> = ({
     : theme.palette.text.secondary;
 
   return (
-    <Box
-      component={motion.div}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-    >
+    <OpacityCard index={index}>
       <Card
         sx={{
           bgcolor: bgColor,
@@ -93,6 +87,6 @@ export const ArticleCard: React.FC<Props> = ({
           />
         </Box>
       </Card>
-    </Box>
+    </OpacityCard>
   );
 };

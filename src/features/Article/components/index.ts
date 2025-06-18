@@ -8,4 +8,3 @@ export * from './SidebarFilter';
 export * from './SkeletonPreview';
 export * from './SocialShare';
 export * from './SummaryGrid';
-export * from './SummaryHeader';

@@ -6,20 +6,24 @@ import { useRouter } from 'next/navigation';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
 import { If, ViewContainer } from '@/shared/components';
-import { SummaryGrid, SummaryHeader } from '../components';
+import { SummaryGrid } from '../components';
 
 interface Props {
   articles: Article[];
 }
+
+const header = {
+  title: 'Publicações',
+  subtitle: 'Blog',
+  subject: 'Acompanhe as últimas novidades e nossas visões sobre a àrea.',
+};
 
 export const ArticleSummaryScreen: React.FC<Props> = ({ articles }) => {
   const theme = useTheme();
   const router = useRouter();
 
   return (
-    <ViewContainer secondaryBg>
-      <SummaryHeader />
-
+    <ViewContainer header={header} hideDivider>
       <SummaryGrid articles={articles} />
 
       <If condition={articles.length >= 4}>

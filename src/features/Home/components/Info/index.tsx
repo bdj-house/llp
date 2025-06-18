@@ -10,12 +10,7 @@ export const Info = () => {
     <Box>
       <Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', ml: 12 }}>
-          <Image
-            src={testImage}
-            alt="Logo"
-            width={480}
-            height={280}
-          />
+          <Image src={testImage} alt="Logo" width={480} height={280} />
         </Box>
 
         <Typography variant="h5" color="secondary">
@@ -23,19 +18,16 @@ export const Info = () => {
         </Typography>
 
         <Typography variant="h6" color="textSecondary" mt={2}>
-          Conheça um escritório pensado para inspirar confiança
-
-          conforto e
+          Conheça um escritório pensado para inspirar confiança conforto e
           resultados
           <br />
-
           de alto nível.
         </Typography>
       </Box>
 
       <ButtonBase
         onClick={() => {
-          const section = document.getElementById('nosso-espaco');
+          const section = document.getElementById('our-team');
           section?.scrollIntoView({ behavior: 'smooth' });
         }}
         sx={{
@@ -45,7 +37,7 @@ export const Info = () => {
           position: 'absolute',
           gap: 1,
           left: '120px',
-          bottom: '120px',
+          bottom: '25%',
           border: `0.8px solid ${theme.palette.primary.dark}`,
           borderRadius: '50%',
         }}

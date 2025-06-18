@@ -18,7 +18,7 @@ export const SummaryGrid: React.FC<Props> = ({ articles }) => {
         flexWrap="wrap"
         gap={4}
         px={16}
-        pb={8}
+        pb={24}
         justifyContent="center"
       >
         {articles.map((article, index) => (
@@ -41,7 +41,7 @@ export const SummaryGrid: React.FC<Props> = ({ articles }) => {
       article: displayedArticles[0],
       isVertical: true,
       isDark: false,
-      mt: -4,
+      mt: -3,
     },
     {
       gridArea: 'b',
@@ -60,7 +60,7 @@ export const SummaryGrid: React.FC<Props> = ({ articles }) => {
       article: displayedArticles[3],
       isVertical: true,
       isDark: true,
-      mt: 6,
+      mt: 10,
     },
   ];
 
@@ -82,7 +82,9 @@ export const SummaryGrid: React.FC<Props> = ({ articles }) => {
         `,
       }}
       gap={6}
-      p={16}
+      py={6}
+      px={18}
+      pb={24}
     >
       {gridItems.map(({ gridArea, article, isVertical, isDark, mt }, i) => (
         <Box

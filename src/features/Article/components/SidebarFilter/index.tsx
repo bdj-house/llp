@@ -41,9 +41,9 @@ export const SidebarFilter: React.FC<Props> = ({
         alignItems: 'flex-end',
         gap: 3,
         pr: 2,
-        zIndex: 999,
+        zIndex: -2,
         scrollbarWidth: 'thin',
-        opacity: 0.5,
+        opacity: 0.2,
         transition: '0.3s all ease-in-out',
         '&:hover': {
           opacity: 1,

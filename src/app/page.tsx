@@ -1,8 +1,7 @@
+import { Container } from '@mui/material';
 import { Metadata } from 'next';
-import React from 'react';
 import { AboutScreen } from '@/features/About/screen';
 import { ArticleSummaryScreen } from '@/features/Article/screen';
-import { ContactScreen } from '@/features/Contact/screen';
 import { HomeScreen } from '@/features/Home/screen';
 import { OperationAreaScreen } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
@@ -20,12 +19,15 @@ export default async function Page() {
   const articles = await sanityClient.fetch<Article[]>(lastArticlesQuery);
 
   return (
-    <React.Fragment>
+    <Container
+      maxWidth={false}
+      sx={{ px: 0, py: 0, backgroundColor: 'background.paper' }}
+      disableGutters
+    >
       <HomeScreen />
       <AboutScreen />
       <OperationAreaScreen />
       <ArticleSummaryScreen articles={articles ?? []} />
-      <ContactScreen />
-    </React.Fragment>
+    </Container>
   );
 }

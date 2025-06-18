@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
-import { If } from '@/shared/components';
+import { If, OpacityCard } from '@/shared/components';
 import { useLazyLoadArticles } from '../../hooks';
 import { PreviewItem } from '../PreviewItem';
 import { RedirectDialog } from '../RedirectDialog';
@@ -57,7 +57,7 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
   };
 
   const shouldShowSkeletons =
-    isLoading || (isFetching && data?.pages.length === 1);
+    isLoading || (isFetching && data?.pages.length === 1) || isRefetching;
   const shouldShowInfiniteSkeletons =
     isFetching && (data?.pages?.length ?? 0) > 1;
 
@@ -75,10 +75,13 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
       >
         {!isRefetching &&
           articles.map((article, i) => (
-            <Box
+            <OpacityCard
               key={article._id}
-              gridColumn={i === 0 ? 'span 2' : 'span 1'}
-              gridRow={i === 0 ? 'span 2' : 'span 1'}
+              index={i}
+              sx={{
+                gridColumn: i === 0 ? 'span 2' : 'span 1',
+                gridRow: i === 0 ? 'span 2' : 'span 1',
+              }}
             >
               <ButtonBase
                 onClick={() => goToDetails(article)}
@@ -86,7 +89,7 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
               >
                 <PreviewItem article={article} isHighlight={i === 0} />
               </ButtonBase>
-            </Box>
+            </OpacityCard>
           ))}
 
         {shouldShowSkeletons &&
