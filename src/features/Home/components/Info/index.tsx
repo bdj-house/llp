@@ -1,132 +1,28 @@
-// option draw
-
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import { Box, ButtonBase, Typography, useTheme } from '@mui/material';
-// import Image from 'next/image';
-// import testImage from '@/assets/logo/temp-logo.png';
-
-// export const Info = () => {
-//   const theme = useTheme();
-
-//   return (
-//     <Box>
-//       <Box>
-//         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-//           <Image
-//             src={testImage}
-//             alt="Logo"
-//             width={420}
-//             height={240}
-//           />
-//         </Box>
-
-//         <Typography variant="h6" color="textSecondary">
-//           Conheça um escritório pensado para inspirar confiança
-//           conforto e
-//           <br />
-//           resultados
-//           de alto nível.
-//         </Typography>
-//       </Box>
-
-//       <ButtonBase
-//         onClick={() => {
-//           const section = document.getElementById('nosso-espaco');
-//           section?.scrollIntoView({ behavior: 'smooth' });
-//         }}
-//         sx={{
-//           display: 'flex',
-//           flexDirection: 'column',
-//           alignItems: 'center',
-//           position: 'absolute',
-//           gap: 1,
-//           left: '120px',
-//           bottom: '120px',
-//           border: `0.8px solid ${theme.palette.primary.dark}`,
-//           borderRadius: '50%',
-//         }}
-//       >
-//         <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
-//       </ButtonBase>
-
-//     </Box>
-//   );
-// };
-
-// option background
-
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import { Box, ButtonBase, Typography, useTheme } from '@mui/material';
-// import Image from 'next/image';
-// import testImage from '@/assets/images/main-5.png';
-
-// export const Info = () => {
-//   const theme = useTheme();
-
-//   return (
-//     <Box sx={{ display: 'flex' }}>
-//       <Box>
-//         <Image
-//           src={testImage}
-//           alt="Logo"
-//           height={240}
-//           width={360}
-//         />
-
-//         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-//           Conheça um escritório pensado para inspirar
-//           confiança
-//           <br />
-//           conforto e
-//           resultados
-//           de alto nível.
-//         </Typography>
-//       </Box>
-
-//       <ButtonBase
-//         onClick={() => {
-//           const section = document.getElementById('nosso-espaco');
-//           section?.scrollIntoView({ behavior: 'smooth' });
-//         }}
-//         sx={{
-//           display: 'flex',
-//           flexDirection: 'column',
-//           alignItems: 'center',
-//           position: 'absolute',
-//           gap: 1,
-//           left: '10px',
-//           bottom: '120px',
-//           border: `0.8px solid ${theme.palette.background.default}`,
-//           borderRadius: '50%',
-//         }}
-//       >
-//         <ExpandMoreIcon sx={{ fontSize: 48, color: theme.palette.background.default }} />
-//       </ButtonBase>
-
-//     </Box>
-//   );
-// };
-
-// option side image
-
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, ButtonBase, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import testImage from '@/assets/logo/temp-logo.png';
+import { IconButton } from '@/shared/components';
 
 export const Info = () => {
-  const theme = useTheme();
+  const goToOurTeam = () => {
+    const section = document.getElementById('our-team');
+    section?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        position: 'relative',
+        height: '100%',
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', ml: 12 }}>
-          <Image
-            src={testImage}
-            alt="Logo"
-            width={480}
-            height={280}
-          />
+          <Image src={testImage} alt="Logo" width={480} height={280} />
         </Box>
 
         <Typography variant="h5" color="secondary">
@@ -134,35 +30,17 @@ export const Info = () => {
         </Typography>
 
         <Typography variant="h6" color="textSecondary" mt={2}>
-          Conheça um escritório pensado para inspirar confiança
-
-          conforto e
-          resultados
+          Conheça um escritório pensado para inspirar confiança conforto e resultados
           <br />
-
           de alto nível.
         </Typography>
       </Box>
 
-      <ButtonBase
-        onClick={() => {
-          const section = document.getElementById('nosso-espaco');
-          section?.scrollIntoView({ behavior: 'smooth' });
-        }}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          position: 'absolute',
-          gap: 1,
-          left: '120px',
-          bottom: '120px',
-          border: `0.8px solid ${theme.palette.primary.dark}`,
-          borderRadius: '50%',
-        }}
-      >
-        <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
-      </ButtonBase>
+      <Box sx={{ position: 'absolute', left: 0, bottom: '15%' }}>
+        <IconButton action={goToOurTeam} size="large">
+          <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

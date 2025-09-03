@@ -1,0 +1,24 @@
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.min.js
+*.min.css
+*.bundle.js
+
+# Sanity
+.sanity/
+
+# Other
+*.log
+.DS_Store
+.env*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

@@ -1,9 +1,14 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ShareIcon from '@mui/icons-material/Share';
-import { Avatar, Box, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, ButtonBase, Typography, useTheme } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
-import { If } from '@/shared/components';
-import { getInitials } from '../../utils';
+import { IconButton, If } from '@/shared/components';
+import { getArticleDate, getAuthorDisplayName, getInitials } from '../../utils';
+import { RedirectDialog } from '../RedirectDialog';
+import { SocialShareDialog } from '../SocialShare';
 
 interface Props {
   article: Article;
@@ -11,76 +16,97 @@ interface Props {
   isDark: boolean;
 }
 
-export const CardFooter: React.FC<Props> = ({
-  article,
-  isVertical,
-  isDark,
-}) => {
+export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => {
   const theme = useTheme();
+  const router = useRouter();
 
-  const secondaryTextColor = isDark
-    ? 'rgba(255,255,255,0.7)'
-    : theme.palette.text.primary;
-  const borderIconBgColor = isDark
-    ? theme.palette.grey[800]
-    : theme.palette.background.paper;
-  const iconColor = isDark ? 'white' : theme.palette.secondary.main;
+  const [shareOpen, setShareOpen] = useState(false);
+  const [seeMoreOpen, setSeeMoreOpen] = useState(false);
+
+  const secondaryTextColor = isDark ? 'rgba(255,255,255,0.7)' : theme.palette.text.primary;
+
+  const iconMainColor = theme.palette.primary.main;
+  const iconFontColor = theme.palette.primary.contrastText;
+
+  const localUrl = `${process.env.NEXT_PUBLIC_DOMAIN}${Routes.Articles}/${article._id}`;
+  const shareUrl = article.sourceLink ?? localUrl;
+
+  const openShare = () => setShareOpen(true);
+  const closeShare = () => setShareOpen(false);
+
+  const openSeeMore = () => setSeeMoreOpen(true);
+  const closeSeeMore = () => setSeeMoreOpen(false);
+
+  const goToArticle = () => {
+    if (!article.content) {
+      openSeeMore();
+      return;
+    }
+
+    router.push(`${Routes.Articles}/${article._id}`);
+  };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: '100%',
-        alignItems: 'flex-end',
-      }}
-    >
+    <>
       <Box
         sx={{
           display: 'flex',
-          flexDirection: isVertical ? 'column-reverse' : 'row',
-          gap: 1,
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'flex-end',
         }}
       >
-        <Avatar alt={article.author}>
-          {getInitials(article.author)}
-        </Avatar>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: isVertical ? 'column-reverse' : 'row',
+            gap: 1,
+          }}
+        >
+          <Avatar alt={article.author} sx={{ bgcolor: iconMainColor, color: iconFontColor }}>
+            {getInitials(article.author)}
+          </Avatar>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <If condition={!!article.author} elseRender={<Box sx={{ height: 10 }} />}>
-            <Typography variant="caption" fontWeight={700}>
-              por
-              {' '}
-              {article.author}
-            </Typography>
-          </If>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <If condition={!!article.author} elseRender={<Box sx={{ height: 10 }} />}>
+              <Typography variant="caption" fontWeight={700}>
+                por {getAuthorDisplayName(article.author ?? '')}
+              </Typography>
+            </If>
 
-          {article.publishedAt && (
-            <Typography variant="caption" sx={{ color: secondaryTextColor }}>
-              {new Date(article.publishedAt).toLocaleDateString('pt-BR', {
-                dateStyle: isVertical ? 'long' : 'short',
-              })}
-            </Typography>
-          )}
+            {article.publishedAt && (
+              <Typography variant="caption" sx={{ color: secondaryTextColor }}>
+                {getArticleDate(article)}
+              </Typography>
+            )}
+          </Box>
+        </Box>
+
+        <Box display="flex" gap={2}>
+          <IconButton action={openShare} customBackground={iconMainColor}>
+            <ShareIcon fontSize="small" htmlColor={iconFontColor} />
+          </IconButton>
+
+          <IconButton
+            action={goToArticle}
+            customBorderColor={isDark ? theme.palette.background.paper : undefined}
+          >
+            <MoreHorizIcon
+              fontSize="small"
+              htmlColor={isDark ? theme.palette.background.paper : iconMainColor}
+            />
+          </IconButton>
         </Box>
       </Box>
 
-      {/* Action Icons */}
-      <Box display="flex" gap={2}>
-        <Avatar sx={{ backgroundColor: theme.palette.primary.main }}>
-          <ShareIcon fontSize="small" htmlColor={iconColor} />
-        </Avatar>
-        <Avatar
-          sx={{
-            backgroundColor: borderIconBgColor,
-            borderColor: iconColor,
-            borderWidth: 1,
-            borderStyle: 'solid',
-          }}
-        >
-          <MoreHorizIcon fontSize="small" htmlColor={iconColor} />
-        </Avatar>
-      </Box>
-    </Box>
+      <SocialShareDialog
+        open={shareOpen}
+        onClose={closeShare}
+        shareUrl={shareUrl}
+        title={article.title}
+      />
+
+      <RedirectDialog open={seeMoreOpen} onClose={closeSeeMore} url={article.sourceLink ?? ''} />
+    </>
   );
 };

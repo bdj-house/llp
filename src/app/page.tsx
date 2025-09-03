@@ -1,15 +1,13 @@
-import { Metadata } from 'next';
-import React from 'react';
 import { AboutScreen } from '@/features/About/screen';
 import { ArticleSummaryScreen } from '@/features/Article/screen';
-import { ContactScreen } from '@/features/Contact/screen';
 import { HomeScreen } from '@/features/Home/screen';
-import { OperationAreaScreen } from '@/features/OperationArea/screen';
+import { OperationAreaSection } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
-import { allArticlesQuery } from '@/sanity/queries';
+import { allOperationAreasQuery, lastArticlesQuery } from '@/sanity/queries';
 import { Article } from '@/sanity/types/schema';
-import Header from '@/shared/components/Header';
 import { mainPageMetadata } from '@/shared/constants';
+import { Container } from '@mui/material';
+import { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 
@@ -18,16 +16,28 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const articles = await sanityClient.fetch<Article[]>(allArticlesQuery);
+  const [articles, operationAreas] = await Promise.all([
+    sanityClient.fetch<Article[]>(lastArticlesQuery),
+    sanityClient.fetch(allOperationAreasQuery),
+  ]);
 
   return (
-    <React.Fragment>
-      <Header />
+    <Container
+      maxWidth={false}
+      sx={{
+        px: 0,
+        py: 0,
+        backgroundColor: 'background.paper',
+        gap: 12,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      disableGutters
+    >
       <HomeScreen />
       <AboutScreen />
-      <OperationAreaScreen />
+      <OperationAreaSection operationAreas={operationAreas ?? []} />
       <ArticleSummaryScreen articles={articles ?? []} />
-      <ContactScreen />
-    </React.Fragment>
+    </Container>
   );
 }

@@ -1,13 +1,8 @@
-/* eslint-disable react-dom/no-dangerously-set-innerhtml */
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { ThemeRegistry } from '@/config/theme';
 import { champagneFont, mangolaineFont } from '@/config/theme/fonts';
-import {
-  analyticsMeta,
-  schemaOrg,
-  metadata as seoMetadata,
-} from '@/shared/constants';
+import { analyticsMeta, schemaOrg, metadata as seoMetadata } from '@/shared/constants';
 import './globals.css';
 
 export const metadata: Metadata = seoMetadata;

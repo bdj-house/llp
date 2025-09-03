@@ -6,8 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepare": "husky",
     "postinstall": "husky",
     "types": "npx sanity-codegen"
@@ -20,25 +22,34 @@
     "@mui/lab": "^7.0.0-beta.12",
     "@mui/material": "^7.1.0",
     "@mui/material-nextjs": "^7.1.0",
+    "@portabletext/react": "^3.2.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.87.0",
+    "@tanstack/react-query": "^5.80.7",
     "framer-motion": "^12.16.0",
     "next": "15.3.1",
     "next-sanity": "^9.10.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-grid-layout": "^1.5.1",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-intersection-observer": "^9.16.0",
     "react-spinners": "^0.17.0",
-    "sanity": "^3.87.0",
-    "styled-components": "^6.1.17"
+    "sanity": "^3.87.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.14.1",
-    "@eslint-react/eslint-plugin": "^1.51.3",
     "@next/eslint-plugin-next": "^15.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-grid-layout": "^1.3.5",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
     "eslint": "^9.28.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-dom": "^1.52.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "husky": "^9.1.7",
@@ -47,9 +58,12 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --max-warnings 0 ."
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
     ],
-    "*.js": "eslint --cache --fix"
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }

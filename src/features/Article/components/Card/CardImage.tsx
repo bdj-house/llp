@@ -1,34 +1,35 @@
 import { Box } from '@mui/material';
 import Image from 'next/image';
+import { useMemo } from 'react';
+import { Article } from '@/sanity/types/schema';
+import { getArticleCoverImg } from '../../utils';
 
 interface Props {
-  src?: string;
+  article: Article;
   alt: string;
   height: number;
   width: number;
 }
 
-export const CardImage: React.FC<Props> = ({ src, alt, height, width }) => {
-  if (!src) {
-    return null;
-  }
+export const CardImage: React.FC<Props> = ({ article, alt, height, width }) => {
+  const imageSource = useMemo(() => {
+    const imgHeight = (70 * height) / 100;
+    return getArticleCoverImg(article, imgHeight, width);
+  }, [height]);
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        height,
-        width,
-        borderRadius: 3,
-        overflow: 'hidden',
-      }}
-    >
+    <Box sx={{ position: 'relative', height, width }}>
       <Image
-        src={src}
+        src={imageSource}
         alt={alt}
-        width={width}
-        height={height}
-        style={{ borderRadius: 12 }}
+        fill
+        style={{
+          borderTopLeftRadius: 18,
+          borderBottomLeftRadius: 18,
+          borderTopRightRadius: 12,
+          borderBottomRightRadius: 12,
+          objectFit: 'contain',
+        }}
       />
     </Box>
   );

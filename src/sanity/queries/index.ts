@@ -1,2 +1,3 @@
-export * from './getAbout';
-export * from './getArticles';
+export * from './about';
+export * from './articles';
+export * from './operationAreas';
