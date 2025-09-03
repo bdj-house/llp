@@ -4,6 +4,7 @@ export * from './Breadcrumb';
 export * from './Center';
 export * from './Footer';
 export * from './Header';
+export * from './IconButton';
 export * from './If';
 export * from './Map';
 export * from './Spinner';

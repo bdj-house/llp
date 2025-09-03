@@ -1,21 +1,141 @@
-import antfu from '@antfu/eslint-config';
+import js from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
+import reactDom from 'eslint-plugin-react-dom';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
-export default antfu(
+export default [
+  js.configs.recommended,
   {
-    react: true,
-    typescript: true,
-    lessOpinionated: true,
-    isInEditor: true,
-    stylistic: {
-      indent: 2,
-      semi: true,
-      quotes: 'single',
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        // Browser globals
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        console: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        // Node.js globals
+        process: 'readonly',
+        React: 'readonly',
+      },
     },
-    formatters: {
-      css: true,
-      markdown: 'prettier',
+    plugins: {
+      '@typescript-eslint': tseslint,
+      '@next/next': nextPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'react-dom': reactDom,
     },
+    rules: {
+      // Core rules
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
+
+      // Next.js rules
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+
+      // React rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-refresh/only-export-components': 'off',
+
+      // TypeScript rules
+      'ts/consistent-type-imports': 'off',
+
+      // Other rules
+      'react/no-missing-key': 'off',
+      curly: 'off',
+      'node/prefer-global/process': 'off',
+
+      // Line length rule
+      'max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreComments: true,
+          ignoreRegExpLiterals: true,
+        },
+      ],
+
+      // React DOM rules - explicitly disable problematic ones
+      'react-dom/no-dangerously-set-innerhtml': 'off',
+      'react-dom/no-unsafe-iframe-sandbox': 'off',
+    },
+  },
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        console: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        navigator: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        process: 'readonly',
+        React: 'readonly',
+      },
+    },
+    plugins: {
+      '@next/next': nextPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'react-dom': reactDom,
+    },
+    rules: {
+      // Core rules
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
+
+      // Next.js rules
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+
+      // React rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-refresh/only-export-components': 'off',
+
+      // Other rules
+      'react/no-missing-key': 'off',
+      curly: 'off',
+      'node/prefer-global/process': 'off',
+
+      // Line length rule
+      'max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreComments: true,
+          ignoreRegExpLiterals: true,
+        },
+      ],
+
+      // React DOM rules - explicitly disable problematic ones
+      'react-dom/no-dangerously-set-innerhtml': 'off',
+      'react-dom/no-unsafe-iframe-sandbox': 'off',
+    },
+  },
+  {
     ignores: [
       'migrations/**/*',
       'next-env.d.ts',
@@ -27,29 +147,4 @@ export default antfu(
       '**/*.yaml',
     ],
   },
-  {
-    plugins: {
-      '@next/next': nextPlugin,
-    },
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
-      'style/jsx-self-closing-comp': 'error',
-      'ts/consistent-type-imports': 'off',
-      'react/no-missing-key': 'off',
-      'style/max-statements-per-line': 'off',
-      curly: 'off',
-      'react-hooks/exhaustive-deps': 'off',
-      'style/max-len': ['error', { code: 100, ignoreUrls: true }],
-      'node/prefer-global/process': 'off',
-      'style/quote-props': 'off',
-      'style/jsx-one-expression-per-line': 'off',
-      'style/arrow-parens': 'off',
-      'style/operator-linebreak': 'off',
-      'style/jsx-wrap-multilines': [
-        'error',
-        { arrow: true, return: true, declaration: true },
-      ],
-    },
-  },
-);
+];

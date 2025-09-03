@@ -63,19 +63,14 @@ const Header: React.FC = () => {
 
     if (isMobile) {
       window.open(
-        `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
-          message,
-        )}`,
+        `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`,
         '_blank',
       );
 
       return;
     }
 
-    window.open(
-      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
-      '_blank',
-    );
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const isStatic = mode === 'static';
@@ -127,6 +122,7 @@ const Header: React.FC = () => {
                   borderColor: theme.palette.background.paper,
                   px: 2,
                   py: 0.5,
+                  transition: 'all 0.2s ease-in-out',
                   '&:hover': {
                     borderColor: theme.palette.background.default,
                     bgcolor: alpha(theme.palette.background.default, 0.2),
@@ -140,11 +136,7 @@ const Header: React.FC = () => {
                     color: theme.palette.background.paper,
                   }}
                 />
-                <Typography
-                  variant="body2"
-                  sx={{ mx: 1 }}
-                  color={theme.palette.background.paper}
-                >
+                <Typography variant="body2" sx={{ mx: 1 }} color={theme.palette.background.paper}>
                   Dr Otavio Teixeira Mendes, 1947 - Sala 3 - Piracicaba
                 </Typography>
                 <KeyboardArrowDownIcon
@@ -158,10 +150,7 @@ const Header: React.FC = () => {
 
             <Stack direction="row" alignItems="center" spacing={3}>
               {routes.map(item => (
-                <ButtonBase
-                  onClick={() => goToPage(item.route)}
-                  key={item.label}
-                >
+                <ButtonBase onClick={() => goToPage(item.route)} key={item.label}>
                   <Typography
                     variant="body1"
                     color={theme.palette.background.paper}

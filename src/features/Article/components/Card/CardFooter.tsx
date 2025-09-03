@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
-import { If } from '@/shared/components';
+import { IconButton, If } from '@/shared/components';
 import { getArticleDate, getAuthorDisplayName, getInitials } from '../../utils';
 import { RedirectDialog } from '../RedirectDialog';
 import { SocialShareDialog } from '../SocialShare';
@@ -16,20 +16,14 @@ interface Props {
   isDark: boolean;
 }
 
-export const CardFooter: React.FC<Props> = ({
-  article,
-  isVertical,
-  isDark,
-}) => {
+export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => {
   const theme = useTheme();
   const router = useRouter();
 
   const [shareOpen, setShareOpen] = useState(false);
   const [seeMoreOpen, setSeeMoreOpen] = useState(false);
 
-  const secondaryTextColor = isDark
-    ? 'rgba(255,255,255,0.7)'
-    : theme.palette.text.primary;
+  const secondaryTextColor = isDark ? 'rgba(255,255,255,0.7)' : theme.palette.text.primary;
 
   const iconMainColor = theme.palette.primary.main;
   const iconFontColor = theme.palette.primary.contrastText;
@@ -69,18 +63,12 @@ export const CardFooter: React.FC<Props> = ({
             gap: 1,
           }}
         >
-          <Avatar
-            alt={article.author}
-            sx={{ bgcolor: iconMainColor, color: iconFontColor }}
-          >
+          <Avatar alt={article.author} sx={{ bgcolor: iconMainColor, color: iconFontColor }}>
             {getInitials(article.author)}
           </Avatar>
 
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <If
-              condition={!!article.author}
-              elseRender={<Box sx={{ height: 10 }} />}
-            >
+            <If condition={!!article.author} elseRender={<Box sx={{ height: 10 }} />}>
               <Typography variant="caption" fontWeight={700}>
                 por {getAuthorDisplayName(article.author ?? '')}
               </Typography>
@@ -95,49 +83,19 @@ export const CardFooter: React.FC<Props> = ({
         </Box>
 
         <Box display="flex" gap={2}>
-          <ButtonBase onClick={openShare}>
-            <Avatar
-              sx={{
-                backgroundColor: iconMainColor,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  boxShadow: `0 0 12px ${theme.palette.primary.main}`,
-                  transform: 'scale(1.05)',
-                  borderColor: theme.palette.primary.main,
-                  backgroundColor: 'transparent',
-                },
-              }}
-            >
-              <ShareIcon fontSize="small" htmlColor={iconFontColor} />
-            </Avatar>
-          </ButtonBase>
+          <IconButton action={openShare} customBackground={iconMainColor}>
+            <ShareIcon fontSize="small" htmlColor={iconFontColor} />
+          </IconButton>
 
-          <ButtonBase onClick={goToArticle}>
-            <Avatar
-              sx={{
-                backgroundColor: 'transparent',
-                borderColor: isDark
-                  ? theme.palette.background.paper
-                  : iconMainColor,
-                borderWidth: 0.3,
-                borderStyle: 'solid',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  boxShadow: `0 0 12px ${theme.palette.primary.main}`,
-                  transform: 'scale(1.05)',
-                  borderColor: theme.palette.primary.main,
-                  backgroundColor: theme.palette.action.hover,
-                },
-              }}
-            >
-              <MoreHorizIcon
-                fontSize="small"
-                htmlColor={
-                  isDark ? theme.palette.background.paper : iconMainColor
-                }
-              />
-            </Avatar>
-          </ButtonBase>
+          <IconButton
+            action={goToArticle}
+            customBorderColor={isDark ? theme.palette.background.paper : undefined}
+          >
+            <MoreHorizIcon
+              fontSize="small"
+              htmlColor={isDark ? theme.palette.background.paper : iconMainColor}
+            />
+          </IconButton>
         </Box>
       </Box>
 
@@ -148,11 +106,7 @@ export const CardFooter: React.FC<Props> = ({
         title={article.title}
       />
 
-      <RedirectDialog
-        open={seeMoreOpen}
-        onClose={closeSeeMore}
-        url={article.sourceLink ?? ''}
-      />
+      <RedirectDialog open={seeMoreOpen} onClose={closeSeeMore} url={article.sourceLink ?? ''} />
     </>
   );
 };

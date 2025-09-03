@@ -32,65 +32,76 @@ export const AboutScreen = () => {
         subtitle: 'Equipe',
         subject: 'Conheça nossas especialistas',
       }}
-      rightDivider
+      customBg
       id="our-team"
     >
       <Box display="flex" flexDirection="column">
-        {associates.map(
-          ({ name, role, description, imageUrl, reverse }, index) => (
-            <OpacityCard key={name} index={index}>
-              <Grid
-                container
-                spacing={3}
-                direction={{
-                  xs: 'column',
-                  md: reverse ? 'row-reverse' : 'row',
-                }}
-                alignItems="center"
-                py={6}
-                px={36}
-              >
-                <Grid size={3}>
-                  <Avatar
-                    alt={name}
-                    src={imageUrl.src}
-                    sx={{
-                      width: 240,
-                      height: 240,
-                      mx: 'auto',
-                      boxShadow: 3,
-                    }}
-                  />
-                </Grid>
-
-                <Grid size={3}>
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    color="primary"
-                    gutterBottom
-                  >
-                    {name}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    gutterBottom
-                    color="secondary"
-                    fontWeight={600}
-                  >
-                    {role}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" mb={2}>
-                    {description}
-                  </Typography>
-                  <Button variant="text" sx={{ pl: 0 }} disableRipple>
-                    <Typography fontWeight="bold">Saiba mais →</Typography>
-                  </Button>
-                </Grid>
+        {associates.map(({ name, role, description, imageUrl, reverse }, index) => (
+          <OpacityCard key={name} index={index}>
+            <Grid
+              container
+              spacing={3}
+              direction={{
+                xs: 'column',
+                md: reverse ? 'row-reverse' : 'row',
+              }}
+              alignItems="center"
+              py={6}
+              px={36}
+            >
+              <Grid size={3}>
+                <Avatar
+                  alt={name}
+                  src={imageUrl.src}
+                  sx={{
+                    width: 240,
+                    height: 240,
+                    mx: 'auto',
+                    boxShadow: 3,
+                  }}
+                />
               </Grid>
-            </OpacityCard>
-          ),
-        )}
+
+              <Grid size={3}>
+                <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
+                  {name}
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom color="secondary" fontWeight={600}>
+                  {role}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" mb={2}>
+                  {description}
+                </Typography>
+                <Button
+                  variant="text"
+                  disableRipple
+                  sx={{
+                    pl: 0,
+                    position: 'relative',
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                    },
+                    '&:after': {
+                      content: '""',
+                      position: 'absolute',
+                      height: '2px',
+                      bottom: -5,
+                      left: -10,
+                      backgroundColor: 'primary.main',
+                      width: 0,
+                      transition: 'width 0.4s ease',
+                    },
+                    '&:hover:after': {
+                      width: '35%',
+                    },
+                  }}
+                >
+                  <Typography fontWeight="bold">Saiba mais →</Typography>
+                </Button>
+              </Grid>
+            </Grid>
+          </OpacityCard>
+        ))}
       </Box>
     </ViewContainer>
   );

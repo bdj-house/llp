@@ -1,13 +1,25 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, ButtonBase, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import testImage from '@/assets/logo/temp-logo.png';
+import { IconButton } from '@/shared/components';
 
 export const Info = () => {
-  const theme = useTheme();
+  const goToOurTeam = () => {
+    const section = document.getElementById('our-team');
+    section?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        position: 'relative',
+        height: '100%',
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', ml: 12 }}>
           <Image src={testImage} alt="Logo" width={480} height={280} />
@@ -18,32 +30,17 @@ export const Info = () => {
         </Typography>
 
         <Typography variant="h6" color="textSecondary" mt={2}>
-          Conheça um escritório pensado para inspirar confiança conforto e
-          resultados
+          Conheça um escritório pensado para inspirar confiança conforto e resultados
           <br />
           de alto nível.
         </Typography>
       </Box>
 
-      <ButtonBase
-        onClick={() => {
-          const section = document.getElementById('our-team');
-          section?.scrollIntoView({ behavior: 'smooth' });
-        }}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          position: 'absolute',
-          gap: 1,
-          left: '120px',
-          bottom: '25%',
-          border: `0.8px solid ${theme.palette.primary.dark}`,
-          borderRadius: '50%',
-        }}
-      >
-        <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
-      </ButtonBase>
+      <Box sx={{ position: 'absolute', left: 0, bottom: '15%' }}>
+        <IconButton action={goToOurTeam} size="large">
+          <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

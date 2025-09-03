@@ -6,13 +6,9 @@ type Props = React.ComponentProps<typeof Box> & {
   index: number;
 };
 
-const MotionBox = motion(Box) as any;
+const MotionBox = motion.create(Box) as any;
 
-export const OpacityCard: React.FC<PropsWithChildren<Props>> = ({
-  children,
-  index,
-  ...props
-}) => {
+export const OpacityCard: React.FC<PropsWithChildren<Props>> = ({ children, index, ...props }) => {
   return (
     <MotionBox
       {...props}

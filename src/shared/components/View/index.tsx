@@ -1,42 +1,47 @@
 'use client';
 
 import { Box, Container, Typography, useTheme } from '@mui/material';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { If } from '../If';
 
 interface Props {
-  secondaryBg?: boolean;
+  customBg?: boolean;
   header?: {
     title: string;
     subtitle?: string;
     subject?: string;
   };
-  rightDivider?: boolean;
-  hideDivider?: boolean;
   id?: string;
 }
 
 export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
   children,
-  secondaryBg,
+  customBg,
   header,
-  rightDivider,
-  hideDivider,
   id,
 }) => {
   const theme = useTheme();
+
+  const additionalProps = useMemo(() => {
+    if (!customBg) return {};
+
+    return {
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='40' fill='white'/%3E%3Cline x1='0' y1='39.5' x2='100' y2='39.5' stroke='%23e0dcd4' stroke-width='0.5'/%3E%3C/svg%3E")`,
+      backgroundRepeat: 'repeat',
+      backgroundSize: '100px 40px',
+    };
+  }, [customBg]);
 
   return (
     <Container
       maxWidth={false}
       sx={{
         position: 'relative',
-        minHeight: '98vh',
+        minHeight: '100vh',
         width: '98%',
-        pt: 6,
-        bgcolor: secondaryBg
-          ? theme.palette.background.default
-          : theme.palette.background.paper,
+        pt: 12,
+        bgcolor: theme.palette.background.paper,
+        ...additionalProps,
       }}
       id={id}
     >
@@ -59,12 +64,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
           >
             {header?.subtitle}
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h3"
-            fontWeight={600}
-            sx={{ px: 2, pb: 1 }}
-          >
+          <Typography color="textPrimary" variant="h3" fontWeight={600} sx={{ px: 2, pb: 1 }}>
             {header?.title}
           </Typography>
 
@@ -85,25 +85,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
           </If>
         </Box>
       </If>
-
       {children}
-
-      <If condition={!hideDivider}>
-        <Box
-          component="svg"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 100"
-          mt={12}
-          sx={{
-            width: '100%',
-            height: 50,
-            fill: theme.palette.background.default,
-            transform: rightDivider ? 'scaleX(-1)' : 'none',
-          }}
-        >
-          <path d="M0,0 C480,100 960,0 1440,100 L1440,0 L0,0 Z" />
-        </Box>
-      </If>
     </Container>
   );
 };

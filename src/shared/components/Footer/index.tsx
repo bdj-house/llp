@@ -20,30 +20,28 @@ export const Footer = () => {
   return (
     <Box bgcolor={theme.palette.background.default} py={6} zIndex={999}>
       <Container>
-        <Grid
-          container
-          spacing={4}
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
+        <Grid container spacing={4} justifyContent="space-between" alignItems="flex-start">
           <Grid size={4}>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color="primary"
-              gutterBottom
-            >
+            <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
               Idalgo & Cortijo
             </Typography>
             <Link
               href="mailto:contato@idalgocortijo.com"
               underline="hover"
-              color="textSecondary"
+              color="text.primary"
+              sx={{ textUnderlineOffset: 4 }}
             >
               contato@idalgocortijo.com
             </Link>
             <Typography variant="body1" mt={1} color="textSecondary">
-              (19) 91234-5678
+              <Link
+                href="tel:+5519912345678"
+                underline="hover"
+                color="text.primary"
+                sx={{ textUnderlineOffset: 4 }}
+              >
+                (19) 91234-5678
+              </Link>
             </Typography>
             <Typography variant="caption" color="textSecondary">
               Seg - Sex, 9h às 17h
@@ -51,12 +49,7 @@ export const Footer = () => {
           </Grid>
 
           <Grid size={4}>
-            <Typography
-              variant="subtitle1"
-              fontWeight="bold"
-              gutterBottom
-              color="textSecondary"
-            >
+            <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="textSecondary">
               Áreas de atuação
             </Typography>
             <Grid container spacing={1}>
@@ -86,29 +79,20 @@ export const Footer = () => {
           </Grid>
 
           <Grid size={3}>
-            <Typography
-              variant="subtitle1"
-              fontWeight="bold"
-              gutterBottom
-              color="textSecondary"
-            >
+            <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="textSecondary">
               Recursos
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{ textUnderlineOffset: 4 }}>
               <Link href="/publicacoes" underline="hover" color="textSecondary">
                 Publicações
               </Link>
             </Typography>
-            <Typography variant="body2">
-              <Link
-                href="/nosso-espaco"
-                underline="hover"
-                color="textSecondary"
-              >
+            <Typography variant="body2" sx={{ textUnderlineOffset: 4 }}>
+              <Link href="/nosso-espaco" underline="hover" color="textSecondary">
                 Nosso Espaço
               </Link>
             </Typography>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" sx={{ textUnderlineOffset: 4 }}>
               <Link href="/contato" underline="hover" color="inherit">
                 Contato
               </Link>
@@ -127,30 +111,17 @@ export const Footer = () => {
           gap={2}
         >
           <Typography variant="caption" color="text.secondary">
-            © {new Date().getFullYear()} Idalgo & Cortijo. Todos os direitos
-            reservados.
+            © {new Date().getFullYear()} Idalgo & Cortijo. Todos os direitos reservados.
           </Typography>
 
           <Box display="flex" gap={1}>
-            <IconButton
-              href="https://facebook.com"
-              target="_blank"
-              size="small"
-            >
+            <IconButton href="https://facebook.com" target="_blank" size="small">
               <FacebookIcon fontSize="small" />
             </IconButton>
-            <IconButton
-              href="https://linkedin.com"
-              target="_blank"
-              size="small"
-            >
+            <IconButton href="https://linkedin.com" target="_blank" size="small">
               <LinkedInIcon fontSize="small" />
             </IconButton>
-            <IconButton
-              href="https://instagram.com"
-              target="_blank"
-              size="small"
-            >
+            <IconButton href="https://instagram.com" target="_blank" size="small">
               <InstagramIcon fontSize="small" />
             </IconButton>
           </Box>

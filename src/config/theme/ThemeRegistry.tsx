@@ -11,11 +11,7 @@ import { HeaderProvider } from '@/shared/providers';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
 import theme from './theme';
 
-export default function ThemeRegistry({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   const cache = React.useMemo(() => {
     const cache = createCache({ key: 'mui', prepend: true });
     cache.compat = true;
@@ -26,7 +22,6 @@ export default function ThemeRegistry({
     return (
       <style
         data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(' ')}`}
-        // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
         dangerouslySetInnerHTML={{
           __html: Object.values(cache.inserted).join(' '),
         }}

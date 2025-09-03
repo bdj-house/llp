@@ -1,12 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Box, Dialog, DialogContent, IconButton, Toolbar, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { googleMapUrl } from '@/shared/constants';
 import { CenterBox } from '../Center';
@@ -51,7 +44,6 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
         loading="lazy"
         style={{ border: 0 }}
         allowFullScreen
-        // eslint-disable-next-line react-dom/no-unsafe-iframe-sandbox
         sandbox="allow-same-origin allow-popups allow-scripts"
         src={googleMapUrl}
         onLoad={() => setIsLoading(false)}
@@ -82,11 +74,7 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
         >
           <If condition={!isLoading && !hasError}>{Loading}</If>
 
-          <If
-            sx={{ height: '100%' }}
-            condition={hasError}
-            elseRender={GoogleMap}
-          >
+          <If sx={{ height: '100%' }} condition={hasError} elseRender={GoogleMap}>
             {Error}
           </If>
         </Box>

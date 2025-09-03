@@ -34,12 +34,8 @@ export const ArticleCard: React.FC<Props> = ({
   const imageHeight = isVertical ? height - 350 : height;
   const imageWidth = isVertical ? width - 10 : width - 350;
 
-  const bgColor = isDark
-    ? alpha(theme.palette.common.black, 0.8)
-    : theme.palette.background.paper;
-  const textColor = isDark
-    ? theme.palette.common.white
-    : theme.palette.text.secondary;
+  const bgColor = isDark ? alpha(theme.palette.common.black, 0.8) : theme.palette.background.paper;
+  const textColor = isDark ? theme.palette.common.white : theme.palette.text.secondary;
 
   return (
     <OpacityCard index={index}>
@@ -57,7 +53,7 @@ export const ArticleCard: React.FC<Props> = ({
           transition: 'transform 0.2s ease-in-out',
           '&:hover': {
             boxShadow: 6,
-            transform: 'scale(1.02)',
+            transform: 'scale(1.010)',
           },
         }}
       >
@@ -80,11 +76,7 @@ export const ArticleCard: React.FC<Props> = ({
         >
           <CardContent article={article} isDark={isDark} />
 
-          <CardFooter
-            isDark={isDark}
-            isVertical={isVertical}
-            article={article}
-          />
+          <CardFooter isDark={isDark} isVertical={isVertical} article={article} />
         </Box>
       </Card>
     </OpacityCard>

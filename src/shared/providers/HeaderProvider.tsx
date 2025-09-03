@@ -6,9 +6,5 @@ export const HeaderProvider = ({ children }: { children: ReactNode }) => {
 
   const value = React.useMemo(() => ({ mode, setMode }), [mode, setMode]);
 
-  return (
-    <HeaderContext value={value}>
-      {children}
-    </HeaderContext>
-  );
+  return <HeaderContext value={value}>{children}</HeaderContext>;
 };

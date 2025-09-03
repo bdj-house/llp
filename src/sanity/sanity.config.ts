@@ -11,7 +11,5 @@ export default defineConfig({
   projectId,
   dataset,
   schema,
-  plugins: [
-    structureTool({ structure }),
-  ],
+  plugins: [structureTool({ structure })],
 });
