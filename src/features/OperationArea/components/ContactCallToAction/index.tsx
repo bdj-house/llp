@@ -5,6 +5,7 @@ export const ContactCallToAction = () => {
     <Box
       sx={{
         textAlign: 'center',
+        width: '80%',
         py: 6,
         px: 4,
         bgcolor: 'background.default',
@@ -13,10 +14,10 @@ export const ContactCallToAction = () => {
         borderColor: 'divider',
       }}
     >
-      <Typography variant="h5" fontWeight="bold" mb={3}>
+      <Typography variant="h5" fontWeight="bold" color="primary.main" mb={3}>
         Precisa de Ajuda Jurídica?
       </Typography>
-      <Typography variant="body1" color="text.secondary" mb={4}>
+      <Typography variant="body1" color="primary.main" mb={4}>
         Nossa equipe está pronta para atender você com excelência e dedicação. Entre em contato e
         agende uma consulta personalizada.
       </Typography>

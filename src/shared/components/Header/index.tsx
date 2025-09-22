@@ -1,5 +1,8 @@
 'use client';
 
+import logo from '@/assets/logo/logo-32x32.png';
+import { Routes } from '@/config/routes';
+import { useHeader } from '@/shared/hooks';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import {
@@ -15,10 +18,7 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import logo from '@/assets/logo/logo-32x32.png';
-import { Routes } from '@/config/routes';
-import { useHeader } from '@/shared/hooks';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Map } from '../Map';
 import { Position } from './Position';
 
@@ -27,37 +27,44 @@ const Header: React.FC = () => {
   const router = useRouter();
   const { mode } = useHeader();
   const theme = useTheme();
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  const isMobile = useMemo(() => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), []);
 
   const [isMapOpen, setIsMapOpen] = useState(false);
 
-  const openMap = () => setIsMapOpen(true);
-  const closeMap = () => setIsMapOpen(false);
+  const openMap = useCallback(() => setIsMapOpen(true), []);
+  const closeMap = useCallback(() => setIsMapOpen(false), []);
 
-  const routes = [
-    {
-      label: 'Publicações',
-      route: Routes.Articles,
-    },
-    {
-      label: 'Nosso Espaço',
-      route: Routes.OurSpace,
-    },
-    {
-      label: 'Áreas de atuação',
-      route: Routes.OperationAreas,
-    },
-  ];
+  const routes = useMemo(
+    () => [
+      {
+        label: 'Publicações',
+        route: Routes.Articles,
+      },
+      {
+        label: 'Nosso Espaço',
+        route: Routes.OurSpace,
+      },
+      {
+        label: 'Áreas de atuação',
+        route: Routes.OperationAreas,
+      },
+    ],
+    [],
+  );
 
-  const goToPage = (route: string) => {
-    router.push(route);
-  };
+  const goToPage = useCallback(
+    (route: string) => {
+      router.push(route);
+    },
+    [router],
+  );
 
-  const goToHome = () => {
+  const goToHome = useCallback(() => {
     router.push(Routes.Home);
-  };
+  }, [router]);
 
-  const goToContact = () => {
+  const goToContact = useCallback(() => {
     const phoneNumber = process.env.NEXT_PUBLIC_CONTACT_PHONE;
     const message = 'Olá, sou um visitante do site!';
 
@@ -66,12 +73,11 @@ const Header: React.FC = () => {
         `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`,
         '_blank',
       );
-
       return;
     }
 
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-  };
+  }, [isMobile]);
 
   const isStatic = mode === 'static';
 

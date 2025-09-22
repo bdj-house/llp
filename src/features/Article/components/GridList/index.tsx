@@ -1,10 +1,10 @@
+import { Routes } from '@/config/routes';
+import { Article } from '@/sanity/types/schema';
+import { ErrorBoundary, If, OpacityCard } from '@/shared/components';
 import { Box, ButtonBase } from '@mui/material';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { Routes } from '@/config/routes';
-import { Article } from '@/sanity/types/schema';
-import { If, OpacityCard } from '@/shared/components';
+import { useCallback, useMemo, useState } from 'react';
 import { useLazyLoadArticles } from '../../hooks';
 import { PreviewItem } from '../PreviewItem';
 import { RedirectDialog } from '../RedirectDialog';
@@ -14,7 +14,7 @@ interface Props {
   paginatedProps: UseInfiniteQueryResult<
     InfiniteData<
       {
-        data: any;
+        data: Article[];
         nextPage: number | undefined;
       },
       unknown
@@ -26,14 +26,7 @@ interface Props {
 export const GridList: React.FC<Props> = ({ paginatedProps }) => {
   const router = useRouter();
 
-  const {
-    data,
-    hasNextPage,
-    isLoading,
-    fetchNextPage,
-    isFetching,
-    isRefetching,
-  } = paginatedProps;
+  const { data, hasNextPage, isLoading, fetchNextPage, isFetching, isRefetching } = paginatedProps;
 
   const { ref } = useLazyLoadArticles({
     hasNextPage,
@@ -47,22 +40,23 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
     return data?.pages.flatMap(page => page.data) ?? [];
   }, [data]);
 
-  const goToDetails = (item: Article) => {
-    if (item.sourceLink) {
-      setUrlRedirect(item.sourceLink ?? '');
-      return;
-    }
+  const goToDetails = useCallback(
+    (item: Article) => {
+      if (item.sourceLink) {
+        setUrlRedirect(item.sourceLink ?? '');
+        return;
+      }
 
-    router.push(`${Routes.Articles}/${item._id}`);
-  };
+      router.push(`${Routes.Articles}/${item._id}`);
+    },
+    [router],
+  );
 
-  const shouldShowSkeletons =
-    isLoading || (isFetching && data?.pages.length === 1) || isRefetching;
-  const shouldShowInfiniteSkeletons =
-    isFetching && (data?.pages?.length ?? 0) > 1;
+  const shouldShowSkeletons = isLoading || (isFetching && data?.pages.length === 1) || isRefetching;
+  const shouldShowInfiniteSkeletons = isFetching && (data?.pages?.length ?? 0) > 1;
 
   return (
-    <>
+    <ErrorBoundary>
       <Box
         display="grid"
         gridTemplateColumns="repeat(auto-fill, minmax(220px, 1fr))"
@@ -83,11 +77,8 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
                 gridRow: i === 0 ? 'span 2' : 'span 1',
               }}
             >
-              <ButtonBase
-                onClick={() => goToDetails(article)}
-                sx={{ width: '100%' }}
-              >
-                <PreviewItem article={article} isHighlight={i === 0} />
+              <ButtonBase onClick={() => goToDetails(article)} sx={{ width: '100%' }}>
+                <PreviewItem article={article} isHighlight={i === 0} index={i} />
               </ButtonBase>
             </OpacityCard>
           ))}
@@ -118,11 +109,7 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
         >
           <If condition={shouldShowInfiniteSkeletons}>
             {[...Array.from({ length: 2 })].map(() => (
-              <Box
-                key={`scroll-skeleton-${Math.random()}`}
-                gridColumn="span 1"
-                gridRow="span 1"
-              >
+              <Box key={`scroll-skeleton-${Math.random()}`} gridColumn="span 1" gridRow="span 1">
                 <SkeletonPreview />
               </Box>
             ))}
@@ -135,6 +122,6 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
         onClose={() => setUrlRedirect(undefined)}
         url={urlRedirect ?? ''}
       />
-    </>
+    </ErrorBoundary>
   );
 };

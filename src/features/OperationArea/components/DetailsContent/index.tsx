@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Fade, Typography, useTheme } from '@mui/material';
 import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
 import { OperationArea } from '../../types';
@@ -42,7 +42,7 @@ export const DetailsContent: React.FC<Props> = ({ operationArea }) => {
       ),
       normal: ({ children }: any) => {
         return (
-          <Typography variant="body1" mb={2} lineHeight={1.7} color="text.primary">
+          <Typography variant="body1" mb={2} fontSize={20} lineHeight={1.7} color="text.primary">
             {children}
           </Typography>
         );
@@ -77,8 +77,10 @@ export const DetailsContent: React.FC<Props> = ({ operationArea }) => {
   };
 
   return (
-    <Box mx="15%" my={36} maxWidth="800px">
-      <PortableText value={operationArea.content ?? []} components={components} />
-    </Box>
+    <Fade in timeout={500} key={operationArea._id}>
+      <Box my={12} maxWidth="800px">
+        <PortableText value={operationArea.content ?? []} components={components} />
+      </Box>
+    </Fade>
   );
 };

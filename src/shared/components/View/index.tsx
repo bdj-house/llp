@@ -12,6 +12,7 @@ interface Props {
     subject?: string;
   };
   id?: string;
+  isPageContainer?: boolean;
 }
 
 export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
@@ -19,6 +20,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
   customBg,
   header,
   id,
+  isPageContainer,
 }) => {
   const theme = useTheme();
 
@@ -37,9 +39,9 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
       maxWidth={false}
       sx={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: isPageContainer ? '100vh' : 'auto',
+        pt: isPageContainer ? 12 : 0,
         width: '98%',
-        pt: 12,
         bgcolor: theme.palette.background.paper,
         ...additionalProps,
       }}

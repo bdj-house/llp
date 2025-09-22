@@ -2,6 +2,7 @@ export * from './Animations';
 export * from './BaseDialog';
 export * from './Breadcrumb';
 export * from './Center';
+export * from './ErrorBoundary';
 export * from './Footer';
 export * from './Header';
 export * from './IconButton';

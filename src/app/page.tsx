@@ -1,7 +1,7 @@
 import { AboutScreen } from '@/features/About/screen';
 import { ArticleSummaryScreen } from '@/features/Article/screen';
 import { HomeScreen } from '@/features/Home/screen';
-import { OperationAreaSection } from '@/features/OperationArea/screen';
+import { OperationItemsSection } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import { allOperationAreasQuery, lastArticlesQuery } from '@/sanity/queries';
 import { Article } from '@/sanity/types/schema';
@@ -36,7 +36,7 @@ export default async function Page() {
     >
       <HomeScreen />
       <AboutScreen />
-      <OperationAreaSection operationAreas={operationAreas ?? []} />
+      <OperationItemsSection operationAreas={operationAreas ?? []} />
       <ArticleSummaryScreen articles={articles ?? []} />
     </Container>
   );

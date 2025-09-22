@@ -2,13 +2,15 @@
 
 import tempLogo from '@/assets/logo/temp-logo.png';
 import { OpacityCard, ViewContainer } from '@/shared/components';
-import { Box, Button, Chip, Container, Paper, Typography, useTheme } from '@mui/material';
+import { Box, Chip, Container, Paper, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
 import { ContactCallToAction, DetailsContent } from '../components';
 import { OperationArea } from '../types';
 
 interface Props {
   operationAreas: OperationArea[];
+  selectedAreaId?: string;
 }
 
 const title = 'Áreas de Atuação';
@@ -17,14 +19,44 @@ const subject = `Na Idalgo & Cortijo, priorizamos o seu sucesso e bem-estar. Que
         personalizada para cada caso.`;
 const subtitle = `Especializações`;
 
-export const OperationAreaScreen = ({ operationAreas }: Props) => {
+export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) => {
   const theme = useTheme();
 
-  const headerAreas = operationAreas.sort((a, b) => a.order - b.order).slice(0, 5);
+  // Initialize with selectedAreaId to ensure consistent server/client rendering
+  const [localSelectedId, setLocalSelectedId] = useState<string | null>(selectedAreaId || null);
+
+  // Set default selection after component mounts if no area is selected
+  useEffect(() => {
+    if (!localSelectedId && operationAreas.length > 0) {
+      setLocalSelectedId(operationAreas[0]._id);
+    }
+  }, [localSelectedId, operationAreas]);
+
+  const headerAreas = useMemo(
+    () => operationAreas.sort((a, b) => a.order - b.order).slice(0, 5),
+    [operationAreas],
+  );
+
+  const selectedArea = useMemo(
+    () => operationAreas.find(area => area._id === (localSelectedId || selectedAreaId)),
+    [operationAreas, localSelectedId, selectedAreaId],
+  );
+
+  const handleAreaClick = (areaId: string) => {
+    setLocalSelectedId(areaId);
+  };
 
   return (
-    <ViewContainer header={{ title, subtitle, subject }}>
-      <Container sx={{ py: 8 }}>
+    <ViewContainer header={{ title, subtitle, subject }} isPageContainer>
+      <Container
+        sx={{
+          py: 8,
+          justifyContent: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         <Box sx={{ mb: 8 }}>
           <Box
             sx={{
@@ -48,100 +80,113 @@ export const OperationAreaScreen = ({ operationAreas }: Props) => {
               },
             }}
           >
-            {headerAreas.map((area, index) => (
-              <Box
-                key={area._id}
-                sx={{
-                  minWidth: 280,
-                  flexShrink: 0,
-                }}
-              >
-                <OpacityCard index={index}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      height: 280,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: theme.shadows[8],
-                      },
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', height: '100%' }}>
-                      <Image
-                        src={area.image?.asset.url ?? tempLogo}
-                        alt={area.title}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                      />
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          background:
-                            'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
-                        }}
-                      />
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 16,
-                          left: 16,
-                        }}
-                      >
-                        <Chip
-                          label={area.category}
-                          size="small"
+            {headerAreas.map((area, index) => {
+              const isSelected = area._id === (localSelectedId || selectedAreaId);
+              return (
+                <Box
+                  key={area._id}
+                  sx={{
+                    minWidth: 280,
+                    flexShrink: 0,
+                  }}
+                >
+                  <OpacityCard index={index}>
+                    <Paper
+                      elevation={0}
+                      onClick={() => handleAreaClick(area._id)}
+                      sx={{
+                        height: isSelected ? 320 : 280,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        borderColor: isSelected ? 'primary.main' : 'transparent',
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                          boxShadow: theme.shadows[8],
+                        },
+                      }}
+                    >
+                      <Box sx={{ position: 'relative', height: '100%' }}>
+                        <Image
+                          src={area.image?.asset.url ?? tempLogo}
+                          alt={area.title}
+                          fill
+                          style={{ objectFit: 'cover' }}
+                        />
+                        <Box
                           sx={{
-                            bgcolor: 'rgba(255,255,255,0.9)',
-                            fontWeight: 'bold',
-                            fontSize: '0.7rem',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background:
+                              'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
                           }}
                         />
-                      </Box>
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          bottom: 16,
-                          left: 16,
-                          color: 'white',
-                        }}
-                      >
-                        <Typography variant="h6" fontWeight="bold" mb={1}>
-                          {area.title}
-                        </Typography>
-                        {area.highlight && (
-                          <Button
-                            variant="contained"
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 16,
+                            left: 16,
+                            right: 16,
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                          }}
+                        >
+                          <Chip
+                            label={area.category}
                             size="small"
                             sx={{
-                              bgcolor: 'secondary.main',
-                              color: 'white',
-                              '&:hover': {
-                                bgcolor: 'secondary.dark',
-                              },
+                              bgcolor: 'rgba(255,255,255,0.9)',
+                              fontWeight: 'bold',
+                              fontSize: '0.7rem',
                             }}
-                          >
-                            SABER MAIS
-                          </Button>
-                        )}
+                          />
+                        </Box>
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            bottom: 16,
+                            left: 16,
+                            color: 'white',
+                          }}
+                        >
+                          <Typography variant="h6" fontWeight="bold" mb={1}>
+                            {area.title}
+                          </Typography>
+                        </Box>
                       </Box>
-                    </Box>
-                  </Paper>
-                </OpacityCard>
-              </Box>
-            ))}
+                    </Paper>
+                  </OpacityCard>
+                </Box>
+              );
+            })}
           </Box>
         </Box>
 
-        <DetailsContent operationArea={operationAreas[0]} />
+        <Box
+          sx={{
+            minHeight: 400,
+            transition: 'all 0.5s ease-in-out',
+          }}
+        >
+          {selectedArea && (
+            <>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" fontWeight="bold" color="primary" mb={2}>
+                  {selectedArea.title}
+                </Typography>
+                <Typography variant="h6" color="text.secondary">
+                  {selectedArea.category}
+                </Typography>
+              </Box>
+              <DetailsContent key={selectedArea._id} operationArea={selectedArea} />
+            </>
+          )}
+        </Box>
 
         <ContactCallToAction />
       </Container>

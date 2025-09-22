@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface Props {
@@ -7,27 +7,42 @@ interface Props {
   fetchNextPage: () => void;
 }
 
-export const useLazyLoadArticles = ({
-  hasNextPage,
-  isLoading,
-  fetchNextPage,
-}: Props) => {
-  const { ref, inView } = useInView({ threshold: 1, triggerOnce: false });
+export const useLazyLoadArticles = ({ hasNextPage, isLoading, fetchNextPage }: Props) => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false,
+    rootMargin: '100px',
+  });
 
   const hasFetched = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout>(null);
 
-  useEffect(() => {
-    if (inView && hasNextPage && !isLoading) {
-      if (!hasFetched.current) {
+  const debouncedFetch = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      if (inView && hasNextPage && !isLoading && !hasFetched.current) {
         hasFetched.current = true;
         fetchNextPage();
-        const timeoutId = setTimeout(() => {
+
+        setTimeout(() => {
           hasFetched.current = false;
-        }, 500);
-        return () => clearTimeout(timeoutId);
+        }, 1000);
       }
-    }
+    }, 300);
   }, [inView, hasNextPage, isLoading, fetchNextPage]);
+
+  useEffect(() => {
+    debouncedFetch();
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [debouncedFetch]);
 
   return { ref };
 };
