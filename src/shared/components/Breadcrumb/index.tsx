@@ -1,7 +1,7 @@
+import { Routes } from '@/config/routes';
 import { ChevronRight, Home } from '@mui/icons-material';
 import { Box, ButtonBase, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { Routes } from '@/config/routes';
 
 interface Props {
   lastPage: {
