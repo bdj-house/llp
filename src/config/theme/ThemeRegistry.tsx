@@ -1,17 +1,23 @@
 'use client';
 
+import { Footer } from '@/shared/components';
+import Header from '@/shared/components/Header';
+import { HeaderProvider } from '@/shared/providers';
+import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useServerInsertedHTML } from 'next/navigation';
 import React from 'react';
-import { Footer } from '@/shared/components';
-import Header from '@/shared/components/Header';
-import { HeaderProvider } from '@/shared/providers';
-import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
 import theme from './theme';
 
-export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
+export default function ThemeRegistry({
+  children,
+  initialQueryState,
+}: {
+  children: React.ReactNode;
+  initialQueryState?: unknown;
+}) {
   const cache = React.useMemo(() => {
     const cache = createCache({ key: 'mui', prepend: true });
     cache.compat = true;
@@ -33,7 +39,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ReactQueryProvider>
+        <ReactQueryProvider initialState={initialQueryState}>
           <HeaderProvider>
             <Header />
             {children}

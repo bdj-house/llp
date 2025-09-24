@@ -2,7 +2,8 @@ import { sanityClient } from '@/sanity/lib/client';
 import { siteSettingsQuery } from '@/sanity/queries';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Dialog, DialogContent, IconButton, Toolbar, Typography } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
 import { CenterBox } from '../Center';
 import { If } from '../If';
 import { Spinner } from '../Spinner';
@@ -15,14 +16,12 @@ interface Props {
 export const Map: React.FC<Props> = ({ isOpen, close }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [mapUrl, setMapUrl] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    sanityClient
-      .fetch(siteSettingsQuery)
-      .then((s: any) => setMapUrl(s?.googleMapUrl))
-      .catch(() => undefined);
-  }, []);
+  const { data: settings } = useQuery<any>({
+    queryKey: ['siteSettings'],
+    queryFn: () => sanityClient.fetch(siteSettingsQuery),
+    staleTime: 60 * 60 * 1000,
+  });
+  const mapUrl = settings?.googleMapUrl as string | undefined;
 
   const Loading = useMemo(
     () => (

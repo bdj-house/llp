@@ -16,7 +16,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export const Footer = () => {
   const theme = useTheme();
@@ -24,14 +24,11 @@ export const Footer = () => {
 
   const isHidden = mode === 'hidden';
 
-  const [settings, setSettings] = useState<any>(null);
-
-  useEffect(() => {
-    sanityClient
-      .fetch(siteSettingsQuery)
-      .then(setSettings)
-      .catch(() => undefined);
-  }, []);
+  const { data: settings } = useQuery<any>({
+    queryKey: ['siteSettings'],
+    queryFn: () => sanityClient.fetch(siteSettingsQuery),
+    staleTime: 60 * 60 * 1000,
+  });
 
   if (isHidden) {
     return null;
