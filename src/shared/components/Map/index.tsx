@@ -72,7 +72,7 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
             mb: 2,
           }}
         >
-          <If condition={!isLoading && !hasError}>{Loading}</If>
+          <If condition={isLoading && !hasError}>{Loading}</If>
 
           <If sx={{ height: '100%' }} condition={hasError} elseRender={GoogleMap}>
             {Error}

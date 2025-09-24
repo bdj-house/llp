@@ -42,7 +42,7 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
 
   return (
     <ViewContainer header={{ title, subtitle, subject }}>
-      <Container sx={{ height: '90vh', placeItems: 'center', py: 18 }}>
+      <Container sx={{ height: '90vh', py: 18 }}>
         <Grid container spacing={2} justifyContent="center">
           {areas.map((area, index) => {
             const isSelected = area._id === selectedId;
