@@ -1,7 +1,5 @@
 'use client';
 
-import Woman1 from '@/assets/images/woman-1.jpg';
-import Woman2 from '@/assets/images/woman-2.jpg';
 import { OpacityCard, ViewContainer } from '@/shared/components';
 import {
   Close as CloseIcon,
@@ -23,101 +21,34 @@ import {
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
-const associates = [
-  {
-    name: 'Dra. Kátia Idalgo',
-    role: 'Advogada Sócia',
-    history: `Kátia começou sua trajetória jurídica em escritórios de médio porte, 
-      onde atuou em casos complexos de Direito Civil, especialmente relacionados a 
-      sucessões e disputas patrimoniais. Ao longo dos anos, consolidou sua 
-      reputação pela capacidade de unir técnica e sensibilidade no trato com as 
-      famílias, orientando clientes em momentos decisivos e delicados. Participou 
-      de cursos de especialização em resolução de conflitos e mediação familiar, 
-      o que lhe proporcionou uma abordagem mais humanizada e estratégica. Sua 
-      experiência como sócia do escritório reflete não apenas conhecimento técnico, 
-      mas também liderança na construção de uma advocacia próxima e transparente.`,
-    description: `Especialista em Direito Civil e Família, com mais de 10 anos de 
-      experiência em soluções jurídicas personalizadas e atendimento humanizado.`,
-    graduation: 'Graduada em Direito pela Universidade de São Paulo',
-    imageCover: Woman1,
-    imageProfile: Woman1,
-    email: 'katia@gmail.com',
-    linkedin: 'https://linkedin.com/in/katia-idalgo',
-    whatsapp: 'https://wa.me/5519999999999',
-    reverse: false,
-  },
-  {
-    name: 'Dra. Mariana Cortijo',
-    role: 'Advogada Sócia',
-    history: `Mariana iniciou sua carreira assessorando sindicatos e empresas em 
-      processos trabalhistas, o que lhe garantiu experiência prática em negociações 
-      coletivas e disputas de grande impacto. Posteriormente, ampliou sua atuação 
-      para o Direito Previdenciário, acompanhando centenas de clientes em busca de 
-      benefícios e revisões, sempre com ênfase em clareza e orientação didática. 
-      Além da prática de litígios, tem se dedicado a consultorias preventivas, 
-      ajudando empresas e trabalhadores a compreenderem seus direitos e deveres. 
-      Sua atuação como sócia representa o compromisso com a justiça social e com 
-      a acessibilidade da informação jurídica para todos os públicos.
-      
-      Mariana iniciou sua carreira assessorando sindicatos e empresas em 
-      processos trabalhistas, o que lhe garantiu experiência prática em negociações 
-      coletivas e disputas de grande impacto. Posteriormente, ampliou sua atuação 
-      para o Direito Previdenciário, acompanhando centenas de clientes em busca de 
-      benefícios e revisões, sempre com ênfase em clareza e orientação didática. 
-      Além da prática de litígios, tem se dedicado a consultorias preventivas, 
-      ajudando empresas e trabalhadores a compreenderem seus direitos e deveres. 
-      Sua atuação como sócia representa o compromisso com a justiça social e com 
-      a acessibilidade da informação jurídica para todos os públicos.
-      
-      Mariana iniciou sua carreira assessorando sindicatos e empresas em 
-      processos trabalhistas, o que lhe garantiu experiência prática em negociações 
-      coletivas e disputas de grande impacto. Posteriormente, ampliou sua atuação 
-      para o Direito Previdenciário, acompanhando centenas de clientes em busca de 
-      benefícios e revisões, sempre com ênfase em clareza e orientação didática. 
-      Além da prática de litígios, tem se dedicado a consultorias preventivas, 
-      ajudando empresas e trabalhadores a compreenderem seus direitos e deveres. 
-      Sua atuação como sócia representa o compromisso com a justiça social e com 
-      a acessibilidade da informação jurídica para todos os públicos.
-      
-      Mariana iniciou sua carreira assessorando sindicatos e empresas em 
-      processos trabalhistas, o que lhe garantiu experiência prática em negociações 
-      coletivas e disputas de grande impacto. Posteriormente, ampliou sua atuação 
-      para o Direito Previdenciário, acompanhando centenas de clientes em busca de 
-      benefícios e revisões, sempre com ênfase em clareza e orientação didática. 
-      Além da prática de litígios, tem se dedicado a consultorias preventivas, 
-      ajudando empresas e trabalhadores a compreenderem seus direitos e deveres. 
-      Sua atuação como sócia representa o compromisso com a justiça social e com 
-      a acessibilidade da informação jurídica para todos os públicos.
-      
-      Mariana iniciou sua carreira assessorando sindicatos e empresas em 
-      processos trabalhistas, o que lhe garantiu experiência prática em negociações 
-      coletivas e disputas de grande impacto. Posteriormente, ampliou sua atuação 
-      para o Direito Previdenciário, acompanhando centenas de clientes em busca de 
-      benefícios e revisões, sempre com ênfase em clareza e orientação didática. 
-      Além da prática de litígios, tem se dedicado a consultorias preventivas, 
-      ajudando empresas e trabalhadores a compreenderem seus direitos e deveres. 
-      Sua atuação como sócia representa o compromisso com a justiça social e com 
-      a acessibilidade da informação jurídica para todos os públicos.
-      
-      `,
-    description: `Atua com foco em Direito Trabalhista e Previdenciário, 
-      promovendo justiça e orientação clara para seus clientes.`,
-    graduation: 'Graduada em Direito pela Universidade de São Paulo',
-    imageCover: Woman2,
-    imageProfile: Woman2,
-    email: 'mariana@gmail.com',
-    linkedin: 'https://linkedin.com/in/mariana-cortijo',
-    whatsapp: 'https://wa.me/5519999999999',
-    reverse: true,
-  },
-];
+type Associate = {
+  name: string;
+  role: string;
+  history?: string;
+  description?: string;
+  graduation?: string;
+  imageCover?: string;
+  imageProfile?: string;
+  email?: string;
+  linkedin?: string;
+  whatsapp?: string;
+};
 
-export const AboutScreen = () => {
+interface Props {
+  associates: Associate[];
+  sectionInfo: {
+    title: string;
+    subtitle: string;
+    subject: string;
+  };
+}
+
+export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-  const selectedAssociate = useMemo(() => associates[selectedIndex], [selectedIndex]);
+  const selectedAssociate = useMemo(() => associates[selectedIndex], [selectedIndex, associates]);
 
   const handleOpen = (index: number) => {
     setSelectedIndex(index);
@@ -135,22 +66,22 @@ export const AboutScreen = () => {
   return (
     <ViewContainer
       header={{
-        title: 'Quem somos',
-        subtitle: 'Equipe',
-        subject: 'Conheça nossas especialistas',
+        title: sectionInfo.title,
+        subtitle: sectionInfo.subtitle,
+        subject: sectionInfo.subject,
       }}
       customBg
       id="our-team"
     >
       <Box display="flex" flexDirection="column">
-        {associates.map(({ name, role, description, imageCover, reverse }, index) => (
-          <OpacityCard key={name} index={index}>
+        {associates.map(({ name, role, description, imageCover }, index) => (
+          <OpacityCard key={`${name}-${index}`} index={index}>
             <Grid
               container
               spacing={3}
               direction={{
                 xs: 'column',
-                md: reverse ? 'row-reverse' : 'row',
+                md: index % 2 !== 0 ? 'row-reverse' : 'row',
               }}
               alignItems="center"
               py={6}
@@ -159,7 +90,7 @@ export const AboutScreen = () => {
               <Grid size={3}>
                 <Avatar
                   alt={name}
-                  src={imageCover.src}
+                  src={imageCover}
                   sx={{
                     width: 240,
                     height: 240,
@@ -250,7 +181,13 @@ export const AboutScreen = () => {
             }}
           >
             <Box position="relative" flex={1}>
-              <Image src={selectedAssociate?.imageProfile.src} alt={selectedAssociate?.name} fill />
+              {selectedAssociate?.imageProfile && (
+                <Image
+                  src={selectedAssociate?.imageProfile}
+                  alt={selectedAssociate?.name ?? ''}
+                  fill
+                />
+              )}
             </Box>
 
             <Box sx={{ padding: 4, flex: 1, overflowY: 'auto' }}>

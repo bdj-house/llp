@@ -1,8 +1,6 @@
-import main5 from '@/assets/images/main-5.png';
-import main6 from '@/assets/images/main-6.png';
-import test2 from '@/assets/images/test-2.jpg';
-import woman1 from '@/assets/images/woman-1.jpg';
 import OurSpaceScreen from '@/features/OurSpace/screen';
+import { sanityClient } from '@/sanity/lib/client';
+import { ourSpacePageQuery } from '@/sanity/queries';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,6 +9,24 @@ export const metadata: Metadata = {
     'Conheça nosso escritório: um ambiente acolhedor e preparado para atendê-lo com excelência e privacidade, em Piracicaba - SP.',
 };
 
-export default function OurSpacePage() {
-  return <OurSpaceScreen images={{ main5, main6, test2, woman1 }} />;
+export default async function OurSpacePage() {
+  const data = await sanityClient.fetch(ourSpacePageQuery);
+
+  return (
+    <OurSpaceScreen
+      header={{
+        title: data?.headerTitle,
+        subtitle: data?.headerSubtitle,
+        subject: data?.headerSubject,
+      }}
+      gallery={data?.gallery?.map((g: { url: string }) => g.url) ?? []}
+      section={{
+        title: data?.sectionTitle,
+        paragraphs: data?.sectionParagraphs ?? [],
+      }}
+      address={data?.address}
+      hours={data?.hours}
+      contact={{ label: data?.contactButtonLabel, url: data?.contactButtonUrl }}
+    />
+  );
 }

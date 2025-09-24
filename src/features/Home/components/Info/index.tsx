@@ -1,10 +1,15 @@
+import { IconButton } from '@/shared/components';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
-import testImage from '@/assets/logo/temp-logo.png';
-import { IconButton } from '@/shared/components';
 
-export const Info = () => {
+interface Props {
+  logoUrl?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
   const goToOurTeam = () => {
     const section = document.getElementById('our-team');
     section?.scrollIntoView({ behavior: 'smooth' });
@@ -18,22 +23,25 @@ export const Info = () => {
         justifyContent: 'center',
         display: 'flex',
         flexDirection: 'column',
+        width: '80%',
       }}
     >
       <Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', ml: 12 }}>
-          <Image src={testImage} alt="Logo" width={480} height={280} />
+        <Box sx={{ display: 'flex', flexDirection: 'column', ml: 4 }}>
+          {logoUrl && <Image src={logoUrl} alt="Logo" width={480} height={280} />}
         </Box>
 
-        <Typography variant="h5" color="secondary">
-          Excelência em cada detalhe
-        </Typography>
+        {!!title && (
+          <Typography variant="h5" color="secondary">
+            {title}
+          </Typography>
+        )}
 
-        <Typography variant="h6" color="textSecondary" mt={2}>
-          Conheça um escritório pensado para inspirar confiança conforto e resultados
-          <br />
-          de alto nível.
-        </Typography>
+        {!!subtitle && (
+          <Typography variant="h6" color="textSecondary" mt={2}>
+            {subtitle}
+          </Typography>
+        )}
       </Box>
 
       <Box sx={{ position: 'absolute', left: 0, bottom: '15%' }}>

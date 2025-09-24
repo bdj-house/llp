@@ -1,7 +1,8 @@
-import { googleMapUrl } from '@/shared/constants';
+import { sanityClient } from '@/sanity/lib/client';
+import { siteSettingsQuery } from '@/sanity/queries';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Dialog, DialogContent, IconButton, Toolbar, Typography } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CenterBox } from '../Center';
 import { If } from '../If';
 import { Spinner } from '../Spinner';
@@ -14,6 +15,14 @@ interface Props {
 export const Map: React.FC<Props> = ({ isOpen, close }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [mapUrl, setMapUrl] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(siteSettingsQuery)
+      .then((s: any) => setMapUrl(s?.googleMapUrl))
+      .catch(() => undefined);
+  }, []);
 
   const Loading = useMemo(
     () => (
@@ -45,12 +54,12 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
         style={{ border: 0 }}
         allowFullScreen
         sandbox="allow-same-origin allow-popups allow-scripts"
-        src={googleMapUrl}
+        src={mapUrl}
         onLoad={() => setIsLoading(false)}
         onError={() => setHasError(true)}
       />
     ),
-    [],
+    [mapUrl],
   );
 
   return (

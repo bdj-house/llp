@@ -1,8 +1,12 @@
 import { Box } from '@mui/material';
 import Image from 'next/image';
-import testImage from '@/assets/images/main-6.png';
 
-export const Art = () => {
+interface Props {
+  imageUrl?: string;
+}
+
+export const Art: React.FC<Props> = ({ imageUrl }) => {
+  console.log('imageUrl', imageUrl);
   return (
     <Box
       sx={{
@@ -12,13 +16,15 @@ export const Art = () => {
         mx: 'auto',
       }}
     >
-      <Image
-        src={testImage}
-        alt="Logo"
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-        style={{ objectFit: 'contain' }}
-      />
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt="Imagem principal"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          style={{ objectFit: 'contain' }}
+        />
+      )}
     </Box>
   );
 };

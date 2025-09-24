@@ -2,27 +2,35 @@
 
 import { ViewContainer } from '@/shared/components';
 import { Box, Button, Container, Paper, Typography } from '@mui/material';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface Props {
-  images: {
-    main5: StaticImageData;
-    main6: StaticImageData;
-    test2: StaticImageData;
-    woman1: StaticImageData;
-  };
+  header: { title?: string; subtitle?: string; subject?: string };
+  gallery: string[];
+  section: { title?: string; paragraphs: string[] };
+  address?: string;
+  hours?: string;
+  contact?: { label?: string; url?: string };
 }
 
-export default function OurSpaceScreen({ images }: Props) {
+export default function OurSpaceScreen({
+  header,
+  gallery,
+  section,
+  address,
+  hours,
+  contact,
+}: Props) {
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   return (
     <ViewContainer
       header={{
-        title: 'Nosso Espaço',
-        subtitle: 'Conheça o escritório',
+        title: header?.title || 'Nosso Espaço',
+        subtitle: header?.subtitle || 'Conheça o escritório',
         subject:
+          header?.subject ||
           'Um ambiente pensado para oferecer conforto, privacidade e a melhor experiência durante o seu atendimento.',
       }}
       isPageContainer
@@ -41,12 +49,14 @@ export default function OurSpaceScreen({ images }: Props) {
               elevation={0}
               sx={{ position: 'relative', height: { xs: 260, md: 420 }, overflow: 'hidden' }}
             >
-              <Image
-                src={images.main5}
-                alt="Recepção do escritório"
-                fill
-                style={{ objectFit: 'cover' }}
-              />
+              {gallery?.[0] && (
+                <Image
+                  src={gallery[0]}
+                  alt="Recepção do escritório"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              )}
             </Paper>
           </Box>
           <Box>
@@ -59,20 +69,24 @@ export default function OurSpaceScreen({ images }: Props) {
               }}
             >
               <Paper elevation={0} sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-                <Image
-                  src={images.main6}
-                  alt="Sala de atendimento"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {gallery?.[1] && (
+                  <Image
+                    src={gallery[1]}
+                    alt="Sala de atendimento"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
               </Paper>
               <Paper elevation={0} sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-                <Image
-                  src={images.test2}
-                  alt="Detalhes do ambiente"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {gallery?.[2] && (
+                  <Image
+                    src={gallery[2]}
+                    alt="Detalhes do ambiente"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
               </Paper>
             </Box>
           </Box>
@@ -94,17 +108,13 @@ export default function OurSpaceScreen({ images }: Props) {
               gutterBottom
               fontSize={24}
             >
-              Um espaço pensado para acolher você
+              {section?.title || 'Um espaço pensado para acolher você'}
             </Typography>
-            <Typography variant="body1" color="text.secondary" paragraph fontSize={18}>
-              Nosso escritório foi cuidadosamente projetado para oferecer conforto, segurança e
-              privacidade. Cada detalhe foi pensado para proporcionar uma experiência acolhedora,
-              com ambientes modernos e funcionais, ideais para conversas claras e objetivas.
-            </Typography>
-            <Typography variant="body1" color="text.secondary" fontSize={18}>
-              Estamos prontos para recebê-lo com atenção e profissionalismo, proporcionando
-              tranquilidade em cada etapa do seu atendimento.
-            </Typography>
+            {section?.paragraphs?.map((p, i) => (
+              <Typography key={i} variant="body1" color="text.secondary" paragraph fontSize={18}>
+                {p}
+              </Typography>
+            ))}
           </Box>
 
           <Box>
@@ -113,22 +123,24 @@ export default function OurSpaceScreen({ images }: Props) {
                 Endereço
               </Typography>
               <Typography variant="h6" fontWeight={600} gutterBottom>
-                R. Dr. Otávio Teixeira Mendes, 1947 – Alto, Piracicaba – SP
+                {address}
               </Typography>
               <Typography variant="subtitle2" color="text.secondary" sx={{ mt: 2 }}>
                 Atendimento
               </Typography>
-              <Typography variant="body1">Segunda a Sexta, 9h às 18h</Typography>
+              <Typography variant="body1">{hours}</Typography>
               <Box sx={{ display: 'flex', gap: 2, mt: 3, flexWrap: 'wrap' }}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  href="https://wa.me/5519999999999"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Fale conosco
-                </Button>
+                {contact?.url && (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    href={contact.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {contact?.label || 'Fale conosco'}
+                  </Button>
+                )}
               </Box>
             </Paper>
           </Box>

@@ -1,5 +1,8 @@
 'use client';
 
+import { sanityClient } from '@/sanity/lib/client';
+import { siteSettingsQuery } from '@/sanity/queries';
+import { useHeader } from '@/shared/hooks';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -13,9 +16,26 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export const Footer = () => {
   const theme = useTheme();
+  const { mode } = useHeader();
+
+  const isHidden = mode === 'hidden';
+
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(siteSettingsQuery)
+      .then(setSettings)
+      .catch(() => undefined);
+  }, []);
+
+  if (isHidden) {
+    return null;
+  }
 
   return (
     <Box bgcolor={theme.palette.background.default} py={6} zIndex={999}>
@@ -23,28 +43,28 @@ export const Footer = () => {
         <Grid container spacing={4} justifyContent="space-between" alignItems="flex-start">
           <Grid size={4}>
             <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-              Idalgo & Cortijo
+              {settings?.siteName || 'Idalgo & Cortijo'}
             </Typography>
             <Link
-              href="mailto:contato@idalgocortijo.com"
+              href={settings?.email ? `mailto:${settings?.email}` : undefined}
               underline="hover"
               color="text.primary"
               sx={{ textUnderlineOffset: 4 }}
             >
-              contato@idalgocortijo.com
+              {settings?.email || 'contato@idalgocortijo.com'}
             </Link>
             <Typography variant="body1" mt={1} color="textSecondary">
               <Link
-                href="tel:+5519912345678"
+                href={settings?.phone ? `tel:${settings?.phone}` : undefined}
                 underline="hover"
                 color="text.primary"
                 sx={{ textUnderlineOffset: 4 }}
               >
-                (19) 91234-5678
+                {settings?.phone || '(19) 91234-5678'}
               </Link>
             </Typography>
             <Typography variant="caption" color="textSecondary">
-              Seg - Sex, 9h às 17h
+              {settings?.businessHours || 'Seg - Sex, 9h às 17h'}
             </Typography>
           </Grid>
 
@@ -115,13 +135,25 @@ export const Footer = () => {
           </Typography>
 
           <Box display="flex" gap={1}>
-            <IconButton href="https://facebook.com" target="_blank" size="small">
+            <IconButton
+              href={settings?.social?.facebook || 'https://facebook.com'}
+              target="_blank"
+              size="small"
+            >
               <FacebookIcon fontSize="small" />
             </IconButton>
-            <IconButton href="https://linkedin.com" target="_blank" size="small">
+            <IconButton
+              href={settings?.social?.linkedin || 'https://linkedin.com'}
+              target="_blank"
+              size="small"
+            >
               <LinkedInIcon fontSize="small" />
             </IconButton>
-            <IconButton href="https://instagram.com" target="_blank" size="small">
+            <IconButton
+              href={settings?.social?.instagram || 'https://instagram.com'}
+              target="_blank"
+              size="small"
+            >
               <InstagramIcon fontSize="small" />
             </IconButton>
           </Box>
