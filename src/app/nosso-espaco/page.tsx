@@ -1,14 +1,9 @@
 import OurSpaceScreen from '@/features/OurSpace/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import { ourSpacePageQuery, siteSettingsQuery } from '@/sanity/queries';
-import type {
-  SanityImageAsset,
-  OurSpacePage as SanityOurSpacePage,
-  SanityReference,
-} from '@/sanity/types/schema';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: 'Nosso Espaço | Idalgo Cortijo',
   description:
     'Conheça nosso escritório: um ambiente acolhedor e preparado para atendê-lo com excelência e privacidade, em Piracicaba - SP.',
@@ -33,8 +28,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+type SanityOurSpacePage = {
+  gallery: { url: string }[];
+  headerTitle: string;
+  headerSubtitle: string;
+  headerSubject: string;
+  sectionTitle: string;
+  sectionParagraphs: string[];
+  address: string;
+  hours: string;
+  contactButtonLabel: string;
+  contactButtonUrl: string;
+};
+
 export default async function OurSpacePage() {
   const data = await sanityClient.fetch<SanityOurSpacePage>(ourSpacePageQuery);
+
+  const gallery = data?.gallery?.map(s => s.url) ?? [];
 
   return (
     <OurSpaceScreen
@@ -43,12 +53,7 @@ export default async function OurSpacePage() {
         subtitle: data?.headerSubtitle,
         subject: data?.headerSubject,
       }}
-      gallery={
-        data?.gallery?.map(
-          (g: { _type: 'image'; asset: SanityReference<SanityImageAsset> }) =>
-            (g.asset as unknown as SanityImageAsset).url,
-        ) ?? []
-      }
+      gallery={gallery}
       section={{
         title: data?.sectionTitle,
         paragraphs: data?.sectionParagraphs ?? [],

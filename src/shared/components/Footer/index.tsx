@@ -1,8 +1,8 @@
 'use client';
 
 import { sanityClient } from '@/sanity/lib/client';
-import { siteSettingsQuery } from '@/sanity/queries';
-import type { SiteSettings } from '@/sanity/types/schema';
+import { operationAreasForFooterQuery, siteSettingsQuery } from '@/sanity/queries';
+import type { OperationArea, SiteSettings } from '@/sanity/types/schema';
 import { useHeader } from '@/shared/hooks';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -28,6 +28,15 @@ export const Footer = () => {
   const { data: settings } = useQuery<SiteSettings>({
     queryKey: ['siteSettings'],
     queryFn: () => sanityClient.fetch(siteSettingsQuery),
+    staleTime: 60 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+
+  const { data: operationAreas } = useQuery<OperationArea[]>({
+    queryKey: ['operationAreasForFooter'],
+    queryFn: () => sanityClient.fetch(operationAreasForFooterQuery),
     staleTime: 60 * 60 * 1000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -75,26 +84,18 @@ export const Footer = () => {
             </Typography>
             <Grid container spacing={1}>
               <Grid size={6}>
-                <Typography variant="body2" color="textSecondary">
-                  Direito Civil
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Direito Trabalhista
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Direito Previdenciário
-                </Typography>
+                {operationAreas?.slice(0, 3).map(area => (
+                  <Typography key={area._id} variant="body2" color="textSecondary">
+                    {area.title}
+                  </Typography>
+                ))}
               </Grid>
               <Grid size={6}>
-                <Typography variant="body2" color="textSecondary">
-                  Família e Sucessões
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Consumidor
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Contratos
-                </Typography>
+                {operationAreas?.slice(3, 6).map(area => (
+                  <Typography key={area._id} variant="body2" color="textSecondary">
+                    {area.title}
+                  </Typography>
+                ))}
               </Grid>
             </Grid>
           </Grid>
@@ -108,7 +109,7 @@ export const Footer = () => {
                 href="/publicacoes"
                 underline="hover"
                 color="textSecondary"
-                sx={{ py: 1, px: 1, display: 'inline-block' }}
+                sx={{ py: 1, display: 'inline-block' }}
               >
                 Publicações
               </Link>
@@ -118,7 +119,7 @@ export const Footer = () => {
                 href="/nosso-espaco"
                 underline="hover"
                 color="textSecondary"
-                sx={{ py: 1, px: 1, display: 'inline-block' }}
+                sx={{ py: 1, display: 'inline-block' }}
               >
                 Nosso Espaço
               </Link>
@@ -128,7 +129,7 @@ export const Footer = () => {
                 href="/contato"
                 underline="hover"
                 color="inherit"
-                sx={{ py: 1, px: 1, display: 'inline-block' }}
+                sx={{ py: 1, display: 'inline-block' }}
               >
                 Contato
               </Link>

@@ -2,8 +2,7 @@
 
 import { ViewContainer } from '@/shared/components';
 import { Box, Button, Container, Paper, Typography } from '@mui/material';
-import Image from 'next/image';
-import { useState } from 'react';
+import { Gallery } from '../components';
 
 interface Props {
   header: { title?: string; subtitle?: string; subject?: string };
@@ -22,8 +21,6 @@ export default function OurSpaceScreen({
   hours,
   contact,
 }: Props) {
-  const [isMapOpen, setIsMapOpen] = useState(false);
-
   return (
     <ViewContainer
       header={{
@@ -36,61 +33,7 @@ export default function OurSpaceScreen({
       isPageContainer
     >
       <Container sx={{ py: 8 }}>
-        <Box
-          sx={{
-            display: 'grid',
-            alignItems: 'stretch',
-            gap: 4,
-            gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' },
-          }}
-        >
-          <Box>
-            <Paper
-              elevation={0}
-              sx={{ position: 'relative', height: { xs: 260, md: 420 }, overflow: 'hidden' }}
-            >
-              {gallery?.[0] && (
-                <Image
-                  src={gallery[0]}
-                  alt="Recepção do escritório"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              )}
-            </Paper>
-          </Box>
-          <Box>
-            <Box
-              sx={{
-                display: 'grid',
-                gap: 3,
-                height: '100%',
-                gridTemplateColumns: { xs: '1fr 1fr', md: '1fr' },
-              }}
-            >
-              <Paper elevation={0} sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-                {gallery?.[1] && (
-                  <Image
-                    src={gallery[1]}
-                    alt="Sala de atendimento"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                )}
-              </Paper>
-              <Paper elevation={0} sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-                {gallery?.[2] && (
-                  <Image
-                    src={gallery[2]}
-                    alt="Detalhes do ambiente"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                )}
-              </Paper>
-            </Box>
-          </Box>
-        </Box>
+        <Gallery images={gallery || []} altText="Nosso espaço" />
         <Box
           sx={{
             display: 'grid',

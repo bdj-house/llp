@@ -45,3 +45,9 @@ export const operationAreaByIdQuery = `*[_type == "operationArea" && _id == $id]
   highlight,
   order
 }`;
+
+export const operationAreasForFooterQuery = `*[_type == "operationArea"] | order(order asc) {
+  _id,
+  title,
+  category
+}`;
