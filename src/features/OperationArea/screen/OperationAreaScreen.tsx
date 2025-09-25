@@ -86,13 +86,13 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
             {headerAreas.map((area, index) => {
               const isSelected = area._id === (localSelectedId || selectedAreaId);
               return (
-                <Box key={area._id} sx={{ minWidth: 280, flexShrink: 0 }}>
+                <Box key={area._id} sx={{ minWidth: { xs: 140, md: 280 }, flexShrink: 0 }}>
                   <OpacityCard index={index}>
                     <Paper
                       elevation={0}
                       onClick={() => handleAreaClick(area._id)}
                       sx={{
-                        height: isSelected ? 320 : 280,
+                        height: isSelected ? { xs: 160, md: 320 } : { xs: 140, md: 280 },
                         position: 'relative',
                         overflow: 'hidden',
                         cursor: 'pointer',

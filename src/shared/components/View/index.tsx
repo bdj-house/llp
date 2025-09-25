@@ -40,8 +40,9 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
       sx={{
         position: 'relative',
         minHeight: isPageContainer ? '100vh' : 'auto',
-        pt: isPageContainer ? 12 : 0,
-        width: '98%',
+        pt: isPageContainer ? { xs: 8, md: 12 } : 0,
+        width: { xs: '100%', md: '98%' },
+        px: { xs: 2, md: 0 },
         bgcolor: theme.palette.background.paper,
         ...additionalProps,
       }}
@@ -50,7 +51,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
       <If condition={!!header}>
         <Box
           sx={{
-            px: 18,
+            px: { xs: 2, md: 18 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -62,7 +63,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
             variant="caption"
             fontWeight={600}
             gutterBottom
-            sx={{ px: 2, pb: 1, fontSize: '1em' }}
+            sx={{ px: { xs: 6, md: 2 }, pb: 1, fontSize: '1em' }}
           >
             {header?.subtitle}
           </Typography>

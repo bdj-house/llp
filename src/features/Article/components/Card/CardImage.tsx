@@ -18,7 +18,14 @@ export const CardImage: React.FC<Props> = ({ article, alt, height, width }) => {
   }, [article, height, width]);
 
   return (
-    <Box sx={{ position: 'relative', height, width }}>
+    <Box
+      sx={{
+        position: 'relative',
+        height: { xs: 200, md: height },
+        width: { xs: '100%', md: width },
+        flex: { xs: '0 0 auto', md: 'none' },
+      }}
+    >
       <Image
         src={imageSource}
         alt={alt}
@@ -29,7 +36,7 @@ export const CardImage: React.FC<Props> = ({ article, alt, height, width }) => {
           borderBottomLeftRadius: 18,
           borderTopRightRadius: 12,
           borderBottomRightRadius: 12,
-          objectFit: 'contain',
+          objectFit: 'cover',
         }}
       />
     </Box>

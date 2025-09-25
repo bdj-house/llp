@@ -17,6 +17,7 @@ import {
   Grid,
   IconButton,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import Image from 'next/image';
@@ -41,6 +42,9 @@ interface Props {
 
 export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
   const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -81,22 +85,22 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
               }}
               alignItems="center"
               py={6}
-              px={36}
+              px={isMobile ? 2 : 36}
             >
-              <Grid size={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <Avatar
                   alt={name}
                   src={imageCover}
                   sx={{
-                    width: 240,
-                    height: 240,
+                    width: { xs: 200, md: 240 },
+                    height: { xs: 200, md: 240 },
                     mx: 'auto',
                     boxShadow: 3,
                   }}
                 />
               </Grid>
 
-              <Grid size={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
                   {name}
                 </Typography>
@@ -176,78 +180,106 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
               borderTopLeftRadius: 12,
               borderTopRightRadius: 12,
               bgcolor: 'background.paper',
-              display: 'flex',
-              flexDirection: 'row',
+              overflow: 'hidden',
             }}
           >
-            <Box position="relative" flex={1}>
-              {selectedAssociate?.imageProfile && (
-                <Image
-                  src={selectedAssociate?.imageProfile}
-                  alt={selectedAssociate?.name ?? ''}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: 'cover' }}
-                />
-              )}
-            </Box>
-
-            <Box sx={{ padding: 4, flex: 1, overflowY: 'auto' }}>
-              <Typography variant="h5" fontWeight="bold" color="primary" gutterBottom>
-                {selectedAssociate?.name}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="secondary"
-                fontSize={18}
-                fontWeight={700}
-                gutterBottom
+            <Box
+              sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                overflowY: { xs: 'auto', md: 'hidden' },
+              }}
+            >
+              <Box
+                position="relative"
+                flex={1}
+                sx={{
+                  height: { xs: '40vh', md: '100%' },
+                  minHeight: { xs: '300px', md: '100%' },
+                }}
               >
-                {selectedAssociate?.role}
-              </Typography>
-              <Typography variant="body1" color="text.secondary" mb={2}>
-                {selectedAssociate?.graduation}
-              </Typography>
-
-              <Divider sx={{ my: 1 }} />
-
-              <Box width="70%">
-                <Typography variant="body1" fontSize={20} mt={2} color="text.secondary">
-                  {selectedAssociate?.history}
-                </Typography>
+                {selectedAssociate?.imageProfile && (
+                  <Image
+                    src={selectedAssociate?.imageProfile}
+                    alt={selectedAssociate?.name ?? ''}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
               </Box>
 
-              <Box display="flex" gap={2} mt={3} justifyContent="flex-end">
-                <IconButton
-                  component="a"
-                  href={`mailto:${selectedAssociate?.email}`}
-                  aria-label="Enviar e-mail"
-                  sx={{ '&:hover': { color: theme.palette.primary.main } }}
+              <Box
+                sx={{
+                  padding: 4,
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflowY: { xs: 'visible', md: 'auto' },
+                }}
+              >
+                <Typography variant="h5" fontWeight="bold" color="primary" gutterBottom>
+                  {selectedAssociate?.name}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="secondary"
+                  fontSize={18}
+                  fontWeight={700}
+                  gutterBottom
                 >
-                  <EmailIcon />
-                </IconButton>
+                  {selectedAssociate?.role}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" mb={2}>
+                  {selectedAssociate?.graduation}
+                </Typography>
 
-                <IconButton
-                  component="a"
-                  href={selectedAssociate?.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Abrir WhatsApp"
-                  sx={{ '&:hover': { color: theme.palette.primary.main } }}
-                >
-                  <WhatsAppIcon />
-                </IconButton>
+                <Divider sx={{ my: 1 }} />
 
-                <IconButton
-                  component="a"
-                  href={selectedAssociate?.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Abrir LinkedIn"
-                  sx={{ '&:hover': { color: theme.palette.primary.main } }}
-                >
-                  <LinkedInIcon />
-                </IconButton>
+                <Box width={{ xs: '100%', md: '70%' }} sx={{ flex: 1 }}>
+                  <Typography
+                    variant="body1"
+                    fontSize={{ xs: 16, md: 20 }}
+                    mt={2}
+                    color="text.secondary"
+                  >
+                    {selectedAssociate?.history}
+                  </Typography>
+                </Box>
+
+                <Box display="flex" gap={2} mt={3} justifyContent="flex-end">
+                  <IconButton
+                    component="a"
+                    href={`mailto:${selectedAssociate?.email}`}
+                    aria-label="Enviar e-mail"
+                    sx={{ '&:hover': { color: theme.palette.primary.main } }}
+                  >
+                    <EmailIcon />
+                  </IconButton>
+
+                  <IconButton
+                    component="a"
+                    href={selectedAssociate?.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Abrir WhatsApp"
+                    sx={{ '&:hover': { color: theme.palette.primary.main } }}
+                  >
+                    <WhatsAppIcon />
+                  </IconButton>
+
+                  <IconButton
+                    component="a"
+                    href={selectedAssociate?.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Abrir LinkedIn"
+                    sx={{ '&:hover': { color: theme.palette.primary.main } }}
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
+                </Box>
               </Box>
             </Box>
           </Box>

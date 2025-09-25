@@ -51,7 +51,7 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
           {areas.map((area, index) => {
             const isSelected = area._id === selectedId;
             return (
-              <Grid key={area._id} size={3}>
+              <Grid key={area._id} size={{ xs: 12, md: 3 }}>
                 <Link href={`/areas-atuacao/${area._id}`} sx={{ textDecoration: 'none' }}>
                   <OpacityCard index={index}>
                     <Paper

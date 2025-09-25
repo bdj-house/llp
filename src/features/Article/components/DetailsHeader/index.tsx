@@ -18,7 +18,7 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
   const imageSource = useMemo(() => {
     const imgHeight = (70 * HEADER_HEIGHT) / 100;
     return getArticleCoverImg(article, imgHeight);
-  }, [article, HEADER_HEIGHT]);
+  }, [article]);
 
   return (
     <Box

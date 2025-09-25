@@ -62,7 +62,7 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
         gridTemplateColumns="repeat(auto-fill, minmax(220px, 1fr))"
         gap={4}
         sx={{
-          px: { xs: 6, md: 12, lg: 36 },
+          px: { xs: 3, md: 12, lg: 36 },
           opacity: isFetching ? 0.4 : 1,
           transition: 'opacity 0.4s ease-in-out',
         }}
@@ -73,8 +73,8 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
               key={article._id}
               index={i}
               sx={{
-                gridColumn: i === 0 ? 'span 2' : 'span 1',
-                gridRow: i === 0 ? 'span 2' : 'span 1',
+                gridColumn: { xs: 'span 1', md: i === 0 ? 'span 2' : 'span 1' },
+                gridRow: { xs: 'span 1', md: i === 0 ? 'span 2' : 'span 1' },
               }}
             >
               <ButtonBase onClick={() => goToDetails(article)} sx={{ width: '100%' }}>

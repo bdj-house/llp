@@ -11,8 +11,11 @@ export const Art: React.FC<Props> = ({ imageUrl }) => {
       sx={{
         position: 'relative',
         width: '100%',
-        height: '100vh',
+        height: { xs: '60vh', md: '100vh' },
         mx: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {imageUrl && (
@@ -23,7 +26,11 @@ export const Art: React.FC<Props> = ({ imageUrl }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 60vw"
           priority
           fetchPriority="high"
-          style={{ objectFit: 'contain' }}
+          style={{
+            objectFit: 'contain',
+            maxWidth: '100%',
+            maxHeight: '100%',
+          }}
         />
       )}
     </Box>

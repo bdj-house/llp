@@ -30,10 +30,15 @@ export const Footer = () => {
   }
 
   return (
-    <Box bgcolor={theme.palette.background.default} py={6} zIndex={999}>
+    <Box bgcolor={theme.palette.background.default} py={{ xs: 4, md: 6 }} zIndex={999}>
       <Container>
-        <Grid container spacing={4} justifyContent="space-between" alignItems="flex-start">
-          <Grid size={4}>
+        <Grid
+          container
+          spacing={{ xs: 3, md: 4 }}
+          justifyContent="space-between"
+          alignItems="flex-start"
+        >
+          <Grid size={{ xs: 12, md: 4 }}>
             <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
               {settings?.siteName || 'Idalgo & Cortijo'}
             </Typography>
@@ -60,19 +65,19 @@ export const Footer = () => {
             </Typography>
           </Grid>
 
-          <Grid size={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="textSecondary">
               Áreas de atuação
             </Typography>
             <Grid container spacing={1}>
-              <Grid size={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 {operationAreas?.slice(0, 3).map(area => (
                   <Typography key={area._id} variant="body2" color="textSecondary">
                     {area.title}
                   </Typography>
                 ))}
               </Grid>
-              <Grid size={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 {operationAreas?.slice(3, 6).map(area => (
                   <Typography key={area._id} variant="body2" color="textSecondary">
                     {area.title}
@@ -82,7 +87,7 @@ export const Footer = () => {
             </Grid>
           </Grid>
 
-          <Grid size={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="textSecondary">
               Recursos
             </Typography>

@@ -1,7 +1,7 @@
 'use client';
 
-import { Box } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { ArticleCard } from '../Card';
 
 interface Props {
@@ -9,25 +9,24 @@ interface Props {
 }
 
 export const SummaryGrid: React.FC<Props> = ({ articles }) => {
+  const theme = useTheme();
+
   const hasEnoughArticles = articles.length >= 4;
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   if (!hasEnoughArticles) {
     return (
       <Box
         display="flex"
         flexWrap="wrap"
-        gap={4}
-        px={16}
-        pb={24}
+        gap={{ xs: 3, md: 4 }}
+        px={{ xs: 2, md: 16 }}
+        pb={{ xs: 12, md: 24 }}
         justifyContent="center"
       >
         {articles.map((article, index) => (
-          <ArticleCard
-            key={article._id}
-            article={article}
-            isVertical
-            index={index}
-          />
+          <ArticleCard key={article._id} article={article} isVertical index={index} />
         ))}
       </Box>
     );
@@ -69,36 +68,37 @@ export const SummaryGrid: React.FC<Props> = ({ articles }) => {
       display="grid"
       gridTemplateColumns={{
         xs: '1fr',
-        sm: 'repeat(3, 1fr)',
+        sm: 'repeat(2, 1fr)',
         md: 'repeat(3, 1fr)',
       }}
       gridTemplateAreas={{
         xs: `"a" "b" "c" "d"`,
-        sm: `
+        sm: `"a b" "c d"`,
+        md: `
           "a b d"
           "a b d"
           "a c d"
           "a c d"
         `,
       }}
-      gap={6}
-      py={6}
-      px={18}
-      pb={24}
+      gap={{ xs: 3, md: 6 }}
+      py={{ xs: 3, md: 6 }}
+      px={{ xs: 2, md: 18 }}
+      pb={{ xs: 12, md: 24 }}
     >
       {gridItems.map(({ gridArea, article, isVertical, isDark, mt }, i) => (
         <Box
           key={article._id}
           sx={{
             gridArea,
-            mt,
+            mt: isMobile ? 0 : mt,
             display: 'flex',
             justifyContent: gridArea === 'a' ? 'flex-end' : 'flex-start',
           }}
         >
           <ArticleCard
             article={article}
-            isVertical={isVertical}
+            isVertical={isMobile ? true : isVertical}
             isDark={isDark}
             index={i}
           />

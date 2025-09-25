@@ -2,6 +2,15 @@ import { createTheme } from '@mui/material/styles';
 import { champagneFont, mangolaineFont } from './fonts';
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     primary: {
       main: '#6B1A2B',
@@ -26,14 +35,38 @@ const theme = createTheme({
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
       fontSize: '3rem',
+      '@media (max-width:600px)': {
+        fontSize: '2rem',
+      },
     },
     h2: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
       fontSize: '2.5rem',
+      '@media (max-width:600px)': {
+        fontSize: '1.75rem',
+      },
     },
     h3: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
+      '@media (max-width:600px)': {
+        fontSize: '1.5rem',
+      },
+    },
+    h4: {
+      '@media (max-width:600px)': {
+        fontSize: '1.25rem',
+      },
+    },
+    h5: {
+      '@media (max-width:600px)': {
+        fontSize: '1.125rem',
+      },
+    },
+    h6: {
+      '@media (max-width:600px)': {
+        fontSize: '1rem',
+      },
     },
     button: {
       textTransform: 'none',
