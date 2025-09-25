@@ -1,17 +1,16 @@
 'use client';
 
+import type { HomePage } from '@/sanity/types/schema';
 import { ViewContainer } from '@/shared/components';
 import { Grid } from '@mui/material';
 import { Art, Info } from '../components';
 
-interface Props {
+type HomeProps = Pick<HomePage, 'heroTitle' | 'heroSubtitle'> & {
   heroLogoUrl?: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
   mainImageUrl?: string;
-}
+};
 
-export const HomeScreen: React.FC<Props> = ({
+export const HomeScreen: React.FC<HomeProps> = ({
   heroLogoUrl,
   heroTitle,
   heroSubtitle,

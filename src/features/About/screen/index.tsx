@@ -1,5 +1,6 @@
 'use client';
 
+import type { Associate as SanityAssociate } from '@/sanity/types/schema';
 import { OpacityCard, ViewContainer } from '@/shared/components';
 import {
   Close as CloseIcon,
@@ -21,21 +22,16 @@ import {
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
-type Associate = {
-  name: string;
-  role: string;
-  history?: string;
-  description?: string;
-  graduation?: string;
+type UiAssociate = Pick<
+  SanityAssociate,
+  'name' | 'role' | 'history' | 'description' | 'graduation' | 'email' | 'linkedin' | 'whatsapp'
+> & {
   imageCover?: string;
   imageProfile?: string;
-  email?: string;
-  linkedin?: string;
-  whatsapp?: string;
 };
 
 interface Props {
-  associates: Associate[];
+  associates: UiAssociate[];
   sectionInfo: {
     title: string;
     subtitle: string;
@@ -162,7 +158,11 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
           }}
         >
           <Box sx={{ position: 'absolute', top: '3vh', right: 0, zIndex: 1 }}>
-            <IconButton sx={{ color: theme.palette.background.default }} onClick={handleClose}>
+            <IconButton
+              sx={{ color: theme.palette.background.default }}
+              onClick={handleClose}
+              aria-label="Fechar detalhes da associada"
+            >
               <CloseIcon />
             </IconButton>
           </Box>
@@ -219,6 +219,7 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
                 <IconButton
                   component="a"
                   href={`mailto:${selectedAssociate?.email}`}
+                  aria-label="Enviar e-mail"
                   sx={{ '&:hover': { color: theme.palette.primary.main } }}
                 >
                   <EmailIcon />
@@ -229,6 +230,7 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
                   href={selectedAssociate?.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Abrir WhatsApp"
                   sx={{ '&:hover': { color: theme.palette.primary.main } }}
                 >
                   <WhatsAppIcon />
@@ -239,6 +241,7 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
                   href={selectedAssociate?.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Abrir LinkedIn"
                   sx={{ '&:hover': { color: theme.palette.primary.main } }}
                 >
                   <LinkedInIcon />

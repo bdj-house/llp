@@ -1,5 +1,6 @@
 import { sanityClient } from '@/sanity/lib/client';
 import { siteSettingsQuery } from '@/sanity/queries';
+import type { SiteSettings } from '@/sanity/types/schema';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Dialog, DialogContent, IconButton, Toolbar, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -16,7 +17,7 @@ interface Props {
 export const Map: React.FC<Props> = ({ isOpen, close }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { data: settings } = useQuery<any>({
+  const { data: settings } = useQuery<SiteSettings>({
     queryKey: ['siteSettings'],
     queryFn: () => sanityClient.fetch(siteSettingsQuery),
     staleTime: 60 * 60 * 1000,
@@ -65,7 +66,7 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
     <Dialog open={isOpen} onClose={close} maxWidth="md" fullWidth>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6">Nossa Localização</Typography>
-        <IconButton edge="end" onClick={close}>
+        <IconButton edge="end" onClick={close} aria-label="Fechar mapa">
           <CloseIcon />
         </IconButton>
       </Toolbar>

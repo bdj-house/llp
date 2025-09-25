@@ -19,6 +19,7 @@ export const DetailsContent: React.FC<Props> = ({ operationArea }) => {
             alt={value.alt || ' '}
             width={800}
             height={450}
+            sizes="(max-width: 900px) 100vw, 800px"
             style={{
               objectFit: 'cover',
               width: '100%',

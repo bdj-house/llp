@@ -27,6 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <Script
           id="gtm-head"
           strategy="afterInteractive"

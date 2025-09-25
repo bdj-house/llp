@@ -1,12 +1,12 @@
 'use client';
 
+import { OperationArea } from '@/sanity/types/schema';
 import { If, OpacityCard, ViewContainer } from '@/shared/components';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { Box, Container, Grid, IconButton, Link, Paper, Typography, useTheme } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
-import { OperationArea } from '../types';
 
 interface Props {
   operationAreas: OperationArea[];
@@ -24,20 +24,24 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
   const selectedId = searchParams.get('selected');
 
   const areas = useMemo(() => {
-    const sortedAreas = operationAreas.sort((a, b) => a.order - b.order).slice(0, 7);
+    const sortedAreas = operationAreas.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, 7);
 
     if (sortedAreas.length <= 7) return sortedAreas;
 
-    return sortedAreas.concat({
-      _id: 'view-all',
-      title: 'Ver Todos',
-      category: 'TODOS',
-      description: '',
-      image: { asset: { _id: '', url: '' } },
-      content: [],
-      highlight: false,
-      order: 999,
-    });
+    return sortedAreas.concat([
+      {
+        _id: 'view-all',
+        title: 'Ver Todos',
+        category: 'TODOS',
+        image: undefined,
+        content: [],
+        order: 999,
+        _type: 'operationArea',
+        _createdAt: '',
+        _rev: '',
+        _updatedAt: '',
+      },
+    ]);
   }, [operationAreas]);
 
   return (
@@ -59,21 +63,21 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
                         justifyContent: 'space-between',
                         py: 2,
                         px: 3,
-                        border: isSelected ? '3px solid' : '1px solid',
-                        borderColor: isSelected ? 'primary.main' : theme.palette.divider,
-                        backgroundColor: isSelected
-                          ? theme.palette.primary.light
-                          : area.highlight
-                          ? theme.palette.background.default
-                          : theme.palette.background.paper,
+                        border: '1px solid',
+                        borderColor: theme.palette.divider,
+                        backgroundColor:
+                          index === 0
+                            ? theme.palette.background.default
+                            : theme.palette.background.paper,
                         transition: 'all 0.3s ease',
                         cursor: 'pointer',
                         '&:hover': {
                           transform: 'translateY(-4px)',
                           boxShadow: theme.shadows[2],
-                          backgroundColor: isSelected
-                            ? theme.palette.primary.light
-                            : theme.palette.action.hover,
+                          backgroundColor:
+                            index === 0
+                              ? theme.palette.secondary.light
+                              : theme.palette.action.hover,
                         },
                       }}
                     >
@@ -83,7 +87,7 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
                           elseRender={<TravelExploreIcon fontSize="large" />}
                         >
                           <Typography variant="h4" fontWeight="bold" color="primary">
-                            {area.category.charAt(0)}
+                            {area.category?.charAt(0)}
                           </Typography>
                         </If>
                       </Box>
@@ -96,7 +100,7 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
                         gap={1}
                       >
                         <Typography fontWeight={600}>{area.title}</Typography>
-                        <IconButton size="small" disableRipple>
+                        <IconButton size="small" disableRipple aria-label="Ver detalhes da área">
                           <ArrowOutwardIcon fontSize="small" />
                         </IconButton>
                       </Box>

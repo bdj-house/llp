@@ -95,7 +95,7 @@ const Header: React.FC = () => {
         >
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Stack direction="row" alignItems="center" spacing={2} gap={6}>
-              <ButtonBase onClick={goToHome}>
+              <ButtonBase onClick={goToHome} aria-label="Ir para a página inicial" sx={{ p: 1 }}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
                     gap: 1,
                   }}
                 >
-                  <Image src={logo} alt="Logo" width={36} height={36} />
+                  <Image src={logo} alt="Logo" width={36} height={29} />
 
                   <Typography
                     variant="body1"
@@ -127,7 +127,7 @@ const Header: React.FC = () => {
                   borderRadius: 999,
                   borderColor: theme.palette.background.paper,
                   px: 2,
-                  py: 0.5,
+                  py: 1,
                   transition: 'all 0.2s ease-in-out',
                   '&:hover': {
                     borderColor: theme.palette.background.default,
@@ -135,6 +135,7 @@ const Header: React.FC = () => {
                   },
                 }}
                 onClick={openMap}
+                aria-label="Abrir mapa de localização"
               >
                 <RoomOutlinedIcon
                   fontSize="small"
@@ -156,7 +157,12 @@ const Header: React.FC = () => {
 
             <Stack direction="row" alignItems="center" spacing={3}>
               {routes.map(item => (
-                <ButtonBase onClick={() => goToPage(item.route)} key={item.label}>
+                <ButtonBase
+                  onClick={() => goToPage(item.route)}
+                  key={item.label}
+                  aria-label={`Ir para ${item.label}`}
+                  sx={{ p: 1 }}
+                >
                   <Typography
                     variant="body1"
                     color={theme.palette.background.paper}

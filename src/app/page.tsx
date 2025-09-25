@@ -6,7 +6,7 @@ import {
   homePageQuery,
   lastArticlesQuery,
 } from '@/sanity/queries';
-import { Article } from '@/sanity/types/schema';
+import { Article, OperationArea } from '@/sanity/types/schema';
 import { mainPageMetadata } from '@/shared/constants';
 import { Container } from '@mui/material';
 import { Metadata } from 'next';
@@ -22,9 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const [articles, operationAreas, aboutData, homeData] = await Promise.all([
     sanityClient.fetch<Article[]>(lastArticlesQuery),
-    sanityClient.fetch(allOperationAreasQuery),
-    sanityClient.fetch(aboutQuery),
-    sanityClient.fetch(homePageQuery),
+    sanityClient.fetch<OperationArea[]>(allOperationAreasQuery),
+    sanityClient.fetch<any>(aboutQuery),
+    sanityClient.fetch<any>(homePageQuery),
   ]);
 
   return (

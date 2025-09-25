@@ -1,6 +1,7 @@
 'use client';
 
 import tempLogo from '@/assets/logo/temp-logo.png';
+import { urlFor } from '@/sanity/lib/image';
 import { OpacityCard, ViewContainer } from '@/shared/components';
 import { Box, Chip, Container, Paper, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
@@ -33,7 +34,7 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
   }, [localSelectedId, operationAreas]);
 
   const headerAreas = useMemo(
-    () => operationAreas.sort((a, b) => a.order - b.order).slice(0, 5),
+    () => operationAreas.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, 5),
     [operationAreas],
   );
 
@@ -63,6 +64,7 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
               display: 'flex',
               gap: 3,
               overflowX: 'auto',
+              overflowY: 'hidden',
               pb: 2,
               '&::-webkit-scrollbar': {
                 height: 8,
@@ -83,13 +85,7 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
             {headerAreas.map((area, index) => {
               const isSelected = area._id === (localSelectedId || selectedAreaId);
               return (
-                <Box
-                  key={area._id}
-                  sx={{
-                    minWidth: 280,
-                    flexShrink: 0,
-                  }}
-                >
+                <Box key={area._id} sx={{ minWidth: 280, flexShrink: 0 }}>
                   <OpacityCard index={index}>
                     <Paper
                       elevation={0}
@@ -109,9 +105,10 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
                     >
                       <Box sx={{ position: 'relative', height: '100%' }}>
                         <Image
-                          src={area.image?.asset.url ?? tempLogo}
-                          alt={area.title}
+                          src={area.image ? urlFor(area.image?.asset).url() : tempLogo}
+                          alt={area.title ?? ''}
                           fill
+                          sizes="(max-width: 600px) 80vw, (max-width: 1200px) 40vw, 280px"
                           style={{ objectFit: 'cover' }}
                         />
                         <Box

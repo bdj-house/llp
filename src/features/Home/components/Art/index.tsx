@@ -6,7 +6,6 @@ interface Props {
 }
 
 export const Art: React.FC<Props> = ({ imageUrl }) => {
-  console.log('imageUrl', imageUrl);
   return (
     <Box
       sx={{
@@ -21,7 +20,9 @@ export const Art: React.FC<Props> = ({ imageUrl }) => {
           src={imageUrl}
           alt="Imagem principal"
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 60vw"
+          priority
+          fetchPriority="high"
           style={{ objectFit: 'contain' }}
         />
       )}

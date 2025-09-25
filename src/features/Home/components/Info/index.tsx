@@ -28,7 +28,7 @@ export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
     >
       <Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', ml: 4 }}>
-          {logoUrl && <Image src={logoUrl} alt="Logo" width={480} height={280} />}
+          {logoUrl && <Image src={logoUrl} alt="Logo" width={480} height={270} priority />}
         </Box>
 
         {!!title && (
@@ -45,7 +45,7 @@ export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
       </Box>
 
       <Box sx={{ position: 'absolute', left: 0, bottom: '15%' }}>
-        <IconButton action={goToOurTeam} size="large">
+        <IconButton action={goToOurTeam} size="large" ariaLabel="Ir para nossa equipe">
           <ExpandMoreIcon color="primary" sx={{ fontSize: 48 }} />
         </IconButton>
       </Box>

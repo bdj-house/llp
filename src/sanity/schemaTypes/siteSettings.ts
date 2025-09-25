@@ -31,6 +31,22 @@ const siteSettingsSchema = {
       ],
     },
     {
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'title', title: 'Título', type: 'string' },
+        { name: 'description', title: 'Descrição', type: 'text' },
+        { name: 'keywords', title: 'Palavras-chave', type: 'array', of: [{ type: 'string' }] },
+        {
+          name: 'openGraphImage',
+          title: 'Imagem OpenGraph',
+          type: 'image',
+          options: { hotspot: true },
+        },
+      ],
+    },
+    {
       name: 'googleMapUrl',
       title: 'URL do Mapa (Google Maps Embed)',
       type: 'url',

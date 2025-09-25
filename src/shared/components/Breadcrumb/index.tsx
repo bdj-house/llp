@@ -24,11 +24,16 @@ export const Breadcrumb: React.FC<Props> = ({ title, lastPage }) => {
 
   return (
     <Box display="flex" alignItems="center" gap={1} mx="15%" mt={4}>
-      <ButtonBase onClick={goToHome}>
+      <ButtonBase
+        onClick={goToHome}
+        aria-label="Ir para a página inicial"
+        title="Início"
+        sx={{ p: 1 }}
+      >
         <Home color="primary" />
       </ButtonBase>
       <ChevronRight />
-      <ButtonBase onClick={goToLastPage}>
+      <ButtonBase onClick={goToLastPage} aria-label={`Ir para ${lastPage.label}`}>
         <Typography color="text.secondary">{lastPage.label}</Typography>
       </ButtonBase>
 

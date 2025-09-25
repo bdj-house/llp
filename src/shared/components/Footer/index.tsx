@@ -2,6 +2,7 @@
 
 import { sanityClient } from '@/sanity/lib/client';
 import { siteSettingsQuery } from '@/sanity/queries';
+import type { SiteSettings } from '@/sanity/types/schema';
 import { useHeader } from '@/shared/hooks';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -24,10 +25,13 @@ export const Footer = () => {
 
   const isHidden = mode === 'hidden';
 
-  const { data: settings } = useQuery<any>({
+  const { data: settings } = useQuery<SiteSettings>({
     queryKey: ['siteSettings'],
     queryFn: () => sanityClient.fetch(siteSettingsQuery),
     staleTime: 60 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   if (isHidden) {
@@ -100,17 +104,32 @@ export const Footer = () => {
               Recursos
             </Typography>
             <Typography variant="body2" sx={{ textUnderlineOffset: 4 }}>
-              <Link href="/publicacoes" underline="hover" color="textSecondary">
+              <Link
+                href="/publicacoes"
+                underline="hover"
+                color="textSecondary"
+                sx={{ py: 1, px: 1, display: 'inline-block' }}
+              >
                 Publicações
               </Link>
             </Typography>
             <Typography variant="body2" sx={{ textUnderlineOffset: 4 }}>
-              <Link href="/nosso-espaco" underline="hover" color="textSecondary">
+              <Link
+                href="/nosso-espaco"
+                underline="hover"
+                color="textSecondary"
+                sx={{ py: 1, px: 1, display: 'inline-block' }}
+              >
                 Nosso Espaço
               </Link>
             </Typography>
             <Typography variant="body2" color="textSecondary" sx={{ textUnderlineOffset: 4 }}>
-              <Link href="/contato" underline="hover" color="inherit">
+              <Link
+                href="/contato"
+                underline="hover"
+                color="inherit"
+                sx={{ py: 1, px: 1, display: 'inline-block' }}
+              >
                 Contato
               </Link>
             </Typography>
@@ -136,6 +155,7 @@ export const Footer = () => {
               href={settings?.social?.facebook || 'https://facebook.com'}
               target="_blank"
               size="small"
+              aria-label="Abrir Facebook"
             >
               <FacebookIcon fontSize="small" />
             </IconButton>
@@ -143,6 +163,7 @@ export const Footer = () => {
               href={settings?.social?.linkedin || 'https://linkedin.com'}
               target="_blank"
               size="small"
+              aria-label="Abrir LinkedIn"
             >
               <LinkedInIcon fontSize="small" />
             </IconButton>
@@ -150,6 +171,7 @@ export const Footer = () => {
               href={settings?.social?.instagram || 'https://instagram.com'}
               target="_blank"
               size="small"
+              aria-label="Abrir Instagram"
             >
               <InstagramIcon fontSize="small" />
             </IconButton>
