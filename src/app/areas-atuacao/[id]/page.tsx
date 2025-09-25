@@ -5,13 +5,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const operationArea = await sanityClient.fetch(operationAreaByIdQuery, { id: params.id });
+  const { id } = await params;
+  const operationArea = await sanityClient.fetch(operationAreaByIdQuery, { id });
 
   if (!operationArea) {
     return {
@@ -27,14 +26,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function OperationAreaDetailPage({ params }: PageProps) {
+  const { id } = await params;
+
   const [operationAreas, selectedArea] = await Promise.all([
     sanityClient.fetch(allOperationAreasQuery),
-    sanityClient.fetch(operationAreaByIdQuery, { id: params.id }),
+    sanityClient.fetch(operationAreaByIdQuery, { id }),
   ]);
 
   if (!selectedArea) {
     notFound();
   }
 
-  return <OperationAreaScreen operationAreas={operationAreas ?? []} selectedAreaId={params.id} />;
+  return <OperationAreaScreen operationAreas={operationAreas ?? []} selectedAreaId={id} />;
 }

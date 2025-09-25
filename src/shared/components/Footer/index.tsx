@@ -1,9 +1,7 @@
 'use client';
 
-import { sanityClient } from '@/sanity/lib/client';
-import { operationAreasForFooterQuery, siteSettingsQuery } from '@/sanity/queries';
-import type { OperationArea, SiteSettings } from '@/sanity/types/schema';
 import { useHeader } from '@/shared/hooks';
+import { useGetOperationAreasForFooter, useGetSettings } from '@/shared/queries';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -17,7 +15,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
 
 export const Footer = () => {
   const theme = useTheme();
@@ -25,23 +22,8 @@ export const Footer = () => {
 
   const isHidden = mode === 'hidden';
 
-  const { data: settings } = useQuery<SiteSettings>({
-    queryKey: ['siteSettings'],
-    queryFn: () => sanityClient.fetch(siteSettingsQuery),
-    staleTime: 60 * 60 * 1000,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-  });
-
-  const { data: operationAreas } = useQuery<OperationArea[]>({
-    queryKey: ['operationAreasForFooter'],
-    queryFn: () => sanityClient.fetch(operationAreasForFooterQuery),
-    staleTime: 60 * 60 * 1000,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-  });
+  const { data: settings } = useGetSettings();
+  const { data: operationAreas } = useGetOperationAreasForFooter();
 
   if (isHidden) {
     return null;
@@ -126,12 +108,12 @@ export const Footer = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary" sx={{ textUnderlineOffset: 4 }}>
               <Link
-                href="/contato"
+                href="/areas-atuacao"
                 underline="hover"
                 color="inherit"
                 sx={{ py: 1, display: 'inline-block' }}
               >
-                Contato
+                Áreas de atuação
               </Link>
             </Typography>
           </Grid>

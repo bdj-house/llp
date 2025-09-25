@@ -92,7 +92,13 @@ export const Gallery = ({ images, altText = 'Gallery image' }: GalleryProps) => 
             onClick={() => handleImageClick(0)}
           >
             {images[0] && (
-              <Image src={images[0]} alt={`${altText} 1`} fill style={{ objectFit: 'cover' }} />
+              <Image
+                src={images[0]}
+                alt={`${altText} 1`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+                style={{ objectFit: 'cover' }}
+              />
             )}
           </Paper>
         </Box>
@@ -135,7 +141,13 @@ export const Gallery = ({ images, altText = 'Gallery image' }: GalleryProps) => 
               onClick={() => handleImageClick(1)}
             >
               {images[1] && (
-                <Image src={images[1]} alt={`${altText} 2`} fill style={{ objectFit: 'cover' }} />
+                <Image
+                  src={images[1]}
+                  alt={`${altText} 2`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  style={{ objectFit: 'cover' }}
+                />
               )}
             </Paper>
             <Paper
@@ -167,7 +179,13 @@ export const Gallery = ({ images, altText = 'Gallery image' }: GalleryProps) => 
               onClick={() => handleImageClick(2)}
             >
               {images[2] && (
-                <Image src={images[2]} alt={`${altText} 3`} fill style={{ objectFit: 'cover' }} />
+                <Image
+                  src={images[2]}
+                  alt={`${altText} 3`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  style={{ objectFit: 'cover' }}
+                />
               )}
             </Paper>
           </Box>
@@ -284,6 +302,7 @@ export const Gallery = ({ images, altText = 'Gallery image' }: GalleryProps) => 
                 src={images[selectedImage]}
                 alt={`${altText} ${selectedImage + 1}`}
                 fill
+                sizes="90vw"
                 style={{ objectFit: 'contain' }}
                 priority
               />

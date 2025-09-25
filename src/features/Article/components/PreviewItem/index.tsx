@@ -3,7 +3,7 @@ import { If } from '@/shared/components';
 import { alpha, Box, Card, CardContent, Chip, Tooltip, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
 import { useMemo } from 'react';
-import { getArticleCoverImg, getArticleDate } from '../../utils';
+import { getArticleCoverImg, getArticleDate, hasArticleCoverImage } from '../../utils';
 import { calculateReadingTime } from '../../utils/data';
 
 interface Props {
@@ -62,7 +62,7 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }
           fill
           sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: 'cover' }}
-          priority={index < 3}
+          priority={index < 3 && hasArticleCoverImage(article)}
         />
 
         <Box

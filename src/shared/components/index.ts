@@ -5,6 +5,7 @@ export * from './Center';
 export * from './ErrorBoundary';
 export * from './Footer';
 export * from './Header';
+export * from './HelperPanel';
 export * from './IconButton';
 export * from './If';
 export * from './Map';

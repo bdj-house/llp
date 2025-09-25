@@ -7,10 +7,16 @@ import { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
   const [settings, article] = await Promise.all([
     sanityClient.fetch<SiteSettings>(siteSettingsQuery),
-    sanityClient.fetch<Article>(articleByIdQuery, { id: params.id }),
+    sanityClient.fetch<Article>(articleByIdQuery, { id }),
   ]);
 
   const getCoverImage = () => {
@@ -41,9 +47,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function Page({ params }: PageProps) {

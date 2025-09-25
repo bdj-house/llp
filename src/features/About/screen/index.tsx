@@ -186,6 +186,8 @@ export const AboutScreen: React.FC<Props> = ({ associates, sectionInfo }) => {
                   src={selectedAssociate?.imageProfile}
                   alt={selectedAssociate?.name ?? ''}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: 'cover' }}
                 />
               )}
             </Box>
