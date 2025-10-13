@@ -2,7 +2,9 @@
 
 import { Article } from '@/sanity/types/schema';
 import { OpacityCard } from '@/shared/components';
-import { alpha, Box, Card, useTheme } from '@mui/material';
+import { CARD_DIMENSIONS } from '@/shared/constants';
+import { alpha, Box, Card, useMediaQuery, useTheme } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
 import { CardImage } from './CardImage';
@@ -14,14 +16,6 @@ interface Props {
   index: number;
 }
 
-const VERTICAL_CARD_WIDTH = 280;
-const VERTICAL_CARD_HEIGHT = 580;
-
-const HORIZONTAL_CARD_WIDTH = 580;
-const HORIZONTAL_CARD_HEIGHT = 280;
-
-const MOBILE_CARD_HEIGHT = 580;
-
 export const ArticleCard: React.FC<Props> = ({
   article,
   index,
@@ -29,11 +23,26 @@ export const ArticleCard: React.FC<Props> = ({
   isDark = false,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const MOBILE_CARD_WIDTH = window?.innerWidth ? window.innerWidth - 60 : '100%';
+  const [mobileCardWidth, setMobileCardWidth] = useState<number | string>('100%');
 
-  const height = isVertical ? VERTICAL_CARD_HEIGHT : HORIZONTAL_CARD_HEIGHT;
-  const width = isVertical ? VERTICAL_CARD_WIDTH : HORIZONTAL_CARD_WIDTH;
+  useEffect(() => {
+    if (typeof window !== 'undefined' && isMobile) {
+      setMobileCardWidth(window.innerWidth - CARD_DIMENSIONS.MOBILE.PADDING);
+
+      const handleResize = () => {
+        setMobileCardWidth(window.innerWidth - CARD_DIMENSIONS.MOBILE.PADDING);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, [isMobile]);
+
+  const height = isVertical ? CARD_DIMENSIONS.VERTICAL.HEIGHT : CARD_DIMENSIONS.HORIZONTAL.HEIGHT;
+  const width = isVertical ? CARD_DIMENSIONS.VERTICAL.WIDTH : CARD_DIMENSIONS.HORIZONTAL.WIDTH;
 
   const imageHeight = isVertical ? height - 350 : height;
   const imageWidth = isVertical ? width - 10 : width - 350;
@@ -48,8 +57,8 @@ export const ArticleCard: React.FC<Props> = ({
           bgcolor: bgColor,
           color: textColor,
           padding: 0.5,
-          height: { xs: MOBILE_CARD_HEIGHT, md: height },
-          width: { xs: MOBILE_CARD_WIDTH, md: width },
+          height: { xs: CARD_DIMENSIONS.MOBILE.HEIGHT, md: height },
+          width: { xs: mobileCardWidth, md: width },
           maxWidth: { xs: '100%', md: 'none' },
           borderRadius: 6,
           display: 'flex',

@@ -93,9 +93,16 @@ src/
    Create a `.env.local` file in the root directory:
 
    ```env
-   NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+   # Sanity CMS Configuration
+   NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id_here
    NEXT_PUBLIC_SANITY_DATASET=production
    NEXT_PUBLIC_SANITY_API_VERSION=2025-05-01
+
+   # Site Configuration
+   NEXT_PUBLIC_SITE_URL=https://www.idalgocortijo.com.br
+
+   # Node Environment
+   NODE_ENV=development
    ```
 
 4. **Generate Sanity Types**

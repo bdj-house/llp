@@ -7,8 +7,12 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import { WebVitals } from './web-vitals';
 
-export const metadata: Metadata = seoMetadata;
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.idalgocortijo.com.br'),
+  ...seoMetadata,
+};
 
 export default async function RootLayout({
   children,
@@ -28,6 +32,7 @@ export default async function RootLayout({
     <html lang="pt-BR">
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <Script
           id="gtm-head"
           strategy="afterInteractive"
@@ -49,6 +54,7 @@ export default async function RootLayout({
         <meta name="robots" content="index, follow" />
       </head>
       <body className={`${champagneFont.variable} ${mangolaineFont.variable}`}>
+        <WebVitals />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-528JN7VG"

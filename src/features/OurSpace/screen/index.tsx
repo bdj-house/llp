@@ -1,8 +1,21 @@
 'use client';
 
 import { ViewContainer } from '@/shared/components';
+import { Spinner } from '@/shared/components/Spinner';
 import { Box, Button, Container, Paper, Typography } from '@mui/material';
-import { Gallery } from '../components';
+import dynamic from 'next/dynamic';
+
+const Gallery = dynamic(
+  () => import('../components/Gallery').then(mod => ({ default: mod.Gallery })),
+  {
+    loading: () => (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <Spinner />
+      </Box>
+    ),
+    ssr: false,
+  },
+);
 
 interface Props {
   header: { title?: string; subtitle?: string; subject?: string };

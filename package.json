@@ -10,6 +10,9 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next node_modules/.cache",
+    "analyze": "ANALYZE=true next build",
     "prepare": "husky",
     "postinstall": "husky",
     "types": "npx sanity-codegen"
@@ -26,6 +29,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.87.0",
     "@tanstack/react-query": "^5.80.7",
+    "critters": "^0.0.23",
     "framer-motion": "^12.16.0",
     "next": "15.3.1",
     "next-sanity": "^9.10.6",
@@ -35,10 +39,12 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.16.0",
     "react-spinners": "^0.17.0",
-    "sanity": "^3.87.0"
+    "sanity": "^3.87.0",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.14.1",
+    "@next/bundle-analyzer": "^15.5.5",
     "@next/eslint-plugin-next": "^15.3.3",
     "@types/node": "^20",
     "@types/react": "^19",

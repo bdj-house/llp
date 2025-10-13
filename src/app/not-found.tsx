@@ -123,8 +123,7 @@ export default function NotFound() {
             Se você acredita que isso é um erro, por favor{' '}
             <Button
               component={Link}
-              href={settings?.contact?.url ?? ''}
-              target="_blank"
+              href={`mailto:${settings?.email ?? 'contato@idalgocortijo.com.br'}`}
               variant="text"
               size="small"
               sx={{ textDecoration: 'underline', pb: 1, px: 0, minWidth: 'auto' }}

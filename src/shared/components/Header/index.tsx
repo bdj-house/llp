@@ -25,11 +25,15 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Map } from '../Map';
 import { Position } from './Position';
+
+const Map = dynamic(() => import('../Map').then(mod => ({ default: mod.Map })), {
+  ssr: false,
+});
 
 const Header: React.FC = () => {
   const pathname = usePathname();

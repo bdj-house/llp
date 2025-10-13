@@ -35,9 +35,7 @@ export const HelperPanel = ({ title, description, buttonLabel, icon }: Props) =>
         component={Link}
         variant="contained"
         size="large"
-        href={data?.contact?.url ?? ''}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`mailto:${data?.email ?? 'contato@idalgocortijo.com.br'}`}
         aria-label="Contate-nos"
         sx={{ minWidth: 200 }}
       >

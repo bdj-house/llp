@@ -10,6 +10,8 @@ export const mangolaineFont = localFont({
   ],
   display: 'swap',
   variable: '--font-mangolaine',
+  preload: true,
+  fallback: ['Georgia', 'serif'],
 });
 
 export const champagneFont = localFont({
@@ -32,4 +34,6 @@ export const champagneFont = localFont({
   ],
   display: 'swap',
   variable: '--font-champagne',
+  preload: true,
+  fallback: ['Arial', 'Helvetica', 'sans-serif'],
 });

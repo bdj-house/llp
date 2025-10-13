@@ -6,12 +6,7 @@ export const articleByIdQuery = `*[_type == "article" && _id == $id][0] {
   publishedAt,
   author,
   tags,
-  coverImage {
-    asset -> {
-      _id,
-      url
-    }
-  }
+  coverImage
 }`;
 
 export const allArticlesQuery = `*[_type == "article"] | order(publishedAt desc){
@@ -22,12 +17,7 @@ export const allArticlesQuery = `*[_type == "article"] | order(publishedAt desc)
   author,
   tags,
   sourceLink,
-  coverImage {
-    asset -> {
-      _id,
-      url
-    }
-  }
+  coverImage
 }`;
 
 export const paginatedArticlesQuery = `
@@ -42,30 +32,19 @@ export const paginatedArticlesQuery = `
     publishedAt,
     tags,
     sourceLink,
-    coverImage {
-      asset -> {
-        _id,
-        url
-      }
-    }
+    coverImage
   }
 `;
 
 export const lastArticlesQuery = `*[_type == "article"] | order(publishedAt desc)[0...4] {
   _id,
   title,
-  content,
   excerpt,
   publishedAt,
   author,
   tags,
   sourceLink,
-  coverImage {
-    asset -> {
-      _id,
-      url
-    }
-  }
+  coverImage
 }`;
 
 export const allTagsQuery = `

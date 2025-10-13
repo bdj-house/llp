@@ -3,12 +3,7 @@ export const allOperationAreasQuery = `*[_type == "operationArea"] | order(order
   title,
   category,
   description,
-  image {
-    asset -> {
-      _id,
-      url
-    }
-  },
+  image,
   content,
   highlight,
   order
@@ -19,12 +14,7 @@ export const highlightedOperationAreasQuery = `*[_type == "operationArea" && hig
   title,
   category,
   description,
-  image {
-    asset -> {
-      _id,
-      url
-    }
-  },
+  image,
   content,
   highlight,
   order
@@ -35,12 +25,7 @@ export const operationAreaByIdQuery = `*[_type == "operationArea" && _id == $id]
   title,
   category,
   description,
-  image {
-    asset -> {
-      _id,
-      url
-    }
-  },
+  image,
   content,
   highlight,
   order
