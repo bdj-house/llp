@@ -30,7 +30,7 @@ export const AboutArea: React.FC<AboutScreenProps> = ({ associates, sectionInfo 
 
   return (
     <ViewContainer header={{ ...sectionInfo }} customBg id="our-team">
-      {associates.map(({ name, role, description, imageCover }, index) => (
+      {associates?.map(({ name, role, description, imageCover }, index) => (
         <OpacityCard key={`${name}-${index}`} index={index}>
           <Grid
             container

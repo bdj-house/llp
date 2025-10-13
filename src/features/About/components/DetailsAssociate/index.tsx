@@ -23,11 +23,13 @@ import { UiAssociate } from '../../types';
 interface OwnProps {
   open: boolean;
   onClose: () => void;
-  selectedAssociate: UiAssociate;
+  selectedAssociate?: UiAssociate;
 }
 
 export const DetailsAssociate = ({ open, onClose, selectedAssociate }: OwnProps) => {
   const theme = useTheme();
+
+  if (!selectedAssociate) return null;
 
   return (
     <DetailsDialog key={selectedAssociate.name} open={open} onClose={onClose} fullScreen>
