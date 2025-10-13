@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ShareIcon from '@mui/icons-material/Share';
-import { Avatar, Box, ButtonBase, Typography, useTheme } from '@mui/material';
+import { Avatar, Typography, useTheme } from '@mui/material';
 import { Routes } from '@/config/routes';
-import { Article } from '@/sanity/types/schema';
 import { IconButton, If } from '@/shared/components';
-import { getArticleDate, getAuthorDisplayName, getInitials } from '../../utils';
-import { RedirectDialog } from '../RedirectDialog';
-import { SocialShareDialog } from '../SocialShare';
+import {
+  ActionsContainer,
+  AuthorInfo,
+  AuthorPlaceholder,
+  AuthorSection,
+  FooterContainer,
+} from './styles';
+import { Article } from '../../../types';
+import { getArticleDate, getAuthorDisplayName, getInitials } from '../../../utils';
+import { RedirectDialog } from '../../RedirectDialog';
+import { SocialShareDialog } from '../../SocialShare';
 
 interface Props {
   article: Article;
@@ -24,7 +31,6 @@ export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => 
   const [seeMoreOpen, setSeeMoreOpen] = useState(false);
 
   const secondaryTextColor = isDark ? 'rgba(255,255,255,0.7)' : theme.palette.text.primary;
-
   const iconMainColor = theme.palette.primary.main;
   const iconFontColor = theme.palette.primary.contrastText;
 
@@ -38,7 +44,7 @@ export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => 
   const closeSeeMore = () => setSeeMoreOpen(false);
 
   const goToArticle = () => {
-    if (!article.content) {
+    if (!article.hasContent) {
       openSeeMore();
       return;
     }
@@ -48,27 +54,14 @@ export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => 
 
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          alignItems: 'flex-end',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: isVertical ? 'column-reverse' : 'row',
-            gap: 1,
-          }}
-        >
+      <FooterContainer>
+        <AuthorSection isVertical={isVertical}>
           <Avatar alt={article.author} sx={{ bgcolor: iconMainColor, color: iconFontColor }}>
             {getInitials(article.author)}
           </Avatar>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <If condition={!!article.author} elseRender={<Box sx={{ height: 10 }} />}>
+          <AuthorInfo>
+            <If condition={!!article.author} elseRender={<AuthorPlaceholder />}>
               <Typography variant="caption" fontWeight={700}>
                 por {getAuthorDisplayName(article.author ?? '')}
               </Typography>
@@ -79,10 +72,10 @@ export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => 
                 {getArticleDate(article)}
               </Typography>
             )}
-          </Box>
-        </Box>
+          </AuthorInfo>
+        </AuthorSection>
 
-        <Box display="flex" gap={2}>
+        <ActionsContainer>
           <IconButton action={openShare} customBackground={iconMainColor}>
             <ShareIcon fontSize="small" htmlColor={iconFontColor} />
           </IconButton>
@@ -96,8 +89,8 @@ export const CardFooter: React.FC<Props> = ({ article, isVertical, isDark }) => 
               htmlColor={isDark ? theme.palette.background.paper : iconMainColor}
             />
           </IconButton>
-        </Box>
-      </Box>
+        </ActionsContainer>
+      </FooterContainer>
 
       <SocialShareDialog
         open={shareOpen}

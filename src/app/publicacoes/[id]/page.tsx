@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ArticleDetails } from '@/features/Article/screen';
+import { ArticleDetails } from '@/features/Article/screens';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { articleByIdQuery, siteSettingsQuery } from '@/sanity/queries';

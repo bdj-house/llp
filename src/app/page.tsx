@@ -60,14 +60,13 @@ export default async function Page() {
   );
 }
 
-// Dynamic imports (SSR enabled for SEO, but JS is code-split)
-const About = nextDynamic(() => import('@/features/About/screen').then(m => m.AboutScreen), {
+const About = nextDynamic(() => import('@/features/About/views').then(m => m.AboutArea), {
   ssr: true,
   loading: () => null,
 });
 
 const OperationItems = nextDynamic(
-  () => import('@/features/OperationArea/screen').then(m => m.OperationItemsSection),
+  () => import('@/features/OperationArea/views').then(m => m.OperationAreaGrid),
   {
     ssr: true,
     loading: () => null,
@@ -75,7 +74,7 @@ const OperationItems = nextDynamic(
 );
 
 const ArticleSummary = nextDynamic(
-  () => import('@/features/Article/screen').then(m => m.ArticleSummaryScreen),
+  () => import('@/features/Article/views').then(m => m.ArticleSummary),
   {
     ssr: true,
     loading: () => null,

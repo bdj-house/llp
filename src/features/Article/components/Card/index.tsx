@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { alpha, Box, Card, useMediaQuery, useTheme } from '@mui/material';
-import { Article } from '@/sanity/types/schema';
+import { alpha, useMediaQuery, useTheme } from '@mui/material';
 import { OpacityCard } from '@/shared/components';
 import { CARD_DIMENSIONS } from '@/shared/constants';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
 import { CardImage } from './CardImage';
+import { CardContentWrapper, StyledCard } from './styles';
+import { Article } from '../../types';
 
 interface Props {
   article: Article;
@@ -52,24 +53,13 @@ export const ArticleCard: React.FC<Props> = ({
 
   return (
     <OpacityCard index={index}>
-      <Card
-        sx={{
-          bgcolor: bgColor,
-          color: textColor,
-          padding: 0.5,
-          height: { xs: CARD_DIMENSIONS.MOBILE.HEIGHT, md: height },
-          width: { xs: mobileCardWidth, md: width },
-          maxWidth: { xs: '100%', md: 'none' },
-          borderRadius: 6,
-          display: 'flex',
-          flexDirection: { xs: 'column', md: isVertical ? 'column' : 'row' },
-          boxShadow: 3,
-          transition: 'transform 0.2s ease-in-out',
-          '&:hover': {
-            boxShadow: 6,
-            transform: 'scale(1.010)',
-          },
-        }}
+      <StyledCard
+        bgColor={bgColor}
+        textColor={textColor}
+        height={height}
+        width={width}
+        mobileCardWidth={mobileCardWidth}
+        isVertical={isVertical}
       >
         <CardImage
           alt="Imagem de Capa do artigo"
@@ -78,21 +68,11 @@ export const ArticleCard: React.FC<Props> = ({
           width={imageWidth}
         />
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            px: 3,
-            py: 1,
-            flex: 1,
-            mt: 1,
-          }}
-        >
+        <CardContentWrapper>
           <CardContent article={article} isDark={isDark} />
-
           <CardFooter isDark={isDark} isVertical={isVertical} article={article} />
-        </Box>
-      </Card>
+        </CardContentWrapper>
+      </StyledCard>
     </OpacityCard>
   );
 };

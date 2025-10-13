@@ -6,8 +6,8 @@ import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
 import { Breadcrumb } from '@/shared/components';
 import { useHeader } from '@/shared/hooks';
-import { DetailsContent, DetailsHeader, SocialShareSticky } from '../components';
-import { useProgressBar } from '../hooks';
+import { DetailsContent, DetailsHeader, SocialShareSticky } from '../../components';
+import { useProgressBar } from '../../hooks';
 
 interface ArticleDetailsProps {
   article: Article;

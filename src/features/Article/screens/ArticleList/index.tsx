@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Article } from '@/sanity/types/schema';
 import { ViewContainer } from '@/shared/components';
-import { GridList, RedirectDialog, SidebarFilter } from '../components';
-import { usePaginatedArticles } from '../queries';
+import { GridList, RedirectDialog, SidebarFilter } from '../../components';
+import { usePaginatedArticles } from '../../queries';
 
 interface Props {
   tags: string[];

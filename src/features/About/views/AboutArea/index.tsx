@@ -3,11 +3,11 @@
 import { useMemo, useState } from 'react';
 import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { OpacityCard, ViewContainer } from '@/shared/components';
-import { DetailsAssociate } from '../components/DetailsAssociate';
-import { AboutScreenProps } from '../types';
 import { AssociateAvatar, LearnMoreButton } from './styles';
+import { DetailsAssociate } from '../../components/DetailsAssociate';
+import { AboutScreenProps } from '../../types';
 
-export const AboutScreen: React.FC<AboutScreenProps> = ({ associates, sectionInfo }) => {
+export const AboutArea: React.FC<AboutScreenProps> = ({ associates, sectionInfo }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

@@ -17,7 +17,8 @@ export const allArticlesQuery = `*[_type == "article"] | order(publishedAt desc)
   author,
   tags,
   sourceLink,
-  coverImage
+  coverImage,
+  "hasContent": defined(content)
 }`;
 
 export const paginatedArticlesQuery = `
@@ -32,7 +33,8 @@ export const paginatedArticlesQuery = `
     publishedAt,
     tags,
     sourceLink,
-    coverImage
+    coverImage,
+    "hasContent": defined(content)
   }
 `;
 
@@ -44,7 +46,8 @@ export const lastArticlesQuery = `*[_type == "article"] | order(publishedAt desc
   author,
   tags,
   sourceLink,
-  coverImage
+  coverImage,
+  "hasContent": defined(content)
 }`;
 
 export const allTagsQuery = `
