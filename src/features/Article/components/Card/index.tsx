@@ -1,10 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { alpha, Box, Card, useMediaQuery, useTheme } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
 import { OpacityCard } from '@/shared/components';
 import { CARD_DIMENSIONS } from '@/shared/constants';
-import { alpha, Box, Card, useMediaQuery, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { CardContent } from './CardContent';
 import { CardFooter } from './CardFooter';
 import { CardImage } from './CardImage';

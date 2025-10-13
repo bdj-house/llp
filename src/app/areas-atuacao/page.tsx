@@ -1,9 +1,9 @@
+import { Metadata } from 'next';
 import { OperationAreaScreen } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { allOperationAreasQuery, siteSettingsQuery } from '@/sanity/queries';
 import type { OperationArea, SiteSettings } from '@/sanity/types/schema';
-import { Metadata } from 'next';
 
 export const revalidate = 600;
 

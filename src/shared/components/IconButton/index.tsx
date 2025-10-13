@@ -1,6 +1,6 @@
-import { BUTTON_ANIMATIONS } from '@/shared/constants';
-import { Avatar, ButtonBase, useTheme } from '@mui/material';
 import { PropsWithChildren } from 'react';
+import { Avatar, ButtonBase, useTheme } from '@mui/material';
+import { BUTTON_ANIMATIONS } from '@/shared/constants';
 
 interface Props {
   action: () => void;

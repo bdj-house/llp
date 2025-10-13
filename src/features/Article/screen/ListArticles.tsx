@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { Article } from '@/sanity/types/schema';
 import { ViewContainer } from '@/shared/components';
-import { useState } from 'react';
 import { GridList, RedirectDialog, SidebarFilter } from '../components';
 import { usePaginatedArticles } from '../queries';
 

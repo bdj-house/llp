@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import { motion } from 'framer-motion';
 import { PropsWithChildren } from 'react';
+import { motion } from 'framer-motion';
+import { Box } from '@mui/material';
 
 type Props = React.ComponentProps<typeof Box> & {
   index: number;

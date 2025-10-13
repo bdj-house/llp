@@ -1,6 +1,6 @@
-import { useGetSettings } from '@/shared/queries';
-import { Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
+import { Box, Button, Typography } from '@mui/material';
+import { useGetSettings } from '@/shared/queries';
 
 type Props = {
   title: string;

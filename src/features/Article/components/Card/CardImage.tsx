@@ -1,7 +1,7 @@
-import { Article } from '@/sanity/types/schema';
-import { Box } from '@mui/material';
-import Image from 'next/image';
 import { useMemo } from 'react';
+import Image from 'next/image';
+import { Box } from '@mui/material';
+import { Article } from '@/sanity/types/schema';
 import { getArticleCoverImg } from '../../utils';
 
 interface Props {

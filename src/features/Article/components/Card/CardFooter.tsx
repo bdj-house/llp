@@ -1,8 +1,8 @@
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ShareIcon from '@mui/icons-material/Share';
 import { Avatar, Box, ButtonBase, Typography, useTheme } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
 import { IconButton, If } from '@/shared/components';

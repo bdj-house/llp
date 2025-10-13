@@ -1,16 +1,12 @@
 'use client';
 
-import { Container, LinearProgress, useTheme } from '@mui/material';
 import { useEffect } from 'react';
+import { Container, LinearProgress, useTheme } from '@mui/material';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
 import { Breadcrumb } from '@/shared/components';
 import { useHeader } from '@/shared/hooks';
-import {
-  DetailsContent,
-  DetailsHeader,
-  SocialShareSticky,
-} from '../components';
+import { DetailsContent, DetailsHeader, SocialShareSticky } from '../components';
 import { useProgressBar } from '../hooks';
 
 interface ArticleDetailsProps {
@@ -22,10 +18,7 @@ const Details = ({ article }: ArticleDetailsProps) => {
   const { scrollProgress } = useProgressBar();
 
   return (
-    <Container
-      sx={{ bgcolor: theme.palette.background.paper, py: 6 }}
-      maxWidth={false}
-    >
+    <Container sx={{ bgcolor: theme.palette.background.paper, py: 6 }} maxWidth={false}>
       <LinearProgress
         variant="determinate"
         value={scrollProgress}

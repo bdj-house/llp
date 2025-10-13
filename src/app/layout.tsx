@@ -1,13 +1,13 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import Script from 'next/script';
 import { ThemeRegistry } from '@/config/theme';
 import { champagneFont, mangolaineFont } from '@/config/theme/fonts';
 import { sanityClient } from '@/sanity/lib/client';
 import { siteSettingsQuery } from '@/sanity/queries';
 import { analyticsMeta, schemaOrg, metadata as seoMetadata } from '@/shared/constants';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import './globals.css';
 import { WebVitals } from './web-vitals';
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.idalgocortijo.com.br'),

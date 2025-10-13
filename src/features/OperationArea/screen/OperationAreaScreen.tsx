@@ -1,14 +1,14 @@
 'use client';
 
-import tempLogo from '@/assets/logo/temp-logo.png';
-import { urlFor } from '@/sanity/lib/image';
-import { HelperPanel, OpacityCard, ViewContainer } from '@/shared/components';
+import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import { EmojiPeople as EmojiPeopleIcon } from '@mui/icons-material';
 import { Box, Chip, Container, Paper, Typography, useTheme } from '@mui/material';
-import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { urlFor } from '@/sanity/lib/image';
+import { HelperPanel, OpacityCard, ViewContainer } from '@/shared/components';
 import { DetailsContent } from '../components';
 import { OperationArea } from '../types';
+import tempLogo from '@/assets/logo/temp-logo.png';
 
 interface Props {
   operationAreas: OperationArea[];

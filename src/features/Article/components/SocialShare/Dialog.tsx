@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { ContentCopy, LinkedIn, Twitter, WhatsApp } from '@mui/icons-material';
 import { IconButton, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
 import { BaseDialog } from '@/shared/components';
 
 interface Props {
@@ -12,12 +12,7 @@ interface Props {
   title?: string;
 }
 
-export const SocialShareDialog: React.FC<Props> = ({
-  open,
-  onClose,
-  shareUrl,
-  title,
-}) => {
+export const SocialShareDialog: React.FC<Props> = ({ open, onClose, shareUrl, title }) => {
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title ?? '');
 

@@ -1,3 +1,6 @@
+import { Metadata } from 'next';
+import nextDynamic from 'next/dynamic';
+import { Container } from '@mui/material';
 import { HomeScreen } from '@/features/Home/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import {
@@ -8,9 +11,6 @@ import {
 } from '@/sanity/queries';
 import { Article, OperationArea } from '@/sanity/types/schema';
 import { mainPageMetadata } from '@/shared/constants';
-import { Container } from '@mui/material';
-import { Metadata } from 'next';
-import nextDynamic from 'next/dynamic';
 
 export const dynamic = 'force-static';
 export const revalidate = 300; // ISR every 5 minutes

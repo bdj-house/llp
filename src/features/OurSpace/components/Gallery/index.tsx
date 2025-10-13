@@ -1,9 +1,9 @@
 'use client';
 
-import { LightboxGallery } from '@/shared/components';
-import { Box } from '@mui/material';
-import Image from 'next/image';
 import { useState } from 'react';
+import Image from 'next/image';
+import { Box } from '@mui/material';
+import { LightboxGallery } from '@/shared/components';
 import {
   Container,
   MainImagePaper,

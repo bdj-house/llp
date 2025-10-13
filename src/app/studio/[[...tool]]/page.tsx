@@ -1,7 +1,7 @@
 'use client';
 
-import { NextStudio } from 'next-sanity/studio';
 import { useEffect } from 'react';
+import { NextStudio } from 'next-sanity/studio';
 import config from '@/sanity/sanity.config';
 import { useHeader } from '@/shared/hooks';
 

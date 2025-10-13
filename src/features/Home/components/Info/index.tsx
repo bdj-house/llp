@@ -1,7 +1,7 @@
-import { IconButton } from '@/shared/components';
+import Image from 'next/image';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import Image from 'next/image';
+import { IconButton } from '@/shared/components';
 
 interface Props {
   logoUrl?: string;

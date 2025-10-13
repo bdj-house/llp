@@ -1,8 +1,7 @@
+import Image from 'next/image';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
-import { Typography } from '@mui/material';
-import Image from 'next/image';
 import {
   ArrowLeftButton,
   ArrowRightButton,
@@ -89,9 +88,7 @@ export const LightboxGallery = ({
 
         {hasMultipleImages && selectedImage !== null && (
           <CounterBadge>
-            <Typography variant="body2">
-              {selectedImage + 1} de {images.length}
-            </Typography>
+            {selectedImage + 1} de {images.length}
           </CounterBadge>
         )}
       </Content>

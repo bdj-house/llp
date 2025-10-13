@@ -1,8 +1,8 @@
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { OperationAreaScreen } from '@/features/OperationArea/screen';
 import { sanityClient } from '@/sanity/lib/client';
 import { allOperationAreasQuery, operationAreaByIdQuery } from '@/sanity/queries';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ id: string }>;

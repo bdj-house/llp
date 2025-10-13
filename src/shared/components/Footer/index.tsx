@@ -1,7 +1,5 @@
 'use client';
 
-import { useHeader } from '@/shared/hooks';
-import { useGetOperationAreasForFooter, useGetSettings } from '@/shared/queries';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -15,6 +13,8 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { useHeader } from '@/shared/hooks';
+import { useGetOperationAreasForFooter, useGetSettings } from '@/shared/queries';
 
 export const Footer = () => {
   const theme = useTheme();

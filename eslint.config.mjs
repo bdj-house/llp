@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
+import importPlugin from 'eslint-plugin-import';
 import reactDom from 'eslint-plugin-react-dom';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -35,6 +36,7 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'react-dom': reactDom,
+      import: importPlugin,
     },
     rules: {
       // Core rules
@@ -74,6 +76,29 @@ export default [
       // React DOM rules - explicitly disable problematic ones
       'react-dom/no-dangerously-set-innerhtml': 'off',
       'react-dom/no-unsafe-iframe-sandbox': 'off',
+
+      // Import ordering rules
+      'import/order': [
+        'warn',
+        {
+          groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'index', 'type'],
+          pathGroups: [
+            { pattern: 'react', group: 'external', position: 'before' },
+            { pattern: '@mui/**', group: 'external', position: 'after' },
+            { pattern: '@/config/**', group: 'internal', position: 'before' },
+            { pattern: '@/features/**', group: 'internal' },
+            { pattern: '@/sanity/**', group: 'internal' },
+            { pattern: '@/shared/**', group: 'internal' },
+            { pattern: '@/lib/**', group: 'internal' },
+          ],
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'never',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
+      'import/first': 'error',
+      'import/newline-after-import': 'warn',
+      'import/no-duplicates': 'error',
     },
   },
   {

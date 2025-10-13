@@ -1,5 +1,6 @@
 'use client';
 
+import { ReactNode } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   IconButton,
   useTheme,
 } from '@mui/material';
-import { ReactNode } from 'react';
 import { If } from '../If';
 
 interface BaseDialogProps {
@@ -50,12 +50,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
         },
       }}
     >
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={1}
-      >
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <DialogTitle sx={{ p: 0, fontWeight: 700 }}>{title}</DialogTitle>
 
         <If condition={!hideClose}>
@@ -67,9 +62,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
 
       <DialogContent sx={{ px: 0, pt: 1 }}>{children}</DialogContent>
 
-      {actions && (
-        <DialogActions sx={{ px: 0, pt: 3 }}>{actions}</DialogActions>
-      )}
+      {actions && <DialogActions sx={{ px: 0, pt: 3 }}>{actions}</DialogActions>}
     </Dialog>
   );
 };

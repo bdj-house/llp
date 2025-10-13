@@ -1,15 +1,12 @@
-import { motion } from 'framer-motion';
 import React, { PropsWithChildren } from 'react';
+import { motion } from 'framer-motion';
 import { useScrollDirection } from '@/shared/hooks';
 
 interface Props {
   isStatic?: boolean;
 }
 
-export const Position: React.FC<PropsWithChildren<Props>> = ({
-  children,
-  isStatic,
-}) => {
+export const Position: React.FC<PropsWithChildren<Props>> = ({ children, isStatic }) => {
   const scrollDirection = useScrollDirection();
 
   if (isStatic) {

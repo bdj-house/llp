@@ -1,6 +1,6 @@
-import { Routes } from '@/config/routes';
-import { Button, Container, Typography } from '@mui/material';
 import Link from 'next/link';
+import { Button, Container, Typography } from '@mui/material';
+import { Routes } from '@/config/routes';
 
 export default function NotFound() {
   return (
