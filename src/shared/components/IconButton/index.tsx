@@ -8,6 +8,7 @@ interface Props {
   customBorderColor?: string;
   customBackground?: string;
   size?: 'medium' | 'large';
+  ariaLabel?: string;
 }
 
 export const IconButton: React.FC<PropsWithChildren<Props>> = ({
@@ -16,11 +17,12 @@ export const IconButton: React.FC<PropsWithChildren<Props>> = ({
   customBackground,
   customBorderColor,
   size = 'medium',
+  ariaLabel,
 }) => {
   const theme = useTheme();
 
   return (
-    <ButtonBase onClick={action}>
+    <ButtonBase onClick={action} aria-label={ariaLabel} title={ariaLabel}>
       <Avatar
         sx={{
           backgroundColor: customBackground ?? 'transparent',

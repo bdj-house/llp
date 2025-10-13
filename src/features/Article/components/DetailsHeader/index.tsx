@@ -1,7 +1,7 @@
+import { Article } from '@/sanity/types/schema';
 import { Box, Chip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
 import { useMemo } from 'react';
-import { Article } from '@/sanity/types/schema';
 import { getArticleCoverImg } from '../../utils';
 
 interface Props {
@@ -18,7 +18,7 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
   const imageSource = useMemo(() => {
     const imgHeight = (70 * HEADER_HEIGHT) / 100;
     return getArticleCoverImg(article, imgHeight);
-  }, [HEADER_HEIGHT]);
+  }, [article]);
 
   return (
     <Box
@@ -53,6 +53,7 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
           src={imageSource}
           alt={article.title ?? ''}
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           style={{ objectFit: 'cover' }}
         />
       </Box>

@@ -1,8 +1,8 @@
 'use client';
 
-import { Box, Container, Typography, useTheme } from '@mui/material';
-import { useState } from 'react';
 import { Article } from '@/sanity/types/schema';
+import { ViewContainer } from '@/shared/components';
+import { useState } from 'react';
 import { GridList, RedirectDialog, SidebarFilter } from '../components';
 import { usePaginatedArticles } from '../queries';
 
@@ -11,12 +11,7 @@ interface Props {
   initialArticles: Article[];
 }
 
-export const ListArticlesScreen: React.FC<Props> = ({
-  tags,
-  initialArticles,
-}) => {
-  const theme = useTheme();
-
+export const ListArticlesScreen: React.FC<Props> = ({ tags, initialArticles }) => {
   const [urlRedirect, setUrlRedirect] = useState<string>();
   const [search, setSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -28,9 +23,7 @@ export const ListArticlesScreen: React.FC<Props> = ({
   });
 
   const handleToggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
-    );
+    setSelectedTags(prev => (prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]));
   };
 
   const resetFilters = () => {
@@ -39,28 +32,14 @@ export const ListArticlesScreen: React.FC<Props> = ({
   };
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        bgcolor: theme.palette.background.paper,
-        py: 12,
-        minHeight: '100vh',
-        position: 'relative',
+    <ViewContainer
+      isPageContainer
+      header={{
+        title: 'Publicações',
+        subtitle: 'Conheça nossas idéias sobre as novidades do mundo jurídico',
+        subject: 'Fique por dentro de todos os assuntos legais que podem impactar sua vida',
       }}
     >
-      <Box textAlign="center" mb={6}>
-        <Typography variant="h1" color="secondary" fontWeight="bold">
-          Publicações
-        </Typography>
-        <Typography variant="h5" color="primary" mt={4}>
-          Conheça todas as nossas publicações e referências sobre nossas visões
-          gerais
-        </Typography>
-      </Box>
-
       <GridList paginatedProps={paginatedProps} />
 
       <SidebarFilter
@@ -77,6 +56,6 @@ export const ListArticlesScreen: React.FC<Props> = ({
         onClose={() => setUrlRedirect(undefined)}
         url={urlRedirect ?? ''}
       />
-    </Container>
+    </ViewContainer>
   );
 };

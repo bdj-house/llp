@@ -1,21 +1,21 @@
 const aboutPageSchema = {
   name: 'aboutPage',
-  title: 'Página Sobre',
+  title: 'Sobre',
   type: 'document',
+  __experimental_actions: ['update', 'publish', 'delete'],
   fields: [
     { name: 'title', title: 'Título', type: 'string' },
     { name: 'subtitle', title: 'Subtítulo', type: 'string' },
     {
-      name: 'profileImage',
-      title: 'Imagem de Perfil',
-      type: 'image',
-      options: { hotspot: true },
+      name: 'description',
+      title: 'Descrição',
+      type: 'string',
     },
     {
-      name: 'content',
-      title: 'Conteúdo Principal',
+      name: 'associates',
+      title: 'Associadas',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{ type: 'reference', to: [{ type: 'associate' }] }],
     },
   ],
 };

@@ -1,26 +1,18 @@
-import {
-  alpha,
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Tooltip,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import Image from 'next/image';
-import { useMemo } from 'react';
 import { Article } from '@/sanity/types/schema';
 import { If } from '@/shared/components';
-import { getArticleCoverImg, getArticleDate } from '../../utils';
+import { alpha, Box, Card, CardContent, Chip, Tooltip, Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
+import { useMemo } from 'react';
+import { getArticleCoverImg, getArticleDate, hasArticleCoverImage } from '../../utils';
 import { calculateReadingTime } from '../../utils/data';
 
 interface Props {
   article: Article;
   isHighlight?: boolean;
+  index?: number;
 }
 
-export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
+export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }) => {
   const theme = useTheme();
 
   const height = useMemo(() => (isHighlight ? 800 : 400), [isHighlight]);
@@ -28,7 +20,7 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
   const imageSource = useMemo(() => {
     const imgHeight = (70 * height) / 100;
     return getArticleCoverImg(article, imgHeight);
-  }, [height]);
+  }, [article, height]);
 
   const readTime = useMemo(() => {
     if (!article.content) {
@@ -68,9 +60,9 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
           alt={article.title ?? ''}
           src={imageSource}
           fill
-          sizes="(max-width: 600px) 100vw, 50vw"
+          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: 'cover' }}
-          priority
+          priority={index < 3 && hasArticleCoverImage(article)}
         />
 
         <Box
@@ -88,11 +80,7 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight }) => {
           ))}
 
           {(article.tags?.length ?? 0) > 3 && (
-            <Chip
-              label={`+${(article.tags?.length ?? 0) - 3}`}
-              color="secondary"
-              size="small"
-            />
+            <Chip label={`+${(article.tags?.length ?? 0) - 3}`} color="secondary" size="small" />
           )}
         </Box>
       </Box>

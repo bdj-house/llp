@@ -1,7 +1,21 @@
-export const aboutQuery = `*[_type == "aboutPage"]{
+export const aboutQuery = `*[_id == "aboutPage"][0]{
   _id,
   title,
   subtitle,
-  profileImage,
-  content
+  description,
+  associates[]->{
+    _id,
+    name,
+    role,
+    description,
+    graduation,
+    history,
+    email,
+    linkedin,
+    whatsapp,
+    order,
+    active,
+    "imageCover": imageCover.asset->url,
+    "imageProfile": imageProfile.asset->url,
+  }
 }`;
