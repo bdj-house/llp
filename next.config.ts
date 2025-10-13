@@ -22,6 +22,41 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+
+    // In development, use relaxed CSP for easier debugging
+    const cspDirectives = isDev
+      ? [
+          "default-src 'self' 'unsafe-inline' 'unsafe-eval'",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.sanity.io",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: https: http: blob:",
+          "font-src 'self' data:",
+          "connect-src 'self' https: http: ws: wss:",
+          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com",
+          "media-src 'self' https: http:",
+          "worker-src 'self' blob:",
+        ]
+      : [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: https: blob:",
+          "font-src 'self' data:",
+          "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://www.google-analytics.com",
+          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com",
+          "media-src 'self' https://cdn.sanity.io",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "form-action 'self'",
+          "frame-ancestors 'none'",
+        ];
+
+    // Only add upgrade-insecure-requests in production (not needed on localhost)
+    if (!isDev) {
+      cspDirectives.push('upgrade-insecure-requests');
+    }
+
     return [
       {
         source: '/:path*',
@@ -51,29 +86,19 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
-          // Strict Transport Security (HTTPS only)
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload',
-          },
+          // Strict Transport Security (HTTPS only) - only in production
+          ...(isDev
+            ? []
+            : [
+                {
+                  key: 'Strict-Transport-Security',
+                  value: 'max-age=63072000; includeSubDomains; preload',
+                },
+              ]),
           // Content Security Policy
           {
             key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https: blob:",
-              "font-src 'self' data:",
-              "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://www.google-analytics.com",
-              "frame-src 'self' https://www.googletagmanager.com https://maps.google.com",
-              "media-src 'self' https://cdn.sanity.io",
-              "object-src 'none'",
-              "base-uri 'self'",
-              "form-action 'self'",
-              "frame-ancestors 'none'",
-              'upgrade-insecure-requests',
-            ].join('; '),
+            value: cspDirectives.join('; '),
           },
         ],
       },

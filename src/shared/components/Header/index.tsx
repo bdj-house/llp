@@ -40,6 +40,8 @@ const Header: React.FC = () => {
   const router = useRouter();
   const { mode } = useHeader();
 
+  const isStudioRoute = pathname?.startsWith('/studio');
+
   const isMobile = useMemo(() => {
     if (typeof window === 'undefined') return false;
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -91,7 +93,7 @@ const Header: React.FC = () => {
 
   const isStatic = mode === 'static';
 
-  if (mode === 'hidden') {
+  if (isStudioRoute || mode === 'hidden') {
     return null;
   }
 
