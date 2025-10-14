@@ -27,20 +27,18 @@ export function reportWebVitals(metric: Metric) {
       });
     }
 
-    // You can also send to other analytics services here
-    // Example: Vercel Analytics, Sentry, etc.
-    const body = JSON.stringify({
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-      id: metric.id,
-      navigationType: metric.navigationType,
-    });
-
-    // Optional: Send to your own analytics endpoint
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/analytics/web-vitals', body);
+    // Optional: Send to Vercel Analytics if using Vercel
+    // @ts-ignore - Vercel injects this
+    if (window.va) {
+      // @ts-ignore
+      window.va('event', {
+        name: 'web-vitals',
+        data: {
+          metric: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+        },
+      });
     }
   }
 }
@@ -49,5 +47,6 @@ export function reportWebVitals(metric: Metric) {
 declare global {
   interface Window {
     gtag?: (command: string, eventName: string, params: Record<string, unknown>) => void;
+    va?: (command: string, data: Record<string, unknown>) => void;
   }
 }
