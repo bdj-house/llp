@@ -1,5 +1,7 @@
 export enum Routes {
-  Home = "/",
-  Articles = "articles",
-  Contact = "contact",
+  Home = '/',
+  Articles = '/publicacoes',
+  Contact = '/contato',
+  OurSpace = '/nosso-espaco',
+  OperationAreas = '/areas-atuacao',
 }

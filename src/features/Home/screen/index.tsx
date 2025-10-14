@@ -1,30 +1,60 @@
-"use client";
+'use client';
 
-import { Box } from "@mui/material";
-import Image from "next/image";
-import tempLogo from "@/assets/logo/temp-logo.png";
-import { ViewContainer } from "@/shared/components";
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
+import type { HomePage } from '@/sanity/types/schema';
+import { ViewContainer } from '@/shared/components';
+import { Art, Info } from '../components';
 
-export const HomeScreen: React.FC = () => {
+type HomeProps = Pick<HomePage, 'heroTitle' | 'heroSubtitle'> & {
+  heroLogoUrl?: string;
+  mainImageUrl?: string;
+};
+
+export const HomeScreen: React.FC<HomeProps> = ({
+  heroLogoUrl,
+  heroTitle,
+  heroSubtitle,
+  mainImageUrl,
+}) => {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <ViewContainer>
-      <Box
+      <Grid
+        container
         sx={{
-          position: "relative",
-          width: "60%",
-          aspectRatio: "1 / 1",
-          mx: "auto",
+          height: { xs: 'auto', md: '100vh' },
+          minHeight: { xs: '100vh', md: '100vh' },
         }}
+        spacing={4}
       >
-        <Image
-          src={tempLogo}
-          alt="Logo"
-          fill
-          style={{ objectFit: "contain" }}
-          sizes="(max-width: 600px) 80vw, (max-width: 1200px) 50vw, 400px"
-          priority
-        />
-      </Box>
+        <Grid
+          size={{ xs: 12, md: 5 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: { xs: 'center', md: 'flex-end' },
+            py: { xs: 4, md: 0 },
+          }}
+        >
+          <Info logoUrl={heroLogoUrl} title={heroTitle} subtitle={heroSubtitle} />
+        </Grid>
+        {!isMobile && (
+          <Grid
+            size={{ xs: 12, md: 7 }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              py: { xs: 2, md: 0 },
+            }}
+          >
+            <Art imageUrl={mainImageUrl} />
+          </Grid>
+        )}
+      </Grid>
     </ViewContainer>
   );
 };

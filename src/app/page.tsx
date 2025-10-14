@@ -1,14 +1,86 @@
-import { Container } from "@mui/material";
-import { HomeScreen } from "@/features/Home/screen";
+import nextDynamic from 'next/dynamic';
+import { Container } from '@mui/material';
+import { HomeScreen } from '@/features/Home/screen';
+import { sanityClient } from '@/sanity/lib/client';
+import {
+  aboutQuery,
+  allOperationAreasQuery,
+  homePageQuery,
+  lastArticlesQuery,
+} from '@/sanity/queries';
+import { Article, OperationArea } from '@/sanity/types/schema';
+import { mainPageMetadata } from '@/shared/constants';
+import type { Metadata } from 'next';
 
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
+export const revalidate = 300; // ISR every 5 minutes
 
-export default async function HomePage() {
-  // const about = await sanityClient.fetch<AboutPage[]>(aboutQuery);
+export async function generateMetadata(): Promise<Metadata> {
+  return mainPageMetadata;
+}
+
+export default async function Page() {
+  const [articles, operationAreas, aboutData, homeData] = await Promise.all([
+    sanityClient.fetch<Article[]>(lastArticlesQuery),
+    sanityClient.fetch<OperationArea[]>(allOperationAreasQuery),
+    sanityClient.fetch<any>(aboutQuery),
+    sanityClient.fetch<any>(homePageQuery),
+  ]);
 
   return (
-    <Container>
-      <HomeScreen />
+    <Container
+      maxWidth={false}
+      sx={{
+        px: 0,
+        py: 0,
+        backgroundColor: 'background.paper',
+        gap: 12,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      disableGutters
+    >
+      <HomeScreen
+        heroLogoUrl={homeData?.heroLogo}
+        heroTitle={homeData?.heroTitle}
+        heroSubtitle={homeData?.heroSubtitle}
+        mainImageUrl={homeData?.mainImage}
+      />
+
+      <About
+        associates={aboutData?.associates ?? []}
+        sectionInfo={{
+          title: aboutData?.title ?? '',
+          subtitle: aboutData?.subtitle ?? '',
+          subject: aboutData?.description ?? '',
+        }}
+      />
+
+      <OperationItems operationAreas={operationAreas ?? []} />
+
+      <ArticleSummary articles={articles ?? []} />
     </Container>
   );
 }
+
+// Dynamic imports with SSR for SEO, but JS is code-split
+const About = nextDynamic(() => import('@/features/About/views').then(m => m.AboutArea), {
+  ssr: true,
+  loading: () => null,
+});
+
+const OperationItems = nextDynamic(
+  () => import('@/features/OperationArea/views').then(m => m.OperationAreaGrid),
+  {
+    ssr: true,
+    loading: () => null,
+  },
+);
+
+const ArticleSummary = nextDynamic(
+  () => import('@/features/Article/views').then(m => m.ArticleSummary),
+  {
+    ssr: true,
+    loading: () => null,
+  },
+);

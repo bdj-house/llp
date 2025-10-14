@@ -1,0 +1,33 @@
+name: Sync to Personal Repo (Dev)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  sync:
+    if: github.repository == 'bdj-house/llp'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history needed to avoid index-pack errors
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Push to personal repo
+        env:
+          GIT_SSH_COMMAND: 'ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes'
+        run: |
+          git config user.name "lucasbertolo"
+          git config user.email "lucasbertolo2@gmail.com"
+          git remote add personal git@github.com:lucasbertolo/lawyer-firm.git
+          git push personal dev --force

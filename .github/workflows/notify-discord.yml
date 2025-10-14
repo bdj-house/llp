@@ -1,0 +1,62 @@
+name: Notify Discord on Vercel Deployment
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  notify:
+    if: github.repository == 'lucasbertolo/lawyer-firm'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    steps:
+      - name: Fetch latest preview deployment from Vercel API
+        id: vercel
+        run: |
+          DEPLOYMENT_URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&limit=1&branch=dev" \
+            | jq -r '
+                .deployments[0] 
+                | if (.alias != null and (.alias | length) > 0) then
+                    .alias[0]
+                  else
+                    .url
+                  end
+              ')
+          echo "deployment_url=https://$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "username": "Vercel Bot",
+              "avatar_url": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+              "embeds": [{
+                "title": "📦 New Preview Deployment",
+                "url": "${{ steps.vercel.outputs.deployment_url }}",
+                "description": "[View Deployment](${{ steps.vercel.outputs.deployment_url }})",
+                "color": 5814783,
+                "fields": [
+                  {
+                    "name": "Branch",
+                    "value": "dev"
+                  },
+                  {
+                    "name": "Repository",
+                    "value": "${{ github.repository }}"
+                  },
+                  {
+                    "name": "Commit",
+                    "value": "[${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})"
+                  }
+                ],
+                "timestamp": "'$(date --iso-8601=seconds)'"
+              }]
+            }' \
+            $DISCORD_WEBHOOK_URL

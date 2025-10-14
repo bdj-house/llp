@@ -1,23 +1,32 @@
-import { createTheme } from "@mui/material/styles";
-import { champagneFont, mangolaineFont } from "./fonts";
+import { createTheme } from '@mui/material/styles';
+import { champagneFont, mangolaineFont } from './fonts';
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     primary: {
-      main: "#6B1A2B",
-      contrastText: "#F2DDD5",
+      main: '#6B1A2B',
+      contrastText: '#F2DDD5',
     },
     secondary: {
-      main: "#B85B3A",
-      contrastText: "#FFFFFF",
+      main: '#B85B3A',
+      contrastText: '#FFFFFF',
     },
     background: {
-      default: "#F2DDD5",
-      paper: "#FFFFFF",
+      default: '#F2DDD5',
+      paper: '#FFFFFF',
     },
     text: {
-      primary: "#38403B",
-      secondary: "#6B1A2B",
+      primary: '#38403B',
+      secondary: '#6B1A2B',
     },
   },
   typography: {
@@ -25,18 +34,42 @@ const theme = createTheme({
     h1: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
-      fontSize: "3rem",
+      fontSize: '3rem',
+      '@media (max-width:600px)': {
+        fontSize: '2rem',
+      },
     },
     h2: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
       fontWeight: 400,
-      fontSize: "2.5rem",
+      fontSize: '2.5rem',
+      '@media (max-width:600px)': {
+        fontSize: '1.75rem',
+      },
     },
     h3: {
       fontFamily: `${mangolaineFont.style.fontFamily}, serif`,
+      '@media (max-width:600px)': {
+        fontSize: '1.5rem',
+      },
+    },
+    h4: {
+      '@media (max-width:600px)': {
+        fontSize: '1.25rem',
+      },
+    },
+    h5: {
+      '@media (max-width:600px)': {
+        fontSize: '1.125rem',
+      },
+    },
+    h6: {
+      '@media (max-width:600px)': {
+        fontSize: '1rem',
+      },
     },
     button: {
-      textTransform: "none",
+      textTransform: 'none',
       fontFamily: `${champagneFont.style.fontFamily}, sans-serif`,
     },
   },
@@ -44,8 +77,8 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: "8px",
-          textTransform: "none",
+          borderRadius: '8px',
+          textTransform: 'none',
         },
       },
     },

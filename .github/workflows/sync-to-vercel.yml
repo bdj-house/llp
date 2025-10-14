@@ -7,13 +7,14 @@ on:
 
 jobs:
   sync:
+    if: github.repository == 'bdj-house/llp'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ensures full commit history for push
+          fetch-depth: 0 # ensures full commit history for push
 
       - name: Setup SSH
         run: |
@@ -24,7 +25,7 @@ jobs:
 
       - name: Push to personal repo
         env:
-          GIT_SSH_COMMAND: "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes"
+          GIT_SSH_COMMAND: 'ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes'
         run: |
           git config user.name "lucasbertolo"
           git config user.email "lucasbertolo2@gmail.com"
