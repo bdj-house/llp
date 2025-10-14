@@ -1,5 +1,6 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
+const withPWA = require('./next.config.pwa.js');
 
 const nextConfig: NextConfig = {
   images: {
@@ -110,4 +111,5 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-export default bundleAnalyzer(nextConfig);
+// Apply PWA and then bundle analyzer
+export default bundleAnalyzer(withPWA(nextConfig));

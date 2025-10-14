@@ -140,7 +140,11 @@ const Header: React.FC = () => {
     <>
       <Position isStatic={isStatic}>
         <StyledAppBar position="static" elevation={0}>
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Toolbar
+            sx={{ justifyContent: 'space-between' }}
+            component="nav"
+            aria-label="Navegação principal"
+          >
             <Stack
               direction="row"
               alignItems="center"
@@ -193,6 +197,7 @@ const Header: React.FC = () => {
               {routes.map(item => (
                 <NavLinkButton
                   onClick={() => goToPage(item.route)}
+                  onMouseEnter={() => router.prefetch(item.route)}
                   key={item.label}
                   aria-label={`Ir para ${item.label}`}
                 >

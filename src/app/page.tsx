@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
 import { Container } from '@mui/material';
 import { HomeScreen } from '@/features/Home/screen';
@@ -11,6 +10,7 @@ import {
 } from '@/sanity/queries';
 import { Article, OperationArea } from '@/sanity/types/schema';
 import { mainPageMetadata } from '@/shared/constants';
+import type { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 export const revalidate = 300; // ISR every 5 minutes
@@ -46,6 +46,7 @@ export default async function Page() {
         heroSubtitle={homeData?.heroSubtitle}
         mainImageUrl={homeData?.mainImage}
       />
+
       <About
         associates={aboutData?.associates ?? []}
         sectionInfo={{
@@ -54,12 +55,15 @@ export default async function Page() {
           subject: aboutData?.description ?? '',
         }}
       />
+
       <OperationItems operationAreas={operationAreas ?? []} />
+
       <ArticleSummary articles={articles ?? []} />
     </Container>
   );
 }
 
+// Dynamic imports with SSR for SEO, but JS is code-split
 const About = nextDynamic(() => import('@/features/About/views').then(m => m.AboutArea), {
   ssr: true,
   loading: () => null,

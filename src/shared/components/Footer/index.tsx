@@ -34,7 +34,13 @@ export const Footer = () => {
   }
 
   return (
-    <Box bgcolor={theme.palette.background.default} py={{ xs: 4, md: 6 }} zIndex={999}>
+    <Box
+      component="footer"
+      role="contentinfo"
+      bgcolor={theme.palette.background.default}
+      py={{ xs: 4, md: 6 }}
+      zIndex={999}
+    >
       <Container>
         <Grid
           container

@@ -170,6 +170,10 @@ export default [
       '*.yaml',
       '**/*.yml',
       '**/*.yaml',
+      'public/sw.js',
+      'public/sw.js.map',
+      'public/workbox-*.js',
+      'public/workbox-*.js.map',
     ],
   },
 ];

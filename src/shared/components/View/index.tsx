@@ -46,7 +46,9 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
         bgcolor: theme.palette.background.paper,
         ...additionalProps,
       }}
-      id={id}
+      id={id || 'main-content'}
+      component="main"
+      role="main"
     >
       <If condition={!!header}>
         <Box

@@ -4,6 +4,7 @@ import { ThemeRegistry } from '@/config/theme';
 import { champagneFont, mangolaineFont } from '@/config/theme/fonts';
 import { sanityClient } from '@/sanity/lib/client';
 import { siteSettingsQuery } from '@/sanity/queries';
+import { SkipToContent } from '@/shared/components/SkipToContent';
 import { analyticsMeta, schemaOrg, metadata as seoMetadata } from '@/shared/constants';
 import { WebVitals } from './web-vitals';
 import type { Metadata } from 'next';
@@ -50,10 +51,13 @@ export default async function RootLayout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="canonical" href="https://www.idalgocortijo.com.br/" />
         <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#1a365d" />
       </head>
       <body className={`${champagneFont.variable} ${mangolaineFont.variable}`}>
+        <SkipToContent />
         <WebVitals />
         <noscript>
           <iframe
