@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
 import React, { FC, ReactNode } from 'react';
+import { Box } from '@mui/material';
 
 interface Props {
   condition: boolean | undefined;
@@ -8,11 +8,6 @@ interface Props {
   sx?: React.CSSProperties;
 }
 
-export const If: FC<Props> = function ({
-  condition,
-  elseRender = null,
-  children,
-  sx,
-}) {
+export const If: FC<Props> = function ({ condition, elseRender = null, children, sx }) {
   return <Box sx={sx}>{condition ? children : elseRender}</Box>;
 };

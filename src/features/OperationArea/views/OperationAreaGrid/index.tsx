@@ -1,12 +1,12 @@
 'use client';
 
-import { OperationArea } from '@/sanity/types/schema';
-import { If, OpacityCard, ViewContainer } from '@/shared/components';
+import { useMemo } from 'react';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { Box, Container, Grid, IconButton, Link, Paper, Typography, useTheme } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
+import { OperationArea } from '@/sanity/types/schema';
+import { If, OpacityCard, ViewContainer } from '@/shared/components';
+import { DetailsArea, OperationAreaPaper } from './styles';
 
 interface Props {
   operationAreas: OperationArea[];
@@ -18,10 +18,8 @@ const subject = `Na Idalgo & Cortijo, priorizamos o seu sucesso e bem-estar. Que
         personalizada para cada caso.`;
 const subtitle = `Especializações`;
 
-export const OperationItemsSection = ({ operationAreas }: Props) => {
+export const OperationAreaGrid = ({ operationAreas }: Props) => {
   const theme = useTheme();
-  const searchParams = useSearchParams();
-  const selectedId = searchParams.get('selected');
 
   const areas = useMemo(() => {
     const sortedAreas = operationAreas.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, 7);
@@ -49,37 +47,19 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
       <Container sx={{ height: '90vh', py: 18 }}>
         <Grid container spacing={2} justifyContent="center">
           {areas.map((area, index) => {
-            const isSelected = area._id === selectedId;
+            const backgroundColor =
+              index === 0 ? theme.palette.secondary.main : theme.palette.action.hover;
+            const hoverBackgroundColor =
+              index === 0 ? theme.palette.secondary.light : theme.palette.action.hover;
+
             return (
               <Grid key={area._id} size={{ xs: 12, md: 3 }}>
                 <Link href={`/areas-atuacao/${area._id}`} sx={{ textDecoration: 'none' }}>
                   <OpacityCard index={index}>
-                    <Paper
+                    <OperationAreaPaper
                       elevation={0}
-                      sx={{
-                        height: { xs: 200, sm: 220, md: 240 },
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        py: 2,
-                        px: 3,
-                        border: '1px solid',
-                        borderColor: theme.palette.divider,
-                        backgroundColor:
-                          index === 0
-                            ? theme.palette.background.default
-                            : theme.palette.background.paper,
-                        transition: 'all 0.3s ease',
-                        cursor: 'pointer',
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: theme.shadows[2],
-                          backgroundColor:
-                            index === 0
-                              ? theme.palette.secondary.light
-                              : theme.palette.action.hover,
-                        },
-                      }}
+                      backgroundColor={backgroundColor}
+                      hoverBackgroundColor={hoverBackgroundColor}
                     >
                       <Box>
                         <If
@@ -92,19 +72,13 @@ export const OperationItemsSection = ({ operationAreas }: Props) => {
                         </If>
                       </Box>
 
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        gap={1}
-                      >
+                      <DetailsArea>
                         <Typography fontWeight={600}>{area.title}</Typography>
                         <IconButton size="small" disableRipple aria-label="Ver detalhes da área">
                           <ArrowOutwardIcon fontSize="small" />
                         </IconButton>
-                      </Box>
-                    </Paper>
+                      </DetailsArea>
+                    </OperationAreaPaper>
                   </OpacityCard>
                 </Link>
               </Grid>

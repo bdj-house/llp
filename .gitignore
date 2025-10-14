@@ -9,12 +9,20 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+
+# IDE
 .vscode
-.todo.md
-.eslintcache
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
 
 # testing
 /coverage
+*.test.ts.snap
+*.spec.ts.snap
+.vitest
 
 # next.js
 /.next/
@@ -22,19 +30,23 @@
 
 # production
 /build
+/dist
 
 # misc
-.DS_Store
 *.pem
+.todo.md
+.eslintcache
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +54,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# bundle analyzer
+.analyzer/
+bundle-report.html
+
+# sanity
+.sanity
+
+# PWA
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+
+IMPROVEMENTS.md

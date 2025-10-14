@@ -1,7 +1,7 @@
-import { useGetSettings } from '@/shared/queries';
+import { useMemo, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Dialog, DialogContent, IconButton, Toolbar, Typography } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useGetSettings } from '@/shared/queries';
 import { CenterBox } from '../Center';
 import { If } from '../If';
 import { Spinner } from '../Spinner';
@@ -58,7 +58,14 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
   );
 
   return (
-    <Dialog open={isOpen} onClose={close} maxWidth="md" fullWidth>
+    <Dialog
+      open={isOpen}
+      onClose={close}
+      maxWidth="md"
+      fullWidth
+      disableRestoreFocus
+      keepMounted={false}
+    >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6">Nossa Localização</Typography>
         <IconButton edge="end" onClick={close} aria-label="Fechar mapa">

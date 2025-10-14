@@ -1,9 +1,9 @@
-import { ArticleDetails } from '@/features/Article/screen';
+import { Metadata } from 'next';
+import { ArticleDetails } from '@/features/Article/screens';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { articleByIdQuery, siteSettingsQuery } from '@/sanity/queries';
 import { Article, SiteSettings } from '@/sanity/types/schema';
-import { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 

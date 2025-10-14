@@ -1,5 +1,5 @@
-import { Button, DialogContent, DialogTitle, Typography } from '@mui/material';
 import React from 'react';
+import { Button, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { BaseDialog } from '@/shared/components';
 
 interface RedirectDialogProps {
@@ -8,11 +8,7 @@ interface RedirectDialogProps {
   url: string;
 }
 
-export const RedirectDialog: React.FC<RedirectDialogProps> = ({
-  open,
-  url,
-  onClose,
-}) => {
+export const RedirectDialog: React.FC<RedirectDialogProps> = ({ open, url, onClose }) => {
   const confirmRedirect = () => {
     window.open(url, '_blank');
     onClose();
@@ -37,8 +33,7 @@ export const RedirectDialog: React.FC<RedirectDialogProps> = ({
       <DialogTitle>Deixando nossa página</DialogTitle>
       <DialogContent>
         <Typography variant="body1" mb={2}>
-          Esta publicação é de um autor externo. Gostaria de continuar e abrir a
-          página original?
+          Esta publicação é de um autor externo. Gostaria de continuar e abrir a página original?
         </Typography>
       </DialogContent>
     </BaseDialog>

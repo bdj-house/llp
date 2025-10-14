@@ -1,7 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import { sanityClient } from '@/sanity/lib/client';
 import { operationAreasForFooterQuery } from '@/sanity/queries';
 import { OperationArea } from '@/sanity/types/schema';
-import { useQuery } from '@tanstack/react-query';
 
 export const useGetOperationAreasForFooter = () => {
   return useQuery<OperationArea[]>({

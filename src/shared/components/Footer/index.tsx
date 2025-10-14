@@ -1,7 +1,6 @@
 'use client';
 
-import { useHeader } from '@/shared/hooks';
-import { useGetOperationAreasForFooter, useGetSettings } from '@/shared/queries';
+import { usePathname } from 'next/navigation';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -15,22 +14,33 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { useHeader } from '@/shared/hooks';
+import { useGetOperationAreasForFooter, useGetSettings } from '@/shared/queries';
 
 export const Footer = () => {
+  const pathname = usePathname();
   const theme = useTheme();
   const { mode } = useHeader();
+
+  const isStudioRoute = pathname?.startsWith('/studio');
 
   const isHidden = mode === 'hidden';
 
   const { data: settings } = useGetSettings();
   const { data: operationAreas } = useGetOperationAreasForFooter();
 
-  if (isHidden) {
+  if (isStudioRoute || isHidden) {
     return null;
   }
 
   return (
-    <Box bgcolor={theme.palette.background.default} py={{ xs: 4, md: 6 }} zIndex={999}>
+    <Box
+      component="footer"
+      role="contentinfo"
+      bgcolor={theme.palette.background.default}
+      py={{ xs: 4, md: 6 }}
+      zIndex={999}
+    >
       <Container>
         <Grid
           container

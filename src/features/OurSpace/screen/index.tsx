@@ -1,17 +1,22 @@
 'use client';
 
-import { ViewContainer } from '@/shared/components';
+import dynamic from 'next/dynamic';
 import { Box, Button, Container, Paper, Typography } from '@mui/material';
-import { Gallery } from '../components';
+import { ViewContainer } from '@/shared/components';
+import { Spinner } from '@/shared/components/Spinner';
+import { OurSpaceScreenProps } from '../types';
 
-interface Props {
-  header: { title?: string; subtitle?: string; subject?: string };
-  gallery: string[];
-  section: { title?: string; paragraphs: string[] };
-  address?: string;
-  hours?: string;
-  contact?: { label?: string; url?: string };
-}
+const Gallery = dynamic(
+  () => import('../components/Gallery').then(mod => ({ default: mod.Gallery })),
+  {
+    loading: () => (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <Spinner />
+      </Box>
+    ),
+    ssr: false,
+  },
+);
 
 export default function OurSpaceScreen({
   header,
@@ -20,7 +25,7 @@ export default function OurSpaceScreen({
   address,
   hours,
   contact,
-}: Props) {
+}: OurSpaceScreenProps) {
   return (
     <ViewContainer
       header={{

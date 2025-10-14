@@ -8,6 +8,8 @@ export * from './Header';
 export * from './HelperPanel';
 export * from './IconButton';
 export * from './If';
+export * from './LightboxGallery';
 export * from './Map';
+export * from './SkipToContent';
 export * from './Spinner';
 export * from './View';

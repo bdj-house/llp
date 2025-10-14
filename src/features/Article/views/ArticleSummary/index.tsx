@@ -1,12 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Box, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Routes } from '@/config/routes';
 import { Article } from '@/sanity/types/schema';
 import { IconButton, If, ViewContainer } from '@/shared/components';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Box, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { SummaryGrid } from '../components';
+import { SummaryGrid } from '../../components';
 
 interface Props {
   articles: Article[];
@@ -18,7 +18,7 @@ const header = {
   subject: 'Acompanhe as últimas novidades e nossas visões sobre a àrea.',
 };
 
-export const ArticleSummaryScreen: React.FC<Props> = ({ articles }) => {
+export const ArticleSummary: React.FC<Props> = ({ articles }) => {
   const router = useRouter();
   const theme = useTheme();
 

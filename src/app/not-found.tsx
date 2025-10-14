@@ -1,15 +1,15 @@
 'use client';
 
-import { Routes } from '@/config/routes';
-import { HelperPanel, ViewContainer } from '@/shared/components';
-import { useGetSettings } from '@/shared/queries';
+import Link from 'next/link';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
 import GavelIcon from '@mui/icons-material/Gavel';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, Button, Container, Grid, Paper, Typography, useTheme } from '@mui/material';
-import Link from 'next/link';
+import { Routes } from '@/config/routes';
+import { HelperPanel, ViewContainer } from '@/shared/components';
+import { useGetSettings } from '@/shared/queries';
 
 export default function NotFound() {
   const theme = useTheme();
@@ -123,8 +123,7 @@ export default function NotFound() {
             Se você acredita que isso é um erro, por favor{' '}
             <Button
               component={Link}
-              href={settings?.contact?.url ?? ''}
-              target="_blank"
+              href={`mailto:${settings?.email ?? 'contato@idalgocortijo.com.br'}`}
               variant="text"
               size="small"
               sx={{ textDecoration: 'underline', pb: 1, px: 0, minWidth: 'auto' }}

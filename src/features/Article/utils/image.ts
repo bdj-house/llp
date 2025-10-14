@@ -1,6 +1,6 @@
-import tempLogo from '@/assets/logo/temp-logo.png';
 import { urlFor } from '@/sanity/lib/image';
 import { Article } from '@/sanity/types/schema';
+import tempLogo from '@/assets/logo/temp-logo.png';
 
 export const getArticleCoverImg = (article: Article, height: number, width?: number) => {
   if (!article.coverImage) {

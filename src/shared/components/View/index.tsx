@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, Container, Typography, useTheme } from '@mui/material';
 import { PropsWithChildren, useMemo } from 'react';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import { If } from '../If';
 
 interface Props {
@@ -46,7 +46,9 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
         bgcolor: theme.palette.background.paper,
         ...additionalProps,
       }}
-      id={id}
+      id={id || 'main-content'}
+      component="main"
+      role="main"
     >
       <If condition={!!header}>
         <Box

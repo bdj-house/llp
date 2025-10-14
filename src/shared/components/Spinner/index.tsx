@@ -1,5 +1,5 @@
-import { useTheme } from '@mui/material';
 import { HashLoader } from 'react-spinners';
+import { useTheme } from '@mui/material';
 
 export const Spinner = () => {
   const theme = useTheme();

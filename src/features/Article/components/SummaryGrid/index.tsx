@@ -1,7 +1,7 @@
 'use client';
 
-import { Article } from '@/sanity/types/schema';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Article } from '@/sanity/types/schema';
 import { ArticleCard } from '../Card';
 
 interface Props {

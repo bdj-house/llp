@@ -1,8 +1,8 @@
-import { ListArticlesScreen } from '@/features/Article/screen';
+import { Metadata } from 'next';
+import { ListArticlesScreen } from '@/features/Article/screens';
 import { sanityClient } from '@/sanity/lib/client';
 import { allTagsQuery, paginatedArticlesQuery, siteSettingsQuery } from '@/sanity/queries';
 import type { Article, SanityImageAsset, SiteSettings } from '@/sanity/types/schema';
-import { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 export const revalidate = 600;

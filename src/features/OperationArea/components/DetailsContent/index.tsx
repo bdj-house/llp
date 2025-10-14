@@ -1,6 +1,6 @@
-import { Box, Fade, Typography, useTheme } from '@mui/material';
 import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
+import { Box, Fade, Typography, useTheme } from '@mui/material';
 import { OperationArea } from '../../types';
 
 interface Props {

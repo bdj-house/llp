@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
 import Image from 'next/image';
+import { Box } from '@mui/material';
 
 interface Props {
   imageUrl?: string;
@@ -28,8 +28,8 @@ export const Art: React.FC<Props> = ({ imageUrl }) => {
           fetchPriority="high"
           style={{
             objectFit: 'contain',
-            maxWidth: '100%',
-            maxHeight: '100%',
+            width: '100%',
+            height: '100%',
           }}
         />
       )}

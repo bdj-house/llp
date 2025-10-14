@@ -1,8 +1,8 @@
 'use client';
 
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import type { HomePage } from '@/sanity/types/schema';
 import { ViewContainer } from '@/shared/components';
-import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Art, Info } from '../components';
 
 type HomeProps = Pick<HomePage, 'heroTitle' | 'heroSubtitle'> & {

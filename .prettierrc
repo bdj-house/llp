@@ -1,9 +1,24 @@
 {
-  "trailingComma": "all",
-  "tabWidth": 2,
   "semi": true,
   "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 100,
   "arrowParens": "avoid",
-  "quoteProps": "as-needed",
-  "printWidth": 100
+  "endOfLine": "lf",
+  "importOrder": [
+    "^react$",
+    "^react-dom$",
+    "^next",
+    "<THIRD_PARTY_MODULES>",
+    "^@mui/(.*)$",
+    "^@/config/(.*)$",
+    "^@/features/(.*)$",
+    "^@/sanity/(.*)$",
+    "^@/shared/(.*)$",
+    "^@/lib/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

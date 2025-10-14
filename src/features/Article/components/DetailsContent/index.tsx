@@ -1,6 +1,6 @@
-import { Box, Typography, useTheme } from '@mui/material';
 import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
+import { Box, Typography, useTheme } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
 
 interface Props {
@@ -31,23 +31,18 @@ export const DetailsContent: React.FC<Props> = ({ article }) => {
     },
     block: {
       h1: ({ children }: any) => (
-        <Typography variant="h3" mt={6} mb={2}>
+        <Typography variant="h3" mt={6} mb={2} fontSize={28}>
           {children}
         </Typography>
       ),
       h2: ({ children }: any) => (
-        <Typography variant="h4" mt={5} mb={2} color="secondary">
+        <Typography variant="h4" mt={5} mb={2} color="secondary" fontSize={24}>
           {children}
         </Typography>
       ),
       normal: ({ children }: any) => {
         return (
-          <Typography
-            variant="body1"
-            mb={2}
-            lineHeight={1.7}
-            color="text.primary"
-          >
+          <Typography variant="body1" mb={2} lineHeight={1.7} color="text.primary" fontSize={20}>
             {children}
           </Typography>
         );
@@ -66,9 +61,7 @@ export const DetailsContent: React.FC<Props> = ({ article }) => {
       ),
     },
     marks: {
-      strong: ({ children }: any) => (
-        <strong style={{ fontWeight: 700 }}>{children}</strong>
-      ),
+      strong: ({ children }: any) => <strong style={{ fontWeight: 700 }}>{children}</strong>,
       em: ({ children }: any) => <em>{children}</em>,
       link: ({ value, children }: any) => (
         <a
