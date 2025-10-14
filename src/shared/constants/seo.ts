@@ -14,15 +14,11 @@ export const schemaOrg = {
     postalCode: '13400-000',
     addressCountry: 'BR',
   },
-  sameAs: [
-    'https://www.facebook.com/idalgoadv',
-    'https://www.instagram.com/idalgoadv',
-  ],
+  sameAs: ['https://www.facebook.com/idalgoadv', 'https://www.instagram.com/idalgoadv'],
 };
 
 export const metadata = {
-  title:
-    'Idalgo Cortijo Advocacia | Piracicaba - Direito Civil, Trabalho e Previdenciário',
+  title: 'Idalgo Cortijo Advocacia | Piracicaba - Direito Civil, Trabalho e Previdenciário',
   description: `Escritório de advocacia em Piracicaba, SP. 
   Especializado em Direito Civil, Direito do Trabalho e Previdenciário. 
   Consultas e suporte jurídico com excelência.`,
@@ -33,8 +29,7 @@ export const metadata = {
     locale: 'pt_BR',
     url: 'https://www.idalgocortijo.com.br',
     title: 'Idalgo Cortijo Advocacia',
-    description:
-      'Especialistas em Direito Civil, Trabalho e Previdenciário em Piracicaba.',
+    description: 'Especialistas em Direito Civil, Trabalho e Previdenciário em Piracicaba.',
     siteName: 'Idalgo Cortijo Advocacia',
   },
   twitter: {
@@ -44,14 +39,13 @@ export const metadata = {
 };
 
 export const mainPageMetadata = {
-  title: 'Publicações | Idalgo Cortijo',
+  title: 'Idalgo Cortijo - Escritório de Advocacia',
   description: `Acompanhe nossas publicações 
     e artigos especializados em Direito Civil, Trabalho e Previdenciário.`,
   keywords: ['Advocacia', 'Direito', 'Artigos', 'Piracicaba'],
   openGraph: {
-    title: 'Publicações | Idalgo Cortijo',
-    description:
-      'Explore artigos jurídicos especializados da equipe Idalgo Cortijo.',
+    title: 'Idalgo Cortijo - Escritório de Advocacia',
+    description: 'Explore artigos jurídicos especializados da equipe Idalgo Cortijo.',
     type: 'website',
     url: 'https://www.idalgocortijo.com.br/publicacoes',
     images: [
@@ -64,8 +58,7 @@ export const mainPageMetadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Publicações | Idalgo Cortijo',
-    description:
-      'Artigos especializados em Direito Civil, Trabalho e Previdenciário.',
+    title: 'Idalgo Cortijo - Escritório de Advocacia',
+    description: 'Artigos especializados em Direito Civil, Trabalho e Previdenciário.',
   },
 };
