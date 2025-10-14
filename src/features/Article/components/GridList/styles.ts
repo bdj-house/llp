@@ -11,13 +11,15 @@ export const GridContainer = styled(Box)(({ theme }) => ({
   transition: 'opacity 0.4s ease-in-out',
 
   [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(3, 1fr)',
     paddingLeft: theme.spacing(12),
     paddingRight: theme.spacing(12),
   },
 
   [theme.breakpoints.up('lg')]: {
-    paddingLeft: theme.spacing(36),
-    paddingRight: theme.spacing(36),
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    paddingLeft: theme.spacing(12),
+    paddingRight: theme.spacing(12),
   },
 
   '&.loading': {

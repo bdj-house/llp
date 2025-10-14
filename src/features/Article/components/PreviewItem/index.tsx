@@ -1,8 +1,17 @@
 import { useMemo } from 'react';
 import Image from 'next/image';
-import { alpha, Box, Card, CardContent, Chip, Tooltip, Typography, useTheme } from '@mui/material';
+import { Chip, Tooltip } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
 import { If } from '@/shared/components';
+import {
+  DateReadTimeContainer,
+  ImageContainer,
+  StyledCard,
+  StyledCardContent,
+  StyledExcerpt,
+  StyledTitle,
+  TagsContainer,
+} from './styles';
 import { getArticleCoverImg, getArticleDate, hasArticleCoverImage } from '../../utils';
 import { calculateReadingTime } from '../../utils/data';
 
@@ -12,9 +21,9 @@ interface Props {
   index?: number;
 }
 
-export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }) => {
-  const theme = useTheme();
+const MAX_TAGS = 3;
 
+export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }) => {
   const height = useMemo(() => (isHighlight ? 800 : 400), [isHighlight]);
 
   const imageSource = useMemo(() => {
@@ -30,32 +39,17 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }
     return calculateReadingTime(article.content);
   }, [article.content]);
 
+  const tags = useMemo(() => {
+    if (!article.tags) {
+      return [];
+    }
+
+    return article.tags?.filter(tag => tag).slice(0, 3);
+  }, [article.tags]);
+
   return (
-    <Card
-      sx={{
-        height,
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: 0,
-        borderTop: '0.3px solid black',
-        borderRadius: 2,
-        overflow: 'hidden',
-        transition: 'transform 0.3s, box-shadow 0.3s',
-        '&:hover': {
-          transform: 'scale(1.02)',
-          boxShadow: 0.5,
-        },
-      }}
-    >
-      <Box
-        sx={{
-          position: 'relative',
-          display: 'flex',
-          height: '70%',
-          bgcolor: alpha(theme.palette.background.default, 0.2),
-        }}
-      >
+    <StyledCard isHighlight={isHighlight ?? false}>
+      <ImageContainer>
         <Image
           alt={article.title ?? ''}
           src={imageSource}
@@ -65,69 +59,37 @@ export const PreviewItem: React.FC<Props> = ({ article, isHighlight, index = 0 }
           priority={index < 3 && hasArticleCoverImage(article)}
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 16,
-            left: 8,
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 1,
-          }}
-        >
-          {article.tags?.slice(0, 3).map(tag => (
-            <Chip label={tag} key={tag} color="secondary" size="small" />
+        <TagsContainer>
+          {tags.map(tag => (
+            <Chip label={tag} key={tag} color="secondary" size="small" sx={{ fontWeight: 700 }} />
           ))}
 
-          {(article.tags?.length ?? 0) > 3 && (
-            <Chip label={`+${(article.tags?.length ?? 0) - 3}`} color="secondary" size="small" />
+          {tags.length > MAX_TAGS && (
+            <Chip label={`+${(tags.length ?? 0) - MAX_TAGS}`} color="secondary" size="small" />
           )}
-        </Box>
-      </Box>
+        </TagsContainer>
+      </ImageContainer>
 
-      <CardContent
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          maxWidth: 500,
-          flex: 1,
-          height: '30%',
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="caption">{getArticleDate(article)}</Typography>
-          <Typography variant="caption">{readTime}</Typography>
-        </Box>
+      <StyledCardContent>
+        <DateReadTimeContainer>
+          <Tooltip title={getArticleDate(article)}>
+            <span>{getArticleDate(article)}</span>
+          </Tooltip>
+          <Tooltip title={readTime}>
+            <span>{readTime}</span>
+          </Tooltip>
+        </DateReadTimeContainer>
 
         <Tooltip title={article.title}>
-          <Typography
-            variant={isHighlight ? 'h4' : 'h6'}
-            fontWeight="bold"
-            sx={{
-              display: '-webkit-box',
-              WebkitLineClamp: isHighlight ? 4 : 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-            }}
-          >
+          <StyledTitle variant={isHighlight ? 'h4' : 'h6'} isHighlight={isHighlight ?? false}>
             {article.title}
-          </Typography>
+          </StyledTitle>
         </Tooltip>
 
         <If condition={isHighlight}>
-          <Typography
-            sx={{
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-              mt: 2,
-            }}
-          >
-            {article.excerpt}
-          </Typography>
+          <StyledExcerpt>{article.excerpt}</StyledExcerpt>
         </If>
-      </CardContent>
-    </Card>
+      </StyledCardContent>
+    </StyledCard>
   );
 };

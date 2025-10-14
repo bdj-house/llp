@@ -36,7 +36,7 @@ export const ListArticlesScreen: React.FC<Props> = ({ tags, initialArticles }) =
       isPageContainer
       header={{
         title: 'Publicações',
-        subtitle: 'Conheça nossas idéias sobre as novidades do mundo jurídico',
+        subtitle: 'Novidades do mundo jurídico',
         subject: 'Fique por dentro de todos os assuntos legais que podem impactar sua vida',
       }}
     >

@@ -30,7 +30,7 @@ export const RedirectDialog: React.FC<RedirectDialogProps> = ({ open, url, onClo
         </React.Fragment>
       }
     >
-      <DialogTitle>Deixando nossa página</DialogTitle>
+      <DialogTitle fontWeight={600}>Deixando nossa página</DialogTitle>
       <DialogContent>
         <Typography variant="body1" mb={2}>
           Esta publicação é de um autor externo. Gostaria de continuar e abrir a página original?

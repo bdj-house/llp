@@ -59,7 +59,7 @@ export default function OurSpaceScreen({
               {section?.title || 'Um espaço pensado para acolher você'}
             </Typography>
             {section?.paragraphs?.map((p, i) => (
-              <Typography key={i} variant="body1" color="text.secondary" paragraph fontSize={18}>
+              <Typography key={i} variant="body1" color="text.primary" paragraph fontSize={18}>
                 {p}
               </Typography>
             ))}

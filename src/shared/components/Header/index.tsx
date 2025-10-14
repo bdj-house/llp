@@ -4,13 +4,14 @@ import { useCallback, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { WhatsApp } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import { List, ListItem, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
 import { Routes } from '@/config/routes';
-import { useHeader } from '@/shared/hooks';
+import { useContact, useHeader } from '@/shared/hooks';
 import { Position } from './Position';
 import {
   CompanyName,
@@ -39,13 +40,9 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { mode } = useHeader();
+  const { goToContact } = useContact();
 
   const isStudioRoute = pathname?.startsWith('/studio');
-
-  const isMobile = useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  }, []);
 
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,16 +73,7 @@ const Header: React.FC = () => {
     router.push(Routes.Home);
   }, [router]);
 
-  const goToContact = useCallback(() => {
-    const phoneNumber = process.env.NEXT_PUBLIC_CONTACT_PHONE;
-    const message = 'Olá, sou um visitante do site!';
-
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-    if (typeof window !== 'undefined') {
-      window.location.href = whatsappUrl;
-    }
-  }, []);
+  const contactMessage = 'Olá, sou um visitante do site!';
 
   const isStatic = mode === 'static';
 
@@ -114,7 +102,7 @@ const Header: React.FC = () => {
         ))}
 
         <ListItem disablePadding>
-          <MobileMenuItem onClick={goToContact}>
+          <MobileMenuItem onClick={() => goToContact({ message: contactMessage })}>
             <ListItemText primary="Contate-nos" />
           </MobileMenuItem>
         </ListItem>
@@ -132,6 +120,9 @@ const Header: React.FC = () => {
     </MobileDrawer>
   );
 
+  const displayDesktopMenu = { xs: 'none', lg: 'flex' };
+  const displayMobileMenu = { xs: 'flex', lg: 'none' };
+
   return (
     <>
       <Position isStatic={isStatic}>
@@ -146,7 +137,7 @@ const Header: React.FC = () => {
               alignItems="center"
               spacing={2}
               gap={{ xs: 2, md: 6 }}
-              sx={{ display: { xs: 'none', md: 'flex' } }}
+              sx={{ display: displayDesktopMenu }}
             >
               <LogoButton onClick={goToHome} aria-label="Ir para a página inicial">
                 <LogoContainer>
@@ -159,14 +150,18 @@ const Header: React.FC = () => {
 
               <LocationButton onClick={openMap} aria-label="Abrir mapa de localização">
                 <RoomOutlinedIcon fontSize="small" sx={{ color: 'background.paper' }} />
-                <Typography variant="body2" sx={{ mx: 1 }} color="background.paper">
+                <Typography
+                  variant="body2"
+                  sx={{ mx: 1, letterSpacing: 1.25, fontSize: '0.875rem' }}
+                  color="background.paper"
+                >
                   Dr Otavio Teixeira Mendes, 1947 - Sala 3 - Piracicaba
                 </Typography>
                 <KeyboardArrowDownIcon fontSize="small" sx={{ color: 'background.paper' }} />
               </LocationButton>
             </Stack>
 
-            <Stack direction="row" alignItems="center" sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Stack direction="row" alignItems="center" sx={{ display: displayMobileMenu }}>
               <LogoButton onClick={goToHome} aria-label="Ir para a página inicial">
                 <LogoContainer>
                   <Image src={logo} alt="Logo" width={36} height={29} />
@@ -177,8 +172,7 @@ const Header: React.FC = () => {
               </LogoButton>
             </Stack>
 
-            {/* Right side - Navigation (Mobile vs Desktop) */}
-            <Stack direction="row" alignItems="center" sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Stack direction="row" alignItems="center" sx={{ display: displayMobileMenu }}>
               <MobileMenuButton onClick={toggleMobileMenu} aria-label="Abrir menu">
                 <MenuIcon />
               </MobileMenuButton>
@@ -188,7 +182,7 @@ const Header: React.FC = () => {
               direction="row"
               alignItems="center"
               spacing={3}
-              sx={{ display: { xs: 'none', md: 'flex' } }}
+              sx={{ display: displayDesktopMenu }}
             >
               {routes.map(item => (
                 <NavLinkButton
@@ -203,7 +197,11 @@ const Header: React.FC = () => {
                 </NavLinkButton>
               ))}
 
-              <ContactButton variant="contained" onClick={goToContact}>
+              <ContactButton
+                variant="contained"
+                onClick={() => goToContact({ message: contactMessage })}
+                endIcon={<WhatsApp />}
+              >
                 Contate-nos
               </ContactButton>
             </Stack>

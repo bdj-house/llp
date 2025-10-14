@@ -76,7 +76,7 @@ export const Gallery = ({ images, altText = 'Gallery image' }: GalleryProps) => 
           {images.length > 3 && (
             <MoreImagesContainer>
               <MoreImagesButton variant="outlined" size="small" onClick={() => handleImageClick(3)}>
-                +{images.length - 3} mais imagens
+                +{images.length - 3} {images.length - 3 > 1 ? 'imagens' : 'imagem'}
               </MoreImagesButton>
             </MoreImagesContainer>
           )}
