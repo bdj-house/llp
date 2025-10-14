@@ -42,11 +42,7 @@ export const DetailsHeader: React.FC<Props> = ({ article }) => {
           {article.title}
         </Typography>
 
-        {article.excerpt && (
-          <Typography variant="body1" color="text.secondary">
-            {article.excerpt}
-          </Typography>
-        )}
+        {article.excerpt && <Typography variant="body1">{article.excerpt}</Typography>}
       </ContentContainer>
     </HeaderContainer>
   );

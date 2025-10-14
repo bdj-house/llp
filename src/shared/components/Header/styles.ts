@@ -34,6 +34,8 @@ export const LogoButton = styled(ButtonBase)({
 });
 
 export const CompanyName = styled(Typography)(({ theme }) => ({
+  fontSize: '1rem',
+  letterSpacing: 1,
   '&:hover': {
     color: theme.palette.background.default,
   },
@@ -70,7 +72,9 @@ export const NavLinkText = styled(Typography, {
   shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive?: boolean }>(({ theme, isActive }) => ({
   color: theme.palette.background.paper,
-  fontWeight: isActive ? 600 : 400,
+  fontWeight: isActive ? 600 : 500,
+  letterSpacing: 0.75,
+  fontSize: '1rem',
 
   '&:hover': {
     color: theme.palette.background.default,
@@ -80,7 +84,7 @@ export const NavLinkText = styled(Typography, {
 export const ContactButton = styled(Button)({
   borderRadius: '999px',
   textTransform: 'none',
-  fontWeight: 500,
+  fontWeight: 600,
 });
 
 export const MobileMenuButton = styled(IconButton)(({ theme }) => ({

@@ -68,6 +68,16 @@ const theme = createTheme({
         fontSize: '1rem',
       },
     },
+    body1: {
+      fontSize: '1.125rem',
+      letterSpacing: 1.25,
+    },
+    body2: {
+      fontSize: '1rem',
+    },
+    caption: {
+      fontSize: '0.875rem',
+    },
     button: {
       textTransform: 'none',
       fontFamily: `${champagneFont.style.fontFamily}, sans-serif`,

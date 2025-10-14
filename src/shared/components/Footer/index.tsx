@@ -48,7 +48,7 @@ export const Footer = () => {
           justifyContent="space-between"
           alignItems="flex-start"
         >
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
               {settings?.siteName || 'Idalgo & Cortijo'}
             </Typography>
@@ -60,17 +60,15 @@ export const Footer = () => {
             >
               {settings?.email || 'contato@idalgocortijo.com'}
             </Link>
-            <Typography variant="body1" mt={1} color="textSecondary">
-              <Link
-                href={settings?.phone ? `tel:${settings?.phone}` : undefined}
-                underline="hover"
-                color="text.primary"
-                sx={{ textUnderlineOffset: 4 }}
-              >
-                {settings?.phone || '(19) 91234-5678'}
-              </Link>
-            </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Link
+              href={settings?.phone ? `tel:${settings?.phone}` : undefined}
+              underline="hover"
+              color="text.primary"
+              sx={{ textUnderlineOffset: 4 }}
+            >
+              {settings?.phone || '(19) 91234-5678'}
+            </Link>
+            <Typography variant="caption" color="text.primary">
               {settings?.businessHours || 'Seg - Sex, 9h às 17h'}
             </Typography>
           </Grid>
@@ -101,12 +99,12 @@ export const Footer = () => {
             <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="textSecondary">
               Recursos
             </Typography>
-            <Typography variant="body2" sx={{ textUnderlineOffset: 4 }}>
+            <Typography variant="body2" sx={{ textUnderlineOffset: 2 }}>
               <Link
                 href="/publicacoes"
                 underline="hover"
                 color="textSecondary"
-                sx={{ py: 1, display: 'inline-block' }}
+                sx={{ display: 'inline-block' }}
               >
                 Publicações
               </Link>
@@ -116,7 +114,7 @@ export const Footer = () => {
                 href="/nosso-espaco"
                 underline="hover"
                 color="textSecondary"
-                sx={{ py: 1, display: 'inline-block' }}
+                sx={{ display: 'inline-block' }}
               >
                 Nosso Espaço
               </Link>
@@ -126,7 +124,7 @@ export const Footer = () => {
                 href="/areas-atuacao"
                 underline="hover"
                 color="inherit"
-                sx={{ py: 1, display: 'inline-block' }}
+                sx={{ display: 'inline-block' }}
               >
                 Áreas de atuação
               </Link>
@@ -134,7 +132,6 @@ export const Footer = () => {
           </Grid>
         </Grid>
 
-        {/* Divider and Bottom Bar */}
         <Divider sx={{ my: 4 }} />
 
         <Box

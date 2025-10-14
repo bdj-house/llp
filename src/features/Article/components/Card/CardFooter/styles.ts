@@ -11,6 +11,7 @@ export const AuthorSection = styled(Box, {
   shouldForwardProp: prop => prop !== 'isVertical',
 })<{ isVertical?: boolean }>(({ isVertical }) => ({
   display: 'flex',
+  alignItems: isVertical ? 'flex-start' : 'center',
   flexDirection: isVertical ? 'column-reverse' : 'row',
   gap: '8px',
 }));

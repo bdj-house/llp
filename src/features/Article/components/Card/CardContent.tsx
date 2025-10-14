@@ -9,9 +9,7 @@ interface Props {
 export const CardContent: React.FC<Props> = ({ article, isDark }) => {
   const theme = useTheme();
 
-  const secondaryTextColor = isDark
-    ? theme.palette.background.paper
-    : theme.palette.secondary.dark;
+  const secondaryTextColor = isDark ? theme.palette.background.paper : theme.palette.text.primary;
 
   return (
     <Box
@@ -36,7 +34,8 @@ export const CardContent: React.FC<Props> = ({ article, isDark }) => {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           display: '-webkit-box',
-          WebkitLineClamp: '6',
+          WebkitLineClamp: '4',
+          fontSize: '1rem',
           WebkitBoxOrient: 'vertical',
         }}
       >

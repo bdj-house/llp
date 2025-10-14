@@ -44,11 +44,11 @@ export const OperationAreaGrid = ({ operationAreas }: Props) => {
 
   return (
     <ViewContainer header={{ title, subtitle, subject }}>
-      <Container sx={{ height: '90vh', py: 18 }}>
+      <Container sx={{ py: 18 }}>
         <Grid container spacing={2} justifyContent="center">
           {areas.map((area, index) => {
             const backgroundColor =
-              index === 0 ? theme.palette.secondary.main : theme.palette.action.hover;
+              index === 0 ? theme.palette.secondary.light : theme.palette.action.hover;
             const hoverBackgroundColor =
               index === 0 ? theme.palette.secondary.light : theme.palette.action.hover;
 
