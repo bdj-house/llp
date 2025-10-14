@@ -68,4 +68,8 @@ public/sw.js.map
 public/workbox-*.js
 public/workbox-*.js.map
 
+# Sanity backups
+backups/
+*.tar.gz
+
 IMPROVEMENTS.md
