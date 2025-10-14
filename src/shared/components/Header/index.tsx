@@ -80,11 +80,11 @@ const Header: React.FC = () => {
     const phoneNumber = process.env.NEXT_PUBLIC_CONTACT_PHONE;
     const message = 'Olá, sou um visitante do site!';
 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message,
-    )}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (typeof window !== 'undefined') {
+      window.location.href = whatsappUrl;
+    }
   }, []);
 
   const isStatic = mode === 'static';
