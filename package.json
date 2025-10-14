@@ -15,7 +15,12 @@
     "analyze": "ANALYZE=true next build",
     "prepare": "husky",
     "postinstall": "husky",
-    "types": "npx sanity-codegen"
+    "types": "npx sanity-codegen",
+    "sanity:list": "sanity dataset list",
+    "sanity:backup:dev": "sanity dataset export dev backups/dev-$(date +%Y%m%d).tar.gz",
+    "sanity:backup:prod": "sanity dataset export production backups/prod-$(date +%Y%m%d).tar.gz",
+    "sanity:copy:to-prod": "sanity dataset copy dev production",
+    "sanity:migrate": "npm run sanity:backup:prod && npm run sanity:copy:to-prod"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
