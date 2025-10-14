@@ -24,6 +24,8 @@ export const LogoWrapper = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   marginLeft: 0,
   alignItems: 'center',
+  width: '100%',
+  maxWidth: '480px',
 
   [theme.breakpoints.up('md')]: {
     marginLeft: theme.spacing(4),

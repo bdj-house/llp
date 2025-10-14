@@ -58,7 +58,14 @@ export const Map: React.FC<Props> = ({ isOpen, close }) => {
   );
 
   return (
-    <Dialog open={isOpen} onClose={close} maxWidth="md" fullWidth>
+    <Dialog
+      open={isOpen}
+      onClose={close}
+      maxWidth="md"
+      fullWidth
+      disableRestoreFocus
+      keepMounted={false}
+    >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6">Nossa Localização</Typography>
         <IconButton edge="end" onClick={close} aria-label="Fechar mapa">

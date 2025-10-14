@@ -65,6 +65,7 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
           <ScrollableContainer>
             {headerAreas.map((area, index) => {
               const isSelected = area._id === (localSelectedId || selectedAreaId);
+              const isFirstCard = index === 0;
 
               return (
                 <AreaCardWrapper key={area._id}>
@@ -79,6 +80,7 @@ export const OperationAreaScreen = ({ operationAreas, selectedAreaId }: Props) =
                           src={area.image ? urlFor(area.image?.asset).url() : tempLogo}
                           alt={area.title ?? ''}
                           fill
+                          priority={isFirstCard}
                           sizes="(max-width: 600px) 80vw, (max-width: 1200px) 40vw, 280px"
                           style={{ objectFit: 'cover' }}
                         />

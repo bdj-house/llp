@@ -32,8 +32,6 @@ export const IconButton: React.FC<PropsWithChildren<Props>> = ({
           ...BUTTON_ANIMATIONS.iconButton(theme.palette.primary.main),
           '&:hover': {
             ...BUTTON_ANIMATIONS.iconButton(theme.palette.primary.main)['&:hover'],
-            borderColor: theme.palette.primary.main,
-            backgroundColor: theme.palette.action.hover,
           },
         }}
       >

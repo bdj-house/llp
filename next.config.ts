@@ -1,6 +1,8 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
-const withPWA = require('./next.config.pwa.js');
+
+const withPWA =
+  process.env.NODE_ENV === 'production' ? require('./next.config.pwa.js') : (config: any) => config;
 
 const nextConfig: NextConfig = {
   images: {
@@ -15,9 +17,12 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@mui/material', '@mui/icons-material'],
+    ...(process.env.NODE_ENV === 'production' && {
+      optimizeCss: true,
+    }),
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -25,7 +30,6 @@ const nextConfig: NextConfig = {
   async headers() {
     const isDev = process.env.NODE_ENV === 'development';
 
-    // In development, use relaxed CSP for easier debugging
     const cspDirectives = isDev
       ? [
           "default-src 'self' 'unsafe-inline' 'unsafe-eval'",
@@ -34,7 +38,7 @@ const nextConfig: NextConfig = {
           "img-src 'self' data: https: http: blob:",
           "font-src 'self' data:",
           "connect-src 'self' https: http: ws: wss:",
-          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com",
+          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com https://www.google.com",
           "media-src 'self' https: http:",
           "worker-src 'self' blob:",
         ]
@@ -45,7 +49,7 @@ const nextConfig: NextConfig = {
           "img-src 'self' data: https: blob:",
           "font-src 'self' data:",
           "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://www.google-analytics.com",
-          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com",
+          "frame-src 'self' https://www.googletagmanager.com https://maps.google.com https://www.google.com",
           "media-src 'self' https://cdn.sanity.io",
           "object-src 'none'",
           "base-uri 'self'",
@@ -53,7 +57,6 @@ const nextConfig: NextConfig = {
           "frame-ancestors 'none'",
         ];
 
-    // Only add upgrade-insecure-requests in production (not needed on localhost)
     if (!isDev) {
       cspDirectives.push('upgrade-insecure-requests');
     }
@@ -107,9 +110,17 @@ const nextConfig: NextConfig = {
   },
 };
 
+// Bundle analyzer is Webpack-only, only apply in production or when explicitly analyzing
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-// Apply PWA and then bundle analyzer
-export default bundleAnalyzer(withPWA(nextConfig));
+// Apply plugins conditionally
+// In development with Turbopack: use raw config
+// In production or when analyzing: apply PWA and bundle analyzer
+const finalConfig =
+  process.env.NODE_ENV === 'production' || process.env.ANALYZE === 'true'
+    ? bundleAnalyzer(withPWA(nextConfig))
+    : nextConfig;
+
+export default finalConfig;

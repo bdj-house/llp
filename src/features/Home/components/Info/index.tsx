@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { IconButton } from '@/shared/components';
 import {
   InfoContainer,
@@ -30,18 +30,25 @@ export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
       <div>
         <LogoWrapper>
           {logoUrl && (
-            <Image
-              src={logoUrl}
-              alt="Logo"
-              width={480}
-              height={270}
-              priority
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                width: 'clamp(280px, 100%, 480px)',
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '480px',
+                aspectRatio: '480 / 270',
               }}
-            />
+            >
+              <Image
+                src={logoUrl}
+                alt="Logo"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 480px"
+                style={{
+                  objectFit: 'contain',
+                }}
+              />
+            </Box>
           )}
         </LogoWrapper>
 
