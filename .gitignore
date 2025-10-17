@@ -72,4 +72,9 @@ public/workbox-*.js.map
 backups/
 *.tar.gz
 
+# Testing
+coverage/
+*.lcov
+.vitest
+
 IMPROVEMENTS.md
