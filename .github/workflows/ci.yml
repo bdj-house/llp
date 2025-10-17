@@ -1,76 +1,90 @@
 name: CI
 
 on:
-    push:
-        branches: [main, dev]
-    pull_request:
-        branches: [main, dev]
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 jobs:
-    quality-checks:
-        name: Quality Checks
-        runs-on: ubuntu-latest
+  quality-checks:
+    name: Quality Checks
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                node-version: [20.x]
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Type check
-              run: npm run type-check
+      - name: Type check
+        run: npm run type-check
 
-            - name: Lint
-              run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-            - name: Run tests
-              run: npm run test:run
+      - name: Run tests
+        run: npm run test:run
 
-            - name: Build
-              run: npm run build
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SANITY_DATASET: dev
+          NEXT_PUBLIC_SANITY_PROJECT_ID: 3dd7l9gh
+          NEXT_PUBLIC_SANITY_API_VERSION: 2025-05-01
+          NEXT_PUBLIC_CONTACT_PHONE: 5519999999999
+          NEXT_PUBLIC_SITE_URL: https://example.com
+          NEXT_PUBLIC_GTM_ID: GTM-XXXXXXX
 
-            - name: Upload coverage to Codecov (optional)
-              if: success()
-              uses: codecov/codecov-action@v4
-              with:
-                  files: ./coverage/lcov.info
-                  fail_ci_if_error: false
-              continue-on-error: true
+      - name: Upload coverage to Codecov (optional)
+        if: success()
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: false
+        continue-on-error: true
 
-    # Optional: Check bundle size
-    bundle-size:
-        name: Check Bundle Size
-        runs-on: ubuntu-latest
-        if: github.event_name == 'pull_request'
+  # Optional: Check bundle size
+  bundle-size:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20.x
-                  cache: "npm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Build
-              run: npm run build
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SANITY_DATASET: dev
+          NEXT_PUBLIC_SANITY_PROJECT_ID: 3dd7l9gh
+          NEXT_PUBLIC_SANITY_API_VERSION: 2025-05-01
+          NEXT_PUBLIC_CONTACT_PHONE: 5519999999999
+          NEXT_PUBLIC_SITE_URL: https://example.com
+          NEXT_PUBLIC_GTM_ID: GTM-XXXXXXX
 
-            - name: Analyze bundle
-              run: |
-                  echo "## Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
-                  echo "Build completed successfully ✅" >> $GITHUB_STEP_SUMMARY
+      - name: Analyze bundle
+        run: |
+          echo "## Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "Build completed successfully ✅" >> $GITHUB_STEP_SUMMARY

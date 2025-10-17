@@ -2,54 +2,61 @@ name: Vercel Preview Deployment
 
 # This workflow runs quality checks before Vercel deploys preview
 on:
-    pull_request:
-        branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 env:
-    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
-    quality-gate:
-        name: Quality Gate (Before Preview)
-        runs-on: ubuntu-latest
+  quality-gate:
+    name: Quality Gate (Before Preview)
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20.x
-                  cache: "npm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Run all checks
-              run: |
-                  npm run type-check
-                  npm run lint
-                  npm run test:run
+      - name: Run all checks
+        run: |
+          npm run type-check
+          npm run lint
+          npm run test:run
 
-            - name: Build verification
-              run: npm run build
+      - name: Build verification
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SANITY_DATASET: dev
+          NEXT_PUBLIC_SANITY_PROJECT_ID: 3dd7l9gh
+          NEXT_PUBLIC_SANITY_API_VERSION: 2025-05-01
+          NEXT_PUBLIC_CONTACT_PHONE: 5519999999999
+          NEXT_PUBLIC_SITE_URL: https://example.com
+          NEXT_PUBLIC_GTM_ID: GTM-XXXXXXX
 
-            - name: Comment PR with results
-              if: always()
-              uses: actions/github-script@v7
-              with:
-                  script: |
-                      const status = '${{ job.status }}';
-                      const icon = status === 'success' ? '✅' : '❌';
-                      const message = status === 'success' 
-                        ? 'All quality checks passed! Ready for preview deployment.'
-                        : 'Quality checks failed. Please fix the issues before deploying.';
+      - name: Comment PR with results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ job.status }}';
+            const icon = status === 'success' ? '✅' : '❌';
+            const message = status === 'success' 
+              ? 'All quality checks passed! Ready for preview deployment.'
+              : 'Quality checks failed. Please fix the issues before deploying.';
 
-                      github.rest.issues.createComment({
-                        issue_number: context.issue.number,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        body: `${icon} **Quality Gate ${status.toUpperCase()}**\n\n${message}\n\n- Type Check: ${status === 'success' ? '✅' : '❌'}\n- Lint: ${status === 'success' ? '✅' : '❌'}\n- Tests: ${status === 'success' ? '✅' : '❌'}\n- Build: ${status === 'success' ? '✅' : '❌'}`
-                      });
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${icon} **Quality Gate ${status.toUpperCase()}**\n\n${message}\n\n- Type Check: ${status === 'success' ? '✅' : '❌'}\n- Lint: ${status === 'success' ? '✅' : '❌'}\n- Tests: ${status === 'success' ? '✅' : '❌'}\n- Build: ${status === 'success' ? '✅' : '❌'}`
+            });
