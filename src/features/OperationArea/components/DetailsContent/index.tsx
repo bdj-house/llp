@@ -79,7 +79,7 @@ export const DetailsContent: React.FC<Props> = ({ operationArea }) => {
 
   return (
     <Fade in timeout={500} key={operationArea._id}>
-      <Box my={12} maxWidth="800px">
+      <Box my={{ xs: 3, md: 6 }} maxWidth="800px">
         <PortableText value={operationArea.content ?? []} components={components} />
       </Box>
     </Fade>

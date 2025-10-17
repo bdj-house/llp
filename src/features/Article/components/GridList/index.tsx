@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { Box, ButtonBase } from '@mui/material';
+import { Box, ButtonBase, useMediaQuery, useTheme } from '@mui/material';
 import { Article } from '@/sanity/types/schema';
 import { ErrorBoundary, If, OpacityCard } from '@/shared/components';
 import { useArticleNavigation, useLazyLoadArticles } from '../../hooks';
@@ -28,6 +28,8 @@ interface Props {
 }
 
 export const GridList: React.FC<Props> = ({ paginatedProps }) => {
+  const theme = useTheme();
+
   const { data, hasNextPage, isLoading, fetchNextPage, isFetching, isRefetching } = paginatedProps;
 
   const { ref } = useLazyLoadArticles({
@@ -37,6 +39,8 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
   });
 
   const { navigateToArticle, redirectUrl, closeRedirectDialog } = useArticleNavigation();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const articles = useMemo(() => {
     return data?.pages.flatMap(page => page.data) ?? [];
@@ -59,7 +63,7 @@ export const GridList: React.FC<Props> = ({ paginatedProps }) => {
               }}
             >
               <ButtonBase onClick={() => navigateToArticle(article)} sx={articleButtonStyles}>
-                <PreviewItem article={article} isHighlight={i === 0} index={i} />
+                <PreviewItem article={article} isHighlight={i === 0 && !isMobile} index={i} />
               </ButtonBase>
             </OpacityCard>
           ))}

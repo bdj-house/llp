@@ -38,7 +38,7 @@ export const CardImage: React.FC<Props> = ({ article, alt, height, width }) => {
           borderBottomLeftRadius: 18,
           borderTopRightRadius: 12,
           borderBottomRightRadius: 12,
-          objectFit: 'cover',
+          objectFit: 'fill',
         }}
       />
     </Box>

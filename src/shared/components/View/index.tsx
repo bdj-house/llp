@@ -40,7 +40,7 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
       sx={{
         position: 'relative',
         minHeight: isPageContainer ? '100vh' : 'auto',
-        pt: isPageContainer ? { xs: 8, md: 12 } : 0,
+        pt: isPageContainer ? 12 : 0,
         width: { xs: '100%', md: '98%' },
         px: { xs: 2, md: 0 },
         bgcolor: theme.palette.background.paper,
@@ -81,9 +81,9 @@ export const ViewContainer: React.FC<PropsWithChildren<Props>> = ({
               variant="h6"
               textAlign="center"
               mt={1}
-              mb={6}
+              mb={{ xs: 3, md: 6 }}
               color="text.primary"
-              maxWidth="60%"
+              maxWidth={{ xs: '100%', md: '70%', lg: '60%' }}
             >
               {header?.subject}
             </Typography>

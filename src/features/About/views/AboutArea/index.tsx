@@ -41,13 +41,13 @@ export const AboutArea: React.FC<AboutScreenProps> = ({ associates, sectionInfo 
             }}
             alignItems="center"
             py={6}
-            px={isMobile ? 2 : 36}
+            px={{ xs: 2, lg: 12, xl: 36 }}
           >
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 4, lg: 3 }}>
               <AssociateAvatar alt={name} src={imageCover} />
             </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 4, lg: 3 }}>
               <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
                 {name}
               </Typography>
@@ -55,7 +55,7 @@ export const AboutArea: React.FC<AboutScreenProps> = ({ associates, sectionInfo 
                 {role}
               </Typography>
 
-              <Typography variant="body1" color="text.secondary" mb={2}>
+              <Typography variant="body1" fontSize={18} mb={2}>
                 {description}
               </Typography>
 

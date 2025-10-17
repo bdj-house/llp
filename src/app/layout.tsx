@@ -54,7 +54,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <link rel="canonical" href="https://www.idalgocortijo.com.br/" />
         <meta name="robots" content="index, follow" />
-        <meta name="theme-color" content="#1a365d" />
+        <meta name="theme-color" content="#FFFFFF" />
       </head>
       <body className={`${champagneFont.variable} ${mangolaineFont.variable}`}>
         <SkipToContent />

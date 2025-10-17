@@ -11,7 +11,7 @@ export const InfoContainer = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     width: '80%',
     textAlign: 'left',
     paddingLeft: 0,
@@ -27,6 +27,10 @@ export const LogoWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '480px',
 
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '100%',
+  },
+
   [theme.breakpoints.up('md')]: {
     marginLeft: theme.spacing(4),
     alignItems: 'flex-start',
@@ -37,7 +41,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   fontSize: '1.5rem',
   marginTop: theme.spacing(2),
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     fontSize: '1.75rem',
     marginTop: 0,
   },
@@ -47,24 +51,13 @@ export const SubtitleText = styled(Typography)(({ theme }) => ({
   fontSize: '1.1rem',
   marginTop: theme.spacing(2),
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     fontSize: '1.25rem',
   },
 }));
 
 export const ScrollButtonContainer = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  left: 'auto',
-  bottom: 'auto',
-  marginTop: theme.spacing(4),
-  display: 'flex',
-  justifyContent: 'center',
-
-  [theme.breakpoints.up('md')]: {
-    position: 'absolute',
-    left: 0,
-    bottom: '15%',
-    marginTop: 0,
-    justifyContent: 'flex-start',
-  },
+  position: 'absolute',
+  left: 6,
+  bottom: 36,
 }));

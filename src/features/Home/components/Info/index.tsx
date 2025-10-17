@@ -18,7 +18,6 @@ interface Props {
 
 export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const goToOurTeam = () => {
     const section = document.getElementById('our-team');
@@ -58,20 +57,14 @@ export const Info: React.FC<Props> = ({ logoUrl, title, subtitle }) => {
           </TitleText>
         )}
 
-        {!!subtitle && (
-          <SubtitleText variant="h6" color="textSecondary">
-            {subtitle}
-          </SubtitleText>
-        )}
+        {!!subtitle && <SubtitleText variant="h6">{subtitle}</SubtitleText>}
       </div>
 
-      {!isMobile && (
-        <ScrollButtonContainer>
-          <IconButton action={goToOurTeam} size="large" ariaLabel="Ir para nossa equipe">
-            <ExpandMoreIcon color="primary" sx={{ fontSize: { xs: 36, md: 48 } }} />
-          </IconButton>
-        </ScrollButtonContainer>
-      )}
+      <ScrollButtonContainer>
+        <IconButton action={goToOurTeam} size="large" ariaLabel="Ir para nossa equipe">
+          <ExpandMoreIcon color="primary" sx={{ fontSize: { xs: 36, md: 48 } }} />
+        </IconButton>
+      </ScrollButtonContainer>
     </InfoContainer>
   );
 };

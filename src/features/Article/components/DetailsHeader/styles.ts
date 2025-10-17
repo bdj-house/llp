@@ -1,4 +1,4 @@
-import { Box, Chip, styled } from '@mui/material';
+import { alpha, Box, Chip, styled } from '@mui/material';
 
 export const HEADER_HEIGHT = 600;
 
@@ -8,8 +8,8 @@ export const HeaderContainer = styled(Box)(({ theme }) => ({
   height: 'auto',
   maxWidth: '1200px',
   margin: '0 auto',
-  paddingLeft: theme.spacing(4),
-  paddingRight: theme.spacing(4),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
   gap: theme.spacing(6),
   flexDirection: 'column',
   alignItems: 'center',
@@ -53,6 +53,7 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
 export const TagChip = styled(Chip)(({ theme }) => ({
   marginRight: theme.spacing(1),
   marginBottom: theme.spacing(1),
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: alpha(theme.palette.primary.main, 0.9),
   color: theme.palette.background.paper,
+  fontWeight: 700,
 }));

@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import { Box, Button, Typography } from '@mui/material';
-import { useGetSettings } from '@/shared/queries';
+import { useContact } from '@/shared/hooks';
 
 type Props = {
   title: string;
@@ -10,7 +9,7 @@ type Props = {
 };
 
 export const HelperPanel = ({ title, description, buttonLabel, icon }: Props) => {
-  const { data } = useGetSettings();
+  const { goToContact } = useContact();
 
   return (
     <Box
@@ -25,19 +24,18 @@ export const HelperPanel = ({ title, description, buttonLabel, icon }: Props) =>
     >
       {icon && <Box sx={{ mb: 2 }}>{icon}</Box>}
 
-      <Typography variant="h6" fontWeight="bold" mb={2} color="text.primary">
+      <Typography variant="h6" fontWeight="bold" mb={2}>
         {title}
       </Typography>
-      <Typography variant="body1" color="text.secondary" mb={3}>
+      <Typography variant="body1" mb={3}>
         {description}
       </Typography>
       <Button
-        component={Link}
+        onClick={() => goToContact({ message: 'Olá, gostaria de agendar uma consulta' })}
         variant="contained"
         size="large"
-        href={`mailto:${data?.email ?? 'contato@idalgocortijo.com.br'}`}
         aria-label="Contate-nos"
-        sx={{ minWidth: 200 }}
+        sx={{ minWidth: 200, fontWeight: 600 }}
       >
         {buttonLabel || 'Contate-nos'}
       </Button>

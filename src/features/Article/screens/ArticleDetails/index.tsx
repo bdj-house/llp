@@ -18,7 +18,10 @@ const Details = ({ article }: ArticleDetailsProps) => {
   const { scrollProgress } = useProgressBar();
 
   return (
-    <Container sx={{ bgcolor: theme.palette.background.paper, py: 6 }} maxWidth={false}>
+    <Container
+      sx={{ bgcolor: theme.palette.background.paper, py: { xs: 2, md: 6 } }}
+      maxWidth={false}
+    >
       <LinearProgress
         variant="determinate"
         value={scrollProgress}

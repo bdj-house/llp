@@ -1,7 +1,6 @@
 import { Box, Chip, Container, Paper, styled } from '@mui/material';
 
 export const MainContainer = styled(Container)(({ theme }) => ({
-  paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
   justifyContent: 'center',
   display: 'flex',
@@ -10,7 +9,7 @@ export const MainContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const HeaderAreasWrapper = styled(Box)(({ theme }) => ({
-  marginBottom: theme.spacing(8),
+  marginBottom: theme.spacing(4),
 }));
 
 export const ScrollableContainer = styled(Box)(({ theme }) => ({
